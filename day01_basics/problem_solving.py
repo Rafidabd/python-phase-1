@@ -41,7 +41,60 @@ d3 = num % 10
 print("Sum:", d1 + d2 + d3)
 print("Product:", d1 * d2 * d3)
 
-#solution 3- second try and better 
+# solution 3- second try and better 
 
-#=============================#
-#problem 4
+# =============================#
+#problem 4 : time converter
+sec=int(input("please enter the time"))
+x= sec// 60
+a=int(x)
+y=sec%60
+p=a/60
+b=int(p)
+q=a%60
+print('your time is ',b ,q , y)
+
+#solution-4
+
+#=========================##
+
+#problem 5: last two digits
+
+number=int(input("please enter your number"))
+dig=int(number%100)
+print('your last two digits are', dig )
+
+# ==============#
+
+#problem 6: average without arrays
+
+a,b,c= map(float,input("Enter three numbers").split())
+avg=(a+b+c)/3
+print(round(avg,3))
+
+#=============#
+
+#problem 7: type conversion
+
+a,b=input("please enter two numbers as strings").split()
+c=int(a)
+d=int(b)
+numb=int(c+d)
+print(numb)
+
+#problem 8: flipping numbers
+
+x=int(input("please enter your number"))
+a=x%10
+b=int(x/10)
+numb= a*10+b
+print('your flipped number is ', numb)
+
+####endddddddddd
+
+
+
+
+
+
+
