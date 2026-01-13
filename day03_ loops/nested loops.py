@@ -1,12 +1,12 @@
 
-# for y in range (3):
+for y in range (3):
 
-#   for x in range (1,10):
-#       print(x,end="") 
+  for x in range (1,10):
+      print(x,end="") 
       
-#   print() 
+  print() 
 
-####lets make a rectangle
+###lets make a rectangle
 
 rows=int(input("please enter the numb of rows: "))
 columns=int(input("please enter the numb of columns: "))
@@ -18,4 +18,8 @@ for y in range (rows):
       print(symbol,end="") 
       
   print() 
+
+
+
+
 
