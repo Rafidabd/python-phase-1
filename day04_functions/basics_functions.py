@@ -31,6 +31,8 @@ def porte_bosh(name,age):  ###parametre set
 porte_bosh("rafid","19") ###arguements passed..******Order matters
 porte_bosh("Masfi","18")
 
+porte_bosh(age="19",name="rafid")   ####order doesnt matter that way
+
 
 
 #######Returning in function:
@@ -60,6 +62,25 @@ print(add(1,2))  ##basically means print(3)
 print(sub(1,2))
 print(mul(1,2))
 print(div(1,2))
+
+
+
+
+#####*args and **kwargs:
+
+#allows us to have random number of arguements when we dont know how much we should input
+
+
+#If you do not know how many arguments will be passed into your function, add a * before the parameter name.
+
+
+def my_function(*kids):
+  print("The youngest child is " + kids[2])
+
+my_function("Emil", "Tobias", "Linus")
+
+
+
 
 
 
