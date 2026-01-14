@@ -1,27 +1,27 @@
-# ####adder function:
+####adder function:
 
 
-# def func_add(x,y):
-#     z=x+y
-#     return z
+def func_add(x,y):
+    z=x+y
+    return z
 
 
-# a,b=map(int,input("please enter two numbers").split())
-# print(func_add(a,b))
+a,b=map(int,input("please enter two numbers").split())
+print(func_add(a,b))
 
 
 
 
-# ####square function:
+####square function:
 
-# def func_sqr(x):
-#     z=pow(x,0.5)
-#     return z
+def func_sqr(x):
+    z=pow(x,0.5)
+    return z
 
 
-# a=int(input("please enter your number"))
+a=int(input("please enter your number"))
 
-# print(func_sqr(a))
+print(func_sqr(a))
 
 
 
