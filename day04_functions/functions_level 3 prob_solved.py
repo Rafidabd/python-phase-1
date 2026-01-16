@@ -1,27 +1,27 @@
-# #####Prime checker:
+ #####Prime checker:
 
-# def func_prime(x):
-#     if x<=1:
-#         z="not prime"
-#     else:
-#         i=2
-#         is_prime=True
-#         while i*i<=x:
-#             if x%i==0:
-#                 is_prime=False
-#                 break
-#             i=i+1
-#         if is_prime:
-#             z="prime"
-#         else:
-#             z="not prime"
-#     return z
+ def func_prime(x):
+    if x<=1:
+        z="not prime"
+     else:
+        i=2
+         is_prime=True
+         while i*i<=x:
+             if x%i==0:
+                 is_prime=False
+                break
+             i=i+1
+        if is_prime:
+             z="prime"
+         else:
+             z="not prime"
+     return z
 
 
-# n=int(input("please enter any number"))
-# j=func_prime(n)
+ n=int(input("please enter any number"))
+ j=func_prime(n)
 
-# print(j)
+ print(j)
 
 
 
