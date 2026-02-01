@@ -1,142 +1,142 @@
-# # #1-swap values:
-# # a,b=map(int,input("please enter your numbers:").split())
-# # x=(a,b)
-# # b=x[0]
-# # a=x[1]
+#1-swap values:
+a,b=map(int,input("please enter your numbers:").split())
+x=(a,b)
+b=x[0]
+a=x[1]
 
-# # print(a,b)
-
-
-# # #2-Maximum and minimum:
-
-# # numbers = list(map(int, input("please enter your numbers: ").split()))
-
-# # def maxi_mini(q):
-# #     maxi = q[0]
-# #     mini = q[0]
-
-# #     i = 1
-# #     while i < len(q):
-# #         if q[i] > maxi:
-# #             maxi = q[i]
-# #         if q[i] < mini:
-# #             mini = q[i]
-# #         i += 1
-
-# #     return (mini, maxi)
-
-# # print(maxi_mini(numbers))
+print(a,b)
 
 
+#2-Maximum and minimum:
 
+numbers = list(map(int, input("please enter your numbers: ").split()))
 
-# # #3-positive,negative,zero counting:
+def maxi_mini(q):
+    maxi = q[0]
+    mini = q[0]
 
-# # numbers = list(map(int, input("please enter your numbers: ").split()))
+    i = 1
+    while i < len(q):
+        if q[i] > maxi:
+            maxi = q[i]
+        if q[i] < mini:
+            mini = q[i]
+        i += 1
 
-# # def numb_count(q):
-# #     pos=0
-# #     neg=0
-# #     zero=0
+    return (mini, maxi)
+
+print(maxi_mini(numbers))
 
 
 
-# #     i=0
 
-# #     while i<len(q):
-# #         if q[i]==0:
-# #             zero=zero+1
-# #         elif q[i]<0:
-# #             neg=neg+1
-# #         elif q[i]>0:
-# #             pos=pos+1
-# #         i=i+1
+#3-positive,negative,zero counting:
+
+numbers = list(map(int, input("please enter your numbers: ").split()))
+
+def numb_count(q):
+    pos=0
+    neg=0
+    zero=0
+
+
+
+    i=0
+
+    while i<len(q):
+        if q[i]==0:
+            zero=zero+1
+        elif q[i]<0:
+            neg=neg+1
+        elif q[i]>0:
+            pos=pos+1
+        i=i+1
     
 
 
 
-# #     return (pos,neg,zero)
+    return (pos,neg,zero)
 
 
 
-# # print(numb_count(numbers))
+print(numb_count(numbers))
 
 
 
 
-# # #4-remove duplicates:
+#4-remove duplicates:
 
-# # numbers=list(map(int,input("enter your numbers:").split()))
+numbers=list(map(int,input("enter your numbers:").split()))
 
-# # def dup(x):
+def dup(x):
     
 
-# #     x1=[]
+    x1=[]
 
-# #     i=0
+    i=0
 
-# #     while i<len(x):
-# #         if x[i] not in x1:
-# #             x1.append(x[i])
+    while i<len(x):
+        if x[i] not in x1:
+            x1.append(x[i])
         
 
-# #         i=i+1
+        i=i+1
     
 
-# #     return tuple (x1)
+    return tuple (x1)
 
-# # print(dup(numbers))
-
-
-
-
-# # #5-Unpacking nested tuple:
-
-
-# # name=input("please enter your name")
-# # marks=list(map(int,input("please enter your numbers").split()))
-
-# # data=(name,tuple(marks))
-
-# # y=data[1]
-# # z=data[0]
-
-# # total=0
-
-# # for j in y:
-# #     total=total+j
-# # avg=total/len(y)
-
-
-# # print("Name:",z,"Average:",avg)
+print(dup(numbers))
 
 
 
 
-# #6-tuple as dictionary:
+#5-Unpacking nested tuple:
+
+
+name=input("please enter your name")
+marks=list(map(int,input("please enter your numbers").split()))
+
+data=(name,tuple(marks))
+
+y=data[1]
+z=data[0]
+
+total=0
+
+for j in y:
+    total=total+j
+avg=total/len(y)
+
+
+print("Name:",z,"Average:",avg)
 
 
 
-# Students={
 
-# ("Rafid",12611052):99,
-# ("Nayan",12611051):98,
-# ("Opu",12611050):97
-
-# }
+#6-tuple as dictionary:
 
 
 
+Students={
 
-# a=input("please enter the name")
-# b=int(input("please enter roll number"))
+("Rafid",12611052):99,
+("Nayan",12611051):98,
+("Opu",12611050):97
 
-# if (a,b) in Students:
+}
 
-#  marks=Students.get((a,b))   
-#  print(marks)
-# else:
-#    print("doesnt exist")
+
+
+
+a=input("please enter the name")
+b=int(input("please enter roll number"))
+
+if (a,b) in Students:
+
+ marks=Students.get((a,b))   
+ print(marks)
+else:
+   print("doesnt exist")
 
 
 #7- Value returning:
@@ -169,6 +169,9 @@ k=z[1]
 
 
 print("Sum:",j,"avg:",k)
+
+
+
 
  
 

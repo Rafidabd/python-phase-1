@@ -1,0 +1,4 @@
+First line
+Second line
+third line
+So this is appending..it wont overwrite.writing will start where the pointer currently is

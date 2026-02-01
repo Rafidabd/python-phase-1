@@ -16,5 +16,8 @@ for x in Student:  ##3accesing with loops
 
 ####Tuples are imutable:
 
-y[1]="B"    ###we might think that this will change..but it wont
-print(y[1])
+ # y[1]="B"    ###we might think that this will change..but it wont
+
+
+ 
+

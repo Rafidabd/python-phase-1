@@ -38,9 +38,12 @@ for x in range(1,11):
 var=9.928972
 
 sent=f"variable is equal to {var:.4f}"  
-#first 3 digits after the radix point.this will also have the floating value 
+#first 4 digits after the radix point.this will also have the floating value 
 
 print(sent)
+
+
+
 
 
 

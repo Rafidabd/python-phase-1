@@ -1,4 +1,6 @@
-Rafid is Learning Python
-Python Is AMAZING and so Powerful
-python can be used for CS50 projects
-124241341
+This is Rafid Abdullah
+Python is AMAZING
+I am the goat
+2139183013
+this is the 5th line
+i am learning file handling

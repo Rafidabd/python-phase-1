@@ -1,18 +1,18 @@
 #1-removing duplicates:
 
-# n=int(input("please enter number of elements"))
-# numb=list(map(int,input("please enter  numbers").split()))
-# sets=list(set(numb))
-# print(sets)
+n=int(input("please enter number of elements"))
+numb=list(map(int,input("please enter  numbers").split()))
+sets=list(set(numb))
+print(sets)
 
 
-# #2-count unique elements:
-# n=int(input("please enter number of elements"))
-# numb=set(map(int,input("please enter  numbers").split()))
-# i=0
-# for x in numb:
-#     i=i+1
-# print("total unique element:",i)
+#2-count unique elements:
+n=int(input("please enter number of elements"))
+numb=set(map(int,input("please enter  numbers").split()))
+i=0
+for x in numb:
+    i=i+1
+print("total unique element:",i)
 
 
 #3-membership check:
@@ -25,4 +25,18 @@ if x in numbers:
     print("found")
 else:
     print("not found")
+
+
+#4-Common elements:
+#Use of intersection
+
+#5-elements only in first list:
+#Use of Difference
+
+#6-All unqiue elements from both sets: 
+#Use of Union
+
+
+
+
 

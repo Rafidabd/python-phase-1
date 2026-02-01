@@ -42,6 +42,22 @@ print(lst[::-1]) ##reversed list will be printed
 
 
 
+###List Unpacking:
+
+
+numbers=[1,2,3,45,7,3,4,22,55,1]
+a,b,c,d,e,f,g,h,i,j=numbers   ####every variable will have the same value accordingly
+
+a,b,*other=numbers ###a,b will be seperated and others will be enlisted in a different list
+
+first,*other,last=numbers ###in that case,first and last will be seperated
+
+
+
+
+
+
+
 
 
 

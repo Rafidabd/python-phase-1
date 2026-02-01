@@ -1,17 +1,17 @@
 
-# ####using loops:
+####using loops:
 
 
 
-# n=int(input("please enter the range of numbers:"))
+n=int(input("please enter the range of numbers:"))
 
 
-# num=[]
+num=[]
 
-# for x in range (n):
-#     y=int((input("please enter your number")))
-#     num.append(y)
-# print (num)
+for x in range (n):
+    y=int((input("please enter your number")))
+    num.append(y)
+print (num)
 
 
 

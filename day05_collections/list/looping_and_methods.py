@@ -46,3 +46,14 @@ print(names.count("rafid")) ####the number of occurance
 
 
 
+
+
+
+
+ 
+
+
+
+
+
+

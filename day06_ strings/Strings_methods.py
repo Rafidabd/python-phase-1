@@ -74,7 +74,10 @@ print(z)  ##we wont have space here
 
 z1=x+ "," +y
 
-print(z1)  ##this will have space..but hard to keep track
+print(z1)  ##this will have space..but hard to keep track .
+#stay tuned for better alternatves.(f strings)
+
+
 
 
 
