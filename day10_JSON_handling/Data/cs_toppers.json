@@ -1,0 +1,33 @@
+[
+    {
+        "id": 1,
+        "name": "Rafid",
+        "age": 18,
+        "skills": [
+            "Python",
+            "Git",
+            "CS50"
+        ],
+        "scores": {
+            "math": 95,
+            "cs": 98,
+            "english": 85
+        },
+        "active": true
+    },
+    {
+        "id": 2,
+        "name": "Masfi",
+        "age": 19,
+        "skills": [
+            "C++",
+            "Chess"
+        ],
+        "scores": {
+            "math": 88,
+            "cs": 90,
+            "english": 80
+        },
+        "active": false
+    }
+]
