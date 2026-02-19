@@ -6,8 +6,8 @@ def add_student(student_id,name,marks):
     save_data(data)
 
 def view_student(student_id):
-    data=load_data
-    return data.get(student_id)
+    data=load_data()
+    return data.get(student_id,"Student not found")
 
 
 

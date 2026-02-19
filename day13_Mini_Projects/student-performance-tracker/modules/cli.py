@@ -5,7 +5,7 @@ def menu():
     print("2.View Student")
     print("3.Exit")
 
-    action=input("please enter your option:")
+    action=int(input("please enter your option:"))
 
     if action==1:
         sid=input("ID:")
