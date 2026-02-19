@@ -1,31 +1,26 @@
-import json  #python needs json module to read or write it
-DATA_FILE = "day13_Mini_Projects/data/students.json"
-BASE_STRUCTURE={
+import json
+from pathlib import Path
 
-    "students":[]  
-}
+DATA_FILE = Path("data/students.json")
+BASE_STRUCTURE = {}
 
 def load_data():
+    """
+    Load student data from JSON file.
+    Returns dict.
+    """
     try:
-        with open (DATA_FILE,"r",encoding="utf-8") as reader:
-            student_data=json.load(reader)
-            return student_data
-        """
-         This function loads student data from our JSON file.
-        Returns dictionary with key 'students'.
-        """
+        with open(DATA_FILE, "r", encoding="utf-8") as f:
+            return json.load(f)
     except FileNotFoundError:
         return BASE_STRUCTURE.copy()
 
-def save_data(modified_data):
-    with open (DATA_FILE,"w",encoding="utf-8") as writer:
-        json.dump(modified_data,writer,indent=4)
+def save_data(data):
     """
-    this function saves student data dictionary to JSON file.
+    Save student data to JSON file.
     """
-
-
-
+    with open(DATA_FILE, "w", encoding="utf-8") as f:
+        json.dump(data, f, indent=4)
 
     
 
