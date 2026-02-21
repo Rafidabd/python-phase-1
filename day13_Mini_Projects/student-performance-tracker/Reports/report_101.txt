@@ -1,0 +1,8 @@
+Student ID: 101
+Name: Rafif
+Physics: 99
+Math: 98
+English: 99
+Total Mark: 296
+Average Mark: 98.66666666666667
+Ranking: 2

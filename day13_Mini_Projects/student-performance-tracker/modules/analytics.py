@@ -3,14 +3,14 @@ from modules.storage import load_data
 def total_mark(student_id):
     data = load_data()
     marks = data[student_id]["marks"]
-    return sum(marks.values())
+    return sum(int(value) for value in marks.values())
 
 
 def average_mark(student_id):
     data=load_data()
     subject_number=len(data[student_id]["marks"])
     total=total_mark(student_id)
-    average=total/subject_number
+    average=total/subject_number 
     return average
 
 def rank_students():
