@@ -1,6 +1,7 @@
 from modules.student import add_student,view_student
 from modules.analytics import rank_students,class_average,subject_topper
 from modules.export import export_leaderboard,student_report
+from modules.config_loader import load_config
 
 
 
@@ -14,7 +15,7 @@ def menu():
     print("6.Export Student Report")
     print("7.Export Leaderboard")
     print("8.Exit")
-   
+    config=load_config()
     
 
     action=int(input("please enter your option:"))
@@ -23,11 +24,21 @@ def menu():
         sid=input("ID:")
         name=input("Name:")
         section=input("Section:")
-        Physics=input("Physics Mark:")
-        Math=input("Math Mark:")
-        English=input("English Mark:")
-        add_student(sid,name,section,Physics,Math,English)
-        print("Student's infos have been added succesfully")
+        mark_dict={}
+        for subject in config["subjects"]:
+            try:
+             mark=int(input(f"{subject} mark:"))
+            except ValueError:
+                print("Invalid input.Must be a number")
+                return 
+            mark_dict[subject]=mark
+        action_result=add_student(sid,name,section,mark_dict)
+        print(action_result)
+
+
+        
+
+        
     elif action==2:
         sid=input("ID:")
         info=view_student(sid)
@@ -58,7 +69,7 @@ def menu():
     elif action==8:
         exit()
     else:
-        print("invalid option")
+        print("invalid option")   
         
     
 
