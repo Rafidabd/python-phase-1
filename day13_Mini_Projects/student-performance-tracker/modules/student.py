@@ -1,5 +1,6 @@
 from modules.storage import load_data,save_data
 from modules.config_loader import load_config
+from modules.analytics import total_mark_calculator,average_mark_calculator,grade_calculator,pass_fail_determiner
 
 
 
@@ -52,7 +53,44 @@ def add_student(sid,name,section,mark_dict):
         
 def view_student(student_id):
     data=load_data()
-    return data.get(student_id,"Student not found")  
+    config=load_config()
+    if student_id not in data:
+         return {"status":"Student not found"}
+    name=data[student_id]["name"]
+    section=data[student_id]["section"]
+    marks_dict=data[student_id]["marks"]
+    subjects=config["subjects"]
+    pass_mark=config["marks_policy"]["pass_mark"]
+    grading_config=config["grading_system"]
+    total=total_mark_calculator(marks_dict,subjects)
+    average=average_mark_calculator(total,subjects)
+    result=pass_fail_determiner(marks_dict,pass_mark)
+    grade=grade_calculator(average,grading_config,result) 
+    if grade=="INVALID_GRADE_CONFIG":
+         return {"status":"Error.invalid grade config"}  
+
+    stu_status={ "id":student_id,
+                "name":name,
+                "section":section,
+                "marks":marks_dict,
+                "total":total,
+                "average":average,
+                "result":result,
+                "grade":grade
+
+         
+
+
+
+
+    }
+    return stu_status  
+
+
+
+
+
+    
 
 
 
