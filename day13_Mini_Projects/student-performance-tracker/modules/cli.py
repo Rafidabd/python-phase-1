@@ -69,7 +69,7 @@ def menu():
     elif action==8:
         exit()
     else:
-        print("invalid option")   
+        print("invalid option")    
         
     
 
