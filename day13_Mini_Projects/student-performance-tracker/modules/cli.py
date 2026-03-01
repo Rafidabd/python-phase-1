@@ -45,14 +45,52 @@ def menu():
         print(info)
 
     elif action==3:
-        ranking=rank_students()
-        for rank, sid, name, total in ranking:
-           print(f"{rank}. {name} (ID: {sid}) → {total}")
+        rank=rank_students()
+        if "status" in rank:
+            print(rank["status"])
+        else:
+         print("========== CLASS RANKING ==========")
+         print()
+         print(f"{'rank':>6} {'id':>8} {'Name':<15} {'total':>8}")
+         print("---------------------------------------------")
+         for student in rank:
+             stu_rank=student["rank"]
+             sid=student["id"]
+             name=student["name"]
+             total=student["total"]
+             print(f"{stu_rank:>6} {sid:>8} {name:<15} {total:>8}")
+         print()
+             
+         
+
+        
 
     elif action==4:
-        subject=input("Please enter your subject:").title()
-        topper=subject_topper(subject)
-        print(f"Top scorer in {subject}: {topper['name']} with {topper['marks'][subject]}")
+        subject=input("Please enter your subject: ")
+        subj_topper=subject_topper(subject)
+        if "status" in subj_topper:
+            print(subj_topper["status"])
+        else:
+            highest_mark=subj_topper["highest_mark"]
+            print("========== SUBJECT TOPPER ==========")
+            print(f"Subject: {subj_topper['subject']}")
+            print(F"Highest Mark: {highest_mark}")
+            print()
+            if len(subj_topper["toppers"])>1:
+                print("Toppers:")
+            else:
+                print("Topper:")
+            print(f"{'ID':>8} {'Name':<18} ")
+            print("--------------------------------------------")
+            for student in subj_topper["toppers"]:
+                sid=student["id"]
+                name=student["name"]
+                print(f"{sid:>8} {name:<18} ")
+            print() 
+
+                
+            
+            
 
 
     elif action==5:
