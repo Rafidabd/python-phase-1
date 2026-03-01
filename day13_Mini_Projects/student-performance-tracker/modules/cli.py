@@ -1,5 +1,5 @@
 from modules.student import add_student,view_student
-from modules.analytics import rank_students,class_average,subject_topper
+from modules.analytics import rank_students,class_average,subject_topper,overall_topper
 from modules.export import export_leaderboard,student_report
 from modules.config_loader import load_config
 
@@ -12,7 +12,7 @@ def menu():
     print("4.Show Subject Topper")
     print("5.Show Class Average")
    
-    print("6.Export Student Report")
+    print("6.Show Overall Toppers")
     print("7.Export Leaderboard")
     print("8.Exit")
     config=load_config()
@@ -95,11 +95,50 @@ def menu():
 
     elif action==5:
         average=class_average()
-        print(f"Class average is {average}")
+        if "status" in average:
+            print(average["status"])
+        else: 
+            print("========== CLASS AVERAGE ==========")
+            student_count=average["student_count"]
+            class_average_number=average["class_average"]
+            print()
+            print(f"Total Students: {student_count}")
+            print(f"Class Average : {class_average_number}")
+            print()
+    
+
+        
+        
+
+
+        
     elif action==6:
-        id=input("please enter your id:")
-        student_report(id)
-        print("student's report has been generated")
+        toppers=overall_topper()
+        if "status" in toppers:
+            print(toppers["status"])
+        else:
+            highest_total=toppers["highest_total"]
+
+            print("==========Overall Topper==========")
+            print(f"Highest Total: {highest_total}")
+            if len(toppers["toppers"])>1:
+                print("Toppers:")
+            else:
+                print("Topper:")
+            print(f"{'ID':>8} {'Name':<18} {'Total':>8} ")
+            print("-------------------------------------------------------")
+            for student in toppers["toppers"]:
+                sid=student["id"]
+                name=student["name"]
+                total=student["total"]
+                print(f"{sid:>8} {name:<18} {total:>8} ")
+            print() 
+
+
+
+        
+
+        
 
     elif action==7:
         export_leaderboard()
