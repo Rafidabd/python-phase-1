@@ -78,67 +78,95 @@ def rank_students():
 
     
      
-     
-
-       
-       
-       
-
-
-     
-
-    
-
-    
-
-
 def class_average():
-   data=load_data()
-   whole_total=0
-   total_enlisted_student=0
-   for student_id in data:
-      whole_total=whole_total+total_mark(student_id)
-      
-      total_enlisted_student=total_enlisted_student+1
-    
-   whole_class_average=whole_total/total_enlisted_student
-   return whole_class_average
+    data=load_data()
+    config=load_config()
+    subjects=config["subjects"]
+    if data=={}:
+       return {"status":"no students available"}
+    total_average_sum=0
+    total_student=0
+    for student in data.values():
+       marks_dict=student["marks"]
+       total=total_mark_calculator(marks_dict,subjects)
+       average=average_mark_calculator(total,subjects)
+       total_average_sum=total_average_sum+average
+       total_student=total_student+1
+    class_average=round(total_average_sum/total_student,1)
+    average_dict={
+       "class_average": class_average,
+       "student_count":total_student
+       
 
+    }
+    return average_dict
+   
 
 
 def subject_topper(subject):
    
    data=load_data()
-   first_student_id = list(data.keys())[0]
-   if subject in data[first_student_id]["marks"]:
-      top_mark=-1
-      topper_id=None
-
-      for student_id in data:
-      
-         x=int(data[student_id]["marks"][subject])
-         if x>top_mark:
-          top_mark=x
-          topper_id=student_id
-    
-      subj_topper_info=data[topper_id]
-
-      return subj_topper_info  
-   else:
-      return "invalid subject"
+   config=load_config()
+   subjects=config["subjects"]
+   if subject not in subjects:
+      return {"status":"invalid subject"}
+   if data=={}:
+      return {"status":"No students added."}
    
-def overall_topper():
-   data=load_data()
-   rank=rank_students()
+   max_mark=-1
+   
    topper_list=[]
-   
-   topper_mark=rank[0][3]
-   for ranking,id,name,total in rank:
-      if total==topper_mark: 
-         joint_topper_id=id
-         topper_list.append((ranking,joint_topper_id,name,total))
-   return topper_list 
+   for student in data.values():
+      if student["marks"][subject]>max_mark:
+         max_mark=student["marks"][subject]
+   for student_id,student in data.items():
+      if student["marks"][subject]==max_mark:
+         topper_id=student_id
+         topper_name=student["name"]
+         topper_info={
+            "id":topper_id,
+            "name":topper_name,
+             }
          
+         topper_list.append(topper_info)
+   topper_dict={ "subject":subject,
+                   "highest_mark":max_mark,
+                   "toppers":topper_list }
+
+   return  topper_dict 
+      
+
+
+def overall_topper():
+   
+   rank=rank_students()
+   if rank==[]:
+      return {"status":"student not available"}
+
+   topper_info_list=[]
+   
+   for student in rank:
+      if student["rank"]==1:
+         highest_total=student["total"]
+         name=student["name"]
+         sid=student["id"]
+         topper_info={ "id":sid,
+                      "name":name,
+                      "total":highest_total,
+                      
+
+
+         }
+         topper_info_list.append(topper_info)
+   topper_dict={
+      "highest_total":highest_total,
+      "toppers": topper_info_list
+   }
+   return topper_dict
+
+   
+   
+   
          
       
       
