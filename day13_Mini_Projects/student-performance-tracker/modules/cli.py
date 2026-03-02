@@ -13,7 +13,7 @@ def menu():
     print("5.Show Class Average")
    
     print("6.Show Overall Toppers")
-    print("7.Export Leaderboard")
+    print("7.Full Student Report")
     print("8.Exit")
     config=load_config()
     
@@ -141,8 +141,42 @@ def menu():
         
 
     elif action==7:
-        export_leaderboard()
-        print("leaderboard has been generated")
+        student_id=input("Please enter your ID:")
+        report=view_student(student_id)
+        if "status" in report:
+            print(report["status"])
+        else:
+            sid=report["id"]
+            name=report["name"]
+            section=report["section"]
+            marks_dict=report["marks"]
+            total=report["total"]
+            average=report["average"]
+            result=report["result"]
+            grade=report["grade"]
+            print("========== STUDENT REPORT ==========")
+            print()
+            print(f"{'ID':<10}:{sid}")
+            print(f"{'Name':<10 }:{name}")
+            print(f"{'Section':<10 }:{section}")
+            print()
+            print("Marks:")
+            print("------------------------------------------")
+            print(f"{'Subject':<20} {'Mark':>8}")
+            print("------------------------------------------")
+            for subject,mark in marks_dict.items():
+                print(f"{subject:<20} {mark:>8}")
+            print("------------------------------------------")
+            print(f"{'Total':<10}: {total}")
+            print(f"{'Average':<10}: {average}")
+            print(f"{'Result':<10}: {result}")
+            print(f"{'Grade':<10}: {grade}")
+
+            print() 
+
+
+
+        
     elif action==8:
         exit()
     else:
