@@ -20,9 +20,11 @@ def load_data():
         DATA_FILE.write_text("{}", encoding="utf-8")
 
     # then,Load and return JSON
-    with open(DATA_FILE, "r", encoding="utf-8") as f:
+    try:
+     with open(DATA_FILE, "r", encoding="utf-8") as f:
         return json.load(f)
-
+    except json.JSONDecodeError:
+      return {} 
 
 def save_data(data):
     """

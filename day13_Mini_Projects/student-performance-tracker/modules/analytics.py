@@ -11,7 +11,7 @@ def total_mark_calculator(marks_dict, subjects):
 
 
 def average_mark_calculator(total, subjects):
-    return round(total / len(subjects), 1) 
+    return round(total / len(subjects), 2)  
 
 
 
@@ -162,7 +162,7 @@ def overall_topper():
       "highest_total":highest_total,
       "toppers": topper_info_list
    }
-   return topper_dict
+   return topper_dict 
 
    
    

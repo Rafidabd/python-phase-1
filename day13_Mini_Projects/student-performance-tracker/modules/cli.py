@@ -19,22 +19,31 @@ def menu():
     config=load_config()
     
 
-    action=int(input("please enter your option:"))
+    try:
+     action = int(input("please enter your option: ").strip())
+    except ValueError:
+     print("Invalid option. Must be a number.")
+     return 
 
     if action==1:
-        sid=input("ID:")
-        name=input("Name:")
-        section=input("Section:")
+        sid=input("ID: ").strip()
+        name=input("Name: ").strip()
+        section=input("Section: ").strip() 
         mark_dict={}
+        min_mark=config["marks_policy"]["min_mark"]
+        max_mark=config["marks_policy"]["max_mark"]
         for subject in config["subjects"]:
             try:
              mark=int(input(f"{subject} mark:"))
             except ValueError:
                 print("Invalid input.Must be a number")
                 return 
+            if mark < min_mark or mark > max_mark:
+                   print("Mark out of allowed range")
+                   return
             mark_dict[subject]=mark
         action_result=add_student(sid,name,section,mark_dict)
-        print(action_result)
+        print(action_result["status"])  
 
 
         
@@ -43,7 +52,10 @@ def menu():
     elif action==2:
         sid=input("ID:")
         info=view_student(sid)
-        print(info)
+        if "status" in info:
+            print(info["status"]) 
+        else:
+         print(info) 
 
     elif action==3:
         rank=rank_students()
@@ -52,9 +64,9 @@ def menu():
        
              
     elif action==4:
-        subject=input("Please enter your subject: ")
-        subj_topper=subject_topper(subject)
-        display_subj_topper(subj_topper)
+        subject=input("Please enter your subject: ").strip().lower()
+        subj_topper=subject_topper(subject) 
+        display_subj_topper(subj_topper) 
 
     
         
@@ -69,7 +81,7 @@ def menu():
     
     
     elif action==7:
-        student_id=input("Please enter your ID:")
+        student_id=input("Please enter your ID: ").strip()
         report=view_student(student_id)
         display_student_report(report)
 
@@ -77,7 +89,7 @@ def menu():
     elif action==8:
         exit()
     else:
-        print("invalid option")     
+        print("invalid option")      
         
     
 

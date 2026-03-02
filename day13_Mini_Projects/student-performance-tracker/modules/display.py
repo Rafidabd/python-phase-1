@@ -104,7 +104,7 @@ def display_student_report(report):
             print(f"{'Result':<10}: {result}")
             print(f"{'Grade':<10}: {grade}")
 
-            print()   
+            print()    
 
 
      

@@ -10,18 +10,27 @@ def add_student(sid,name,section,mark_dict):
     
     
     existing_data=load_data()
+    if not sid or not name or not section:
+            return {"status":"error.empty field"}  
+    
+    
 
     if sid in existing_data:
-        return "error.id exists"
+        return{"status":"error.id exists"} 
+    
     
     if section not in config["sections"]:
-        return "error.wrong section"
+        return {"status":"error.invalid section"} 
+    for marks in mark_dict.values():
+         if marks==None:
+               return {"status":"error.Blank in mark input"}  
+              
 
     for subject in mark_dict.keys():
          if subject not in config["subjects"]:
-              return "error.invalid subject"
+              return {"status":"error.invalid subject"} 
     if not set(mark_dict.keys()) == set(config["subjects"]):
-         return "error.wrong number of subjects"
+         return {"status":"error.wrong number of subjects"} 
          
          
     
@@ -35,14 +44,14 @@ def add_student(sid,name,section,mark_dict):
     for mark in mark_dict.values():
             mark=int(mark)
             if not min_mark<=mark<=max_mark:
-                 return "error.invalid mark"
+                 return {"status":"error.invalid mark"} 
     added_data={"name":name,
                      "section":section,
                      "marks":mark_dict}
                 
     existing_data[sid]=added_data
     save_data(existing_data) 
-    return "succesful" 
+    return {"status":"succesful"} 
     
        
         
@@ -84,7 +93,7 @@ def view_student(student_id):
 
 
     }
-    return stu_status  
+    return stu_status   
 
 
 
