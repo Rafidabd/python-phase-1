@@ -22,6 +22,7 @@ def menu():
     print("12.Top n Students") 
     print("13.Filter by Section") 
     print("14.Filter by Result(PASS/FAIL)")
+    print("15.Export Leaderboard") 
 
     config=load_config()  
     
@@ -167,6 +168,12 @@ def menu():
      result = filter_by_result(result_type)
      display_filtered_by_result(result) 
 
+    elif action == 15:
+     result = export_leaderboard()
+     print(result["status"])
+     if "file" in result:
+        print(f"Saved to: {result['file']}")   
+
         
 
     
@@ -182,7 +189,7 @@ def menu():
        
     else:
 
-        print("invalid option")        
+        print("invalid option")         
     
         
     
