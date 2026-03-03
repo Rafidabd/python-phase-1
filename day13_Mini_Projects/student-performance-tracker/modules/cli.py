@@ -1,9 +1,9 @@
 from modules.student import add_student,view_student,edit_student,delete_student
-from modules.analytics import rank_students,class_average,subject_topper,overall_topper
+from modules.analytics import rank_students,class_average,subject_topper,overall_topper,section_average,section_topper
 from modules.export import export_leaderboard,student_report
 from modules.config_loader import load_config
 from modules.display import display_ranking,display_class_average,display_overall_topper,display_student_report,display_subj_topper
-
+from modules.display import display_section_toppers,display_section_average
 
 
 def menu():
@@ -17,6 +17,8 @@ def menu():
     print("7.Full Student Report")
     print("8.Edit Student")
     print("9.Delete Student")
+    print("10.Section Average")
+    print("11.Section Topper") 
     config=load_config() 
     
 
@@ -120,10 +122,31 @@ def menu():
         else:
             print("Choose correct option.")
             return 
+    
+    elif action==10:
+        section=input("Please enter your section: ").strip().upper()
+        average=section_average(section)
+        display_section_average(section)
+       
+    
+    elif action==11:
+        section=input("Please enter your section: ").strip().upper()
+        topper=section_topper(section)
+        display_class_average(topper) 
+    
+    
+
+
+
+    
+    
+    
 
        
     else:
+
         print("invalid option")       
+    
         
     
 

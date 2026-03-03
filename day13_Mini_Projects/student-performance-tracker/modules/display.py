@@ -106,6 +106,53 @@ def display_student_report(report):
 
             print()    
 
+def display_section_average(average):
+      if 'status' in average:
+            print(average["status"])
+      else:
+           print("========== SECTION AVERAGE==========")
+           print()
+           section=average["section"]
+           final_average=average["section_average"]
+           student_count=average["student_count"]
+           print(f"{'Section':<10}:{section}")
+           print(f"{'Average':<10 }:{final_average}")
+           print(f"{'Total Students':<10 }:{student_count}")
+           print() 
+
+
+def display_section_toppers(toppers):
+        if 'status' in toppers:
+            print(toppers["status"])
+        else:
+             print("========== SECTION TOPPERS==========")
+             print()
+             section=toppers["section"]
+             highest_total=toppers["highest_total"]
+             if len(toppers["toppers"])>1:
+              print("Toppers List")
+             else:
+                  print("Topper:")
+             print("------------------------------------------")
+             print(f"{'ID':>8} {'Name':<18} {'Total':>8} ")
+             print("-------------------------------------------------------")
+             for student in toppers["toppers"]:
+                sid=student["id"]
+                name=student["name"]
+                total=student["total"]
+                print(f"{sid:>8} {name:<18} {total:>8} ")
+             print()  
+
+             
+
+            
+     
+     
+           
+           
+     
+
+
 
      
      
