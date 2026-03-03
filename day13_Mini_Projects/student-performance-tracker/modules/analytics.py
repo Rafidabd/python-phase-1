@@ -164,6 +164,149 @@ def overall_topper():
    }
    return topper_dict 
 
+
+
+
+
+def section_average(section):
+    data = load_data()
+    config = load_config()
+    subjects = config["subjects"]
+
+    if section not in config["sections"]:
+        return {"status": "invalid section"}
+
+    section_students = [
+        student for student in data.values()
+        if student["section"] == section
+    ]
+
+    if not section_students:
+        return {"status": "no students in this section"}
+
+    total_sum = 0
+
+    for student in section_students:
+        total = total_mark_calculator(student["marks"], subjects)
+        avg = average_mark_calculator(total, subjects)
+        total_sum = total_sum+avg
+
+    final_average = round(total_sum / len(section_students), 2)
+
+    return {
+        "section": section,
+        "section_average": final_average,
+        "student_count": len(section_students)
+    }
+
+
+
+def section_topper(section):
+    data = load_data()
+    config = load_config()
+    subjects = config["subjects"]
+
+    if section not in config["sections"]:
+        return {"status": "invalid section"}
+
+    section_students = {
+        sid: stu for sid, stu in data.items()
+        if stu["section"] == section
+    }
+
+    if not section_students:
+        return {"status": "no students in this section"}
+
+    max_total = -1
+    topper_list = []
+
+    for sid, student in section_students.items():
+        total = total_mark_calculator(student["marks"], subjects)
+
+        if total > max_total:
+            max_total = total
+
+    for sid, student in section_students.items():
+        total = total_mark_calculator(student["marks"], subjects)
+        if total == max_total:
+            topper_list.append({
+                "id": sid,
+                "name": student["name"],
+                "total": total
+            })
+
+    return {
+        "section": section,
+        "highest_total": max_total,
+        "toppers": topper_list
+    }
+
+
+
+def top_n_students(n):
+    ranked_stu= rank_students()
+
+    if not ranked_stu:
+        return {"status": "no students available"}
+
+    return ranked_stu[:n]
+
+
+def filter_by_section(section):
+    data = load_data()
+
+    filtered_stu = [
+        {"id": sid, "name": stu["name"], "section": stu["section"]}
+        for sid, stu in data.items()
+        if stu["section"] == section
+    ]
+
+    if not filtered_stu:
+        return {"status": "no students in this section"}
+
+    return filtered_stu 
+
+
+
+def filter_by_result(result_type):
+    """
+    result_type should be "PASS" or "FAIL"
+    """
+
+    data = load_data()
+    config = load_config()
+
+    subjects = config["subjects"]
+    pass_mark = config["pass_mark"]
+
+    if result_type not in ["PASS", "FAIL"]:
+        return {"status": "invalid result type"}
+
+    filtered_students = []
+
+    for sid, student in data.items():
+        marks_dict = student["marks"]
+
+        
+        result = pass_fail_determiner(marks_dict, pass_mark)
+
+        if result == result_type:
+            filtered_students.append({
+                "id": sid,
+                "name": student["name"],
+                "section": student["section"],
+                "result": result
+            })
+
+    if not filtered_students:
+        return {"status": f"no students with result {result_type}"}
+
+    return filtered_students   
+
+
+
+
+
    
    
    

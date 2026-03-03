@@ -1,9 +1,9 @@
 from modules.student import add_student,view_student,edit_student,delete_student
-from modules.analytics import rank_students,class_average,subject_topper,overall_topper,section_average,section_topper
+from modules.analytics import rank_students,class_average,subject_topper,overall_topper,section_average,section_topper,top_n_students,filter_by_result,filter_by_section
 from modules.export import export_leaderboard,student_report
 from modules.config_loader import load_config
 from modules.display import display_ranking,display_class_average,display_overall_topper,display_student_report,display_subj_topper
-from modules.display import display_section_toppers,display_section_average
+from modules.display import display_section_toppers,display_section_average,display_filtered_section,display_filtered_by_result
 
 
 def menu():
@@ -19,7 +19,11 @@ def menu():
     print("9.Delete Student")
     print("10.Section Average")
     print("11.Section Topper") 
-    config=load_config() 
+    print("12.Top n Students") 
+    print("13.Filter by Section") 
+    print("14.Filter by Result(PASS/FAIL)")
+
+    config=load_config()  
     
 
     try:
@@ -132,8 +136,41 @@ def menu():
     elif action==11:
         section=input("Please enter your section: ").strip().upper()
         topper=section_topper(section)
-        display_class_average(topper) 
+        display_section_toppers(topper) 
     
+
+    elif action==12:
+        try:
+            n=int(input("Please enter the value of N: "))
+        except ValueError:
+            print("Invalid input.Please enter an integer")
+            return
+        n_rank=top_n_students(n)
+        display_ranking(n) 
+    
+    elif action==13:
+        try:
+         section=str(input("Please enter your section: ").strip().upper())
+         
+        except ValueError:
+            print("Invalid Input")
+            return
+        filtered_section=filter_by_section(section) 
+        display_filtered_section(section) 
+    
+    
+    
+    
+    elif action == 14:
+   
+     result_type = input("Enter PASS or FAIL: ").strip().upper()
+     result = filter_by_result(result_type)
+     display_filtered_by_result(result) 
+
+        
+
+    
+
     
 
 
@@ -145,7 +182,7 @@ def menu():
        
     else:
 
-        print("invalid option")       
+        print("invalid option")        
     
         
     

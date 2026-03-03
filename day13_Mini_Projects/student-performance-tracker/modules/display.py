@@ -143,6 +143,52 @@ def display_section_toppers(toppers):
                 print(f"{sid:>8} {name:<18} {total:>8} ")
              print()  
 
+def display_filtered_section(section):
+     if "status" in section:
+          print(section["status"])
+     else:
+          print(f"============Section {section}============")
+          print()
+          print(f"{'ID':>8} {'Name':<18} {'Section':<8} ")
+          for students in section:
+               sid=students["id"]
+               name=students["name"]
+               section=students["section"]
+               print(f"{sid:>8} {name:<18} {section:<8} ")
+          print()
+
+
+
+def display_filtered_by_result(data):
+    
+
+    
+    if isinstance(data, dict) and "status" in data:
+        print(data["status"])
+        return
+
+    print("===== FILTERED STUDENTS =====")
+    print()
+    print(f"{'ID':<10} {'Name':<20} {'Section':<10} {'Result':<10}")
+    print("-" * 55)
+
+    for student in data:
+        print(f"{student['id']:<10} "
+              f"{student['name']:<20} "
+              f"{student['section']:<10} "
+              f"{student['result']:<10}")
+
+    print("-" * 55)
+    print(f"Total Students: {len(data)}\n")  
+
+
+
+          
+
+     
+
+     
+
              
 
             
