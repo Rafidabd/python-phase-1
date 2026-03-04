@@ -4,6 +4,7 @@ from modules.export import export_leaderboard,student_report
 from modules.config_loader import load_config
 from modules.display import display_ranking,display_class_average,display_overall_topper,display_student_report,display_subj_topper
 from modules.display import display_section_toppers,display_section_average,display_filtered_section,display_filtered_by_result
+from modules.visualize import visualize_grade_distribution,visualize_pass_fail_chart,visualize_section_comparison,visualize_top_students
 
 
 def menu():
@@ -22,7 +23,12 @@ def menu():
     print("12.Top n Students") 
     print("13.Filter by Section") 
     print("14.Filter by Result(PASS/FAIL)")
-    print("15.Export Leaderboard") 
+    print("15.Export Leaderboard")
+    print("16.Bar Chart of Top Performers") 
+    print("17.Pass Fail Analysis Bar") 
+    print("18.Section Wise Analysis Bar") 
+    print("19.Grade Distribution Bar")  
+    print("20.Exit") 
 
     config=load_config()  
     
@@ -173,23 +179,36 @@ def menu():
      print(result["status"])
      if "file" in result:
         print(f"Saved to: {result['file']}")   
-
-        
-
     
-
+    elif action == 16:
+       visuals=visualize_top_students()
+       print(visuals["status"])
     
-
-
-
-    
-    
-    
-
+    elif action == 17:
+       visuals=visualize_pass_fail_chart()
+       print(visuals["status"])
        
+    
+
+
+
+    elif action == 18:
+       visuals=visualize_section_comparison()
+       print(visuals["status"])
+       
+
+    elif action == 19:
+       visuals=visualize_grade_distribution()
+       print(visuals["status"])
+    
+    elif action==20:
+       exit() 
+    
+
+
     else:
 
-        print("invalid option")         
+        print("invalid option")            
     
         
     
