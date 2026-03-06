@@ -1,6 +1,6 @@
 from modules.student import add_student,view_student,edit_student,delete_student
 from modules.analytics import rank_students,class_average,subject_topper,overall_topper,section_average,section_topper,top_n_students,filter_by_result,filter_by_section
-from modules.export import export_leaderboard,student_report
+from modules.export import export_leaderboard
 from modules.config_loader import load_config
 from modules.display import display_ranking,display_class_average,display_overall_topper,display_student_report,display_subj_topper
 from modules.display import display_section_toppers,display_section_average,display_filtered_section,display_filtered_by_result
@@ -137,7 +137,7 @@ def menu():
     elif action==10:
         section=input("Please enter your section: ").strip().upper()
         average=section_average(section)
-        display_section_average(section)
+        display_section_average(average) 
        
     
     elif action==11:
@@ -153,7 +153,7 @@ def menu():
             print("Invalid input.Please enter an integer")
             return
         n_rank=top_n_students(n)
-        display_ranking(n) 
+        display_ranking(n_rank) 
     
     elif action==13:
         try:
@@ -163,7 +163,7 @@ def menu():
             print("Invalid Input")
             return
         filtered_section=filter_by_section(section) 
-        display_filtered_section(section) 
+        display_filtered_section(filtered_section)  
     
     
     
@@ -183,10 +183,11 @@ def menu():
     elif action == 16:
        visuals=visualize_top_students()
        print(visuals["status"])
-    
+       print("Saved to:", visuals["file"])
     elif action == 17:
        visuals=visualize_pass_fail_chart()
        print(visuals["status"])
+       print("Saved to:", visuals["file"])
        
     
 
@@ -195,12 +196,12 @@ def menu():
     elif action == 18:
        visuals=visualize_section_comparison()
        print(visuals["status"])
-       
+       print("Saved to:", visuals["file"])
 
     elif action == 19:
        visuals=visualize_grade_distribution()
        print(visuals["status"])
-    
+       print("Saved to:", visuals["file"]) 
     elif action==20:
        exit() 
     
@@ -208,7 +209,8 @@ def menu():
 
     else:
 
-        print("invalid option")            
+        print("invalid option")   
+                   
     
         
     

@@ -1,8 +1,4 @@
-from modules.student import add_student,view_student
-from modules.analytics import rank_students,class_average,subject_topper,overall_topper
-from modules.export import export_leaderboard,student_report
-from modules.config_loader import load_config
-
+ 
 def display_ranking(rank):
      if "status" in rank:
             print(rank["status"])
@@ -179,7 +175,7 @@ def display_filtered_by_result(data):
               f"{student['result']:<10}")
 
     print("-" * 55)
-    print(f"Total Students: {len(data)}\n")  
+    print(f"Total Students: {len(data)}\n")    
 
 
 

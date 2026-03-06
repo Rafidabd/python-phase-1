@@ -1,5 +1,5 @@
 import json
-from pathlib import Path
+from pathlib import Path 
 from modules.config_loader import load_config
 
 # Loading the path from config
@@ -35,4 +35,4 @@ def save_data(data):
     DATA_FILE.parent.mkdir(parents=True, exist_ok=True)
 
     with open(DATA_FILE, "w", encoding="utf-8") as f:
-        json.dump(data, f, indent=4) 
+        json.dump(data, f, indent=4)  

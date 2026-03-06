@@ -1,6 +1,6 @@
 from modules.analytics import rank_students
 from pathlib import Path
-import csv
+import csv 
 
 
 def export_leaderboard():
@@ -28,7 +28,7 @@ def export_leaderboard():
     return {
         "status": "success",
         "file": str(file_path) 
-    }
+    } 
  
 
             

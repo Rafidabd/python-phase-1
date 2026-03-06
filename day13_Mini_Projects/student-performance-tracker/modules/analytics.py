@@ -1,6 +1,6 @@
 from modules.storage import load_data
 from modules.config_loader import load_config
-config=load_config()
+config=load_config() 
 
 
 def total_mark_calculator(marks_dict, subjects):
@@ -27,13 +27,13 @@ def grade_calculator(average,grading_config,result):
    if result=="FAIL":
       return "F"
    stu_grade=None 
-   for grade,range in grading_config.items():
-      if range["min"]<=average<=range["max"]:
+   for grade,grade_range in grading_config.items():
+      if grade_range["min"]<=average<=grade_range["max"]:
          stu_grade=grade
-         return stu_grade
+         return stu_grade 
       
    if stu_grade==None:
-      return "INVALID_GRADE_CONFIG" 
+      return "INVALID_GRADE_CONFIG"  
    
 
    
@@ -82,7 +82,7 @@ def class_average():
     data=load_data()
     config=load_config()
     subjects=config["subjects"]
-    if data=={}:
+    if not data:
        return {"status":"no students available"}
     total_average_sum=0
     total_student=0
@@ -158,7 +158,7 @@ def overall_topper():
 
          }
          topper_info_list.append(topper_info)
-   topper_dict={
+   topper_dict={ 
       "highest_total":highest_total,
       "toppers": topper_info_list
    }
@@ -277,7 +277,7 @@ def filter_by_result(result_type):
     config = load_config()
 
     subjects = config["subjects"]
-    pass_mark = config["pass_mark"]
+    pass_mark = config["marks_policy"]["pass_mark"] 
 
     if result_type not in ["PASS", "FAIL"]:
         return {"status": "invalid result type"}
@@ -301,8 +301,8 @@ def filter_by_result(result_type):
     if not filtered_students:
         return {"status": f"no students with result {result_type}"}
 
-    return filtered_students   
-
+    return filtered_students     
+ 
 
 
 

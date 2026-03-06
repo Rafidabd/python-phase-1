@@ -1,14 +1,23 @@
 from modules.analytics import rank_students,pass_fail_determiner,section_average,grade_calculator,average_mark_calculator,total_mark_calculator
-from modules.storage import load_data,save_data
+from modules.storage import load_data 
 import matplotlib.pyplot as plt
 from modules.config_loader import load_config
 from pathlib import Path
+from modules.utils import ensure_reports_folder
 
 def visualize_top_students():
+    """
+Generates a bar chart showing the top 5 performing students.
+Saves the chart in Reports folder.
+Returns a dictionary with status and file path.
+"""
     rank=rank_students()
     top_5_stu=rank[:5]
     if not top_5_stu:
-        return {"status":"Student not available"}
+        return {
+                "status": "error",
+                  "message": "No students available"
+                }
     names=[]
     totals=[] 
     for student in top_5_stu:
@@ -26,14 +35,10 @@ def visualize_top_students():
  
 
     
-    reports_folder = Path("Reports")
-    reports_folder.mkdir(parents=True, exist_ok=True)
-
+    reports_folder = ensure_reports_folder()
     file_path = reports_folder / "top5_students.png"
 
-   
-    plt.savefig(file_path)
-
+    plt.savefig(file_path)  
     
     plt.show()
 
@@ -41,13 +46,19 @@ def visualize_top_students():
     plt.clf()
 
     return {
-        "status": "success",
-        "file": str(file_path)
-    } 
+    "status": "success",
+    "message": "Chart generated successfully",
+    "file": str(file_path)
+            } 
 
 
 
 def visualize_pass_fail_chart():
+    """
+Generates a bar chart showing the Number of Passed students and failed students in a comparison.
+Saves the chart in Reports folder.
+Returns a dictionary with status and file path.
+""" 
     data=load_data()
     config=load_config()
     passed_students=0
@@ -56,7 +67,11 @@ def visualize_pass_fail_chart():
 
 
     if not data:
-        return {"status":"ERROR.No students available"}
+         return {
+                "status": "error",
+                  "message": "No students available"
+                }
+  
     
 
     for student in data.values():
@@ -79,10 +94,8 @@ def visualize_pass_fail_chart():
     
 
     
-    reports_folder = Path("Reports")
-    reports_folder.mkdir(parents=True, exist_ok=True)
-
-    file_path = reports_folder / "Pass_Fail_Analysis.png" 
+    reports_folder = ensure_reports_folder()
+    file_path = reports_folder / "pass_fail_analysis.png"
 
    
     plt.savefig(file_path)
@@ -94,20 +107,29 @@ def visualize_pass_fail_chart():
     plt.clf()
 
     return {
-        "status": "success",
-        "file": str(file_path)
-    }  
-
-
+    "status": "success",
+    "message": "Chart generated successfully",
+    "file": str(file_path)
+            }   
+ 
 
 
 
 def visualize_section_comparison():
+    """
+Generates a bar chart showing the comparsion betwwen Sections,here section average marks are considered.
+Saves the chart in Reports folder.
+Returns a dictionary with status and file path. 
+"""
     data=load_data()
     config=load_config()
     sections=config["sections"]
     if not data:
-        return {"status":"Error.No student available"}
+         return {
+                "status": "error",
+                  "message": "No students available"
+                }
+  
     section_names = []
     section_averages = []
 
@@ -128,13 +150,10 @@ def visualize_section_comparison():
     
 
     
-    reports_folder = Path("Reports")
-    reports_folder.mkdir(parents=True, exist_ok=True)
-
-    file_path = reports_folder / "Section_Comparison.png" 
-
+    reports_folder = ensure_reports_folder()
+    file_path = reports_folder / "section_wise_analysis.png"
    
-    plt.savefig(file_path)
+    plt.savefig(file_path) 
 
     
     plt.show()
@@ -143,12 +162,18 @@ def visualize_section_comparison():
     plt.clf()
 
     return {
-        "status": "success",
-        "file": str(file_path)
-    }
+    "status": "success",
+    "message": "Chart generated successfully",
+    "file": str(file_path)
+            } 
 
 
 def visualize_grade_distribution():
+    """
+Generates a bar chart showing the distribution of grades.
+Saves the chart in Reports folder.
+Returns a dictionary with status and file path. 
+"""
     data=load_data()
     config=load_config()
     grading_config=config["grading_system"]
@@ -156,7 +181,11 @@ def visualize_grade_distribution():
     pass_mark=config["marks_policy"]["pass_mark"]
     
     if not data:
-        return{"status":"Error.No students Available"}
+         return {
+                "status": "error",
+                  "message": "No students available"
+                } 
+  
     grade_counts = {}
     for student in data.values(): 
         marks_dict=student["marks"]
@@ -182,13 +211,12 @@ def visualize_grade_distribution():
    
 
     
-    reports_folder = Path("Reports")
-    reports_folder.mkdir(parents=True, exist_ok=True)
-
-    file_path = reports_folder / "Grade_distribution.png" 
+    reports_folder = ensure_reports_folder()
+    file_path = reports_folder / "grade_distribution.png"
+   
 
    
-    plt.savefig(file_path)
+    plt.savefig(file_path) 
 
     
     plt.show()
@@ -197,9 +225,10 @@ def visualize_grade_distribution():
     plt.clf()
 
     return {
-        "status": "success",
-        "file": str(file_path) 
-    }  
+    "status": "success",
+    "message": "Chart generated successfully",
+    "file": str(file_path)
+            }      
 
 
 

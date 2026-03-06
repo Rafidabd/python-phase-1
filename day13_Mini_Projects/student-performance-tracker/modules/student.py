@@ -1,4 +1,4 @@
-from modules.storage import load_data,save_data
+from modules.storage import load_data,save_data 
 from modules.config_loader import load_config
 from modules.analytics import total_mark_calculator,average_mark_calculator,grade_calculator,pass_fail_determiner
 
@@ -22,7 +22,7 @@ def add_student(sid,name,section,mark_dict):
     if section not in config["sections"]:
         return {"status":"error.invalid section"} 
     for marks in mark_dict.values():
-         if marks==None:
+         if marks is None:
                return {"status":"error.Blank in mark input"}  
               
 
@@ -42,16 +42,16 @@ def add_student(sid,name,section,mark_dict):
     
     
     for mark in mark_dict.values():
-            mark=int(mark)
+            
             if not min_mark<=mark<=max_mark:
-                 return {"status":"error.invalid mark"} 
+                 return {"status":"error.invalid mark"}  
     added_data={"name":name,
                      "section":section,
                      "marks":mark_dict}
                 
     existing_data[sid]=added_data
     save_data(existing_data) 
-    return {"status":"succesful"} 
+    return {"status":"success"}  
     
        
         
@@ -65,9 +65,11 @@ def view_student(student_id):
     config=load_config()
     if student_id not in data:
          return {"status":"Student not found"}
-    name=data[student_id]["name"]
-    section=data[student_id]["section"]
-    marks_dict=data[student_id]["marks"]
+    student = data[student_id]
+
+    name = student["name"]
+    section = student["section"]
+    marks_dict = student["marks"]
     subjects=config["subjects"]
     pass_mark=config["marks_policy"]["pass_mark"]
     grading_config=config["grading_system"]
@@ -129,7 +131,7 @@ def edit_student(sid,name,section,mark_dict):
                 
      data[sid]=edited_data 
      save_data(data)
-     return {"status":"succesful"}  
+     return {"status":"success"}   
 
 def delete_student(sid):
     data = load_data()
@@ -140,7 +142,7 @@ def delete_student(sid):
     del data[sid]
     save_data(data)
 
-    return {"status": "success"} 
+    return {"status": "success"}  
  
      
      
