@@ -11,6 +11,10 @@ While building it, I practiced working with JSON files, organizing code into mod
 It’s still a simple CLI application, but building it helped me understand how a slightly larger Python program can be structured.
 
 ---
+## Project Demo
+
+![Demo](Demo/Demo_project.gif) 
+
 
 ## Features
 
@@ -156,7 +160,7 @@ The program can also generate bar charts showing top performers and other statis
 
 **Top performing students:
 
-[Top Students](Reports/top5_students.png)
+![Top Students](Reports/top5_students.png)
 
 **Pass vs Fail distribution:
 
@@ -195,4 +199,4 @@ Some ideas I might explore later:
 * building a web version
 * adding more advanced analytics
 
-For now, this project mainly served as a learning experience while practicing Python programming.  
+For now, this project mainly served as a learning experience while practicing Python programming.   
