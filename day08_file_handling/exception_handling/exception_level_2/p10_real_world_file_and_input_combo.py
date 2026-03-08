@@ -1,21 +1,26 @@
-x=input("please enter the name of the file:")
 try:
-    with open(x,"r") as Reader:
-     with open("new_sum_file.txt","w") as Writer:
-      for values in Reader:
-        k=100/int(values)
-        Writer.write(str(k)+"/n")
+    filename = input("Enter file name: ")
+    n = int(input("Enter a number: "))
+
+    result = 100 / n   # may raise ZeroDivisionError
+
+    with open(filename, "a") as file:
+        file.write(str(result) + "\n")
+
 except ValueError:
-  print("invalid values inside the file")
+    print("Invalid number entered")
+
 except ZeroDivisionError:
-  print("zero cant be divided")
-except FileNotFoundError:
-  print("file doesnt exist")
+    print("Cannot divide by zero")
+
 except Exception as e:
-  print(e)
-  
-        
-        
+    print("Unexpected error:", e)
+
+else:
+    print("Data written successfully")
+
+finally:
+    print("Program finished")
 
 
     

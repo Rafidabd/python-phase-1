@@ -1,9 +1,38 @@
+"""
+analytics.py
+
+This module contains all academic analytics functions
+used in the Student Performance Tracker system.
+
+It handles calculations such as:
+- total and average marks
+- ranking students
+- finding toppers
+- section analytics
+- filtering students
+""" 
+
 from modules.storage import load_data
 from modules.config_loader import load_config
 config=load_config() 
 
 
 def total_mark_calculator(marks_dict, subjects):
+    """
+    Calculates the total marks of a student.
+
+    It loops through all subjects and adds
+    their marks together.
+
+    Args:
+        marks_dict (dict): subject marks
+        subjects (list): list of subjects.(config based)
+
+    Returns:
+        int: total marks obtained 
+    """
+
+    
     total = 0
     for subject in subjects:
         total += marks_dict[subject]
@@ -11,29 +40,77 @@ def total_mark_calculator(marks_dict, subjects):
 
 
 def average_mark_calculator(total, subjects):
-    return round(total / len(subjects), 2)  
+    """
+    Calculates the average mark of a student.
+
+    The average is computed by dividing
+    total marks by the number of subjects.
+
+    Args:
+        total (int): total marks
+        subjects (list): list of subjects
+
+    Returns:
+        float: average marks.rounded to 2 digits.
+    """
+
+    return round(total / len(subjects), 2)   
 
 
 
 def pass_fail_determiner(marks_dict,pass_mark):
-   for subject_marks in marks_dict.values():
+   
+    """
+    Determines whether a student passed or failed.
+
+    If the student scores below the pass mark
+    in any subject, the result becomes FAIL.
+    Otherwise the result is PASS.
+
+    Args:
+        marks_dict (dict): subject marks
+        pass_mark (int): minimum passing mark
+
+    Returns:
+        str: PASS or FAIL
+    """
+   
+    for subject_marks in marks_dict.values():
       if subject_marks<pass_mark:
          return "FAIL" 
-   return "PASS"
+    return "PASS" 
    
 
 
 def grade_calculator(average,grading_config,result):
-   if result=="FAIL":
+  
+    """
+    Determines the grade of a student.
+
+    The grade is calculated using the
+    grading system defined in config.json.
+
+    If the student fails, the grade will
+    automatically be F.(Bangladeshi Education System.) 
+
+    Args:
+        average (float): average marks
+        grading_config (dict): grading rules
+        result (str): PASS or FAIL
+
+    Returns:
+        str: grade obtained
+    """
+    if result=="FAIL":
       return "F"
-   stu_grade=None 
-   for grade,grade_range in grading_config.items():
+    stu_grade=None 
+    for grade,grade_range in grading_config.items():
       if grade_range["min"]<=average<=grade_range["max"]:
          stu_grade=grade
          return stu_grade 
       
-   if stu_grade==None:
-      return "INVALID_GRADE_CONFIG"  
+    if stu_grade==None:
+      return "INVALID_GRADE_CONFIG"   
    
 
    
@@ -42,6 +119,21 @@ def grade_calculator(average,grading_config,result):
 
 
 def rank_students():
+    """
+    Generates a ranking list of all students.
+
+    Students are ranked based on their
+    total marks in descending order.
+
+    Each entry in the ranking list contains:
+    - rank
+    - student ID
+    - name
+    - total marks
+
+    Returns:
+        list: list of ranked students
+    """
     data = load_data()
     config=load_config()
     subjects=config["subjects"]
@@ -73,12 +165,27 @@ def rank_students():
         
         
 
-    return final_rank
+    return final_rank 
 
 
     
      
 def class_average():
+    """
+    Generates a ranking list of all students.
+
+    Students are ranked based on their
+    total marks in descending order.
+
+    Each entry in the ranking list contains:
+    - rank
+    - student ID
+    - name
+    - total marks
+
+    Returns:
+        list: list of ranked students
+    """
     data=load_data()
     config=load_config()
     subjects=config["subjects"]
@@ -104,6 +211,19 @@ def class_average():
 
 
 def subject_topper(subject):
+   """
+Finds the student(s) who scored the highest mark
+in a specific subject.
+
+If multiple students have the same highest mark,
+all of them are included in the result.
+
+Args:
+    subject (str): subject name
+
+Returns:
+    dict: subject name, highest mark, and topper list
+"""
    
    data=load_data()
    config=load_config()
@@ -138,6 +258,16 @@ def subject_topper(subject):
 
 
 def overall_topper():
+   """
+Returns the overall topper of the class.
+
+The topper is determined based on the highest
+total marks among all students. If multiple
+students share the same total, all are returned.
+
+Returns:
+    dict: highest total and topper student list
+"""
    
    rank=rank_students()
    if rank==[]:
@@ -169,6 +299,20 @@ def overall_topper():
 
 
 def section_average(section):
+    """
+Calculates the average marks of students
+belonging to a specific section.
+
+The function filters students by section
+and computes the average performance
+for that group.
+
+Args:
+    section (str): section name
+
+Returns:
+    dict: section average and student count
+"""
     data = load_data()
     config = load_config()
     subjects = config["subjects"]
@@ -202,6 +346,19 @@ def section_average(section):
 
 
 def section_topper(section):
+    """
+Finds the top performing student(s) in a specific section.
+
+Students are compared based on total marks.
+If multiple students share the highest total,
+all of them are returned.
+
+Args:
+    section (str): section name
+
+Returns:
+    dict: topper information for that section
+"""
     data = load_data()
     config = load_config()
     subjects = config["subjects"]
@@ -244,6 +401,18 @@ def section_topper(section):
 
 
 def top_n_students(n):
+    """
+Returns the top N students based on total marks.
+
+The students are sorted in descending order
+and the first N students are returned.
+
+Args:
+    n (int): number of top students to retrieve
+
+Returns:
+    list: list of top N students
+"""
     ranked_stu= rank_students()
 
     if not ranked_stu:
@@ -253,6 +422,18 @@ def top_n_students(n):
 
 
 def filter_by_section(section):
+    """
+Filters students based on their section.
+
+
+
+Args:
+    result_type (str): section
+
+Returns:
+    list: filtered student list
+"""
+
     data = load_data()
 
     filtered_stu = [
@@ -269,6 +450,18 @@ def filter_by_section(section):
 
 
 def filter_by_result(result_type):
+    """
+Filters students based on their result.
+
+It returns either PASS students or FAIL students
+depending on the input provided.
+
+Args:
+    result_type (str): PASS or FAIL
+
+Returns:
+    list: filtered student list
+"""
     """
     result_type should be "PASS" or "FAIL"
     """
@@ -301,7 +494,7 @@ def filter_by_result(result_type):
     if not filtered_students:
         return {"status": f"no students with result {result_type}"}
 
-    return filtered_students     
+    return filtered_students      
  
 
 

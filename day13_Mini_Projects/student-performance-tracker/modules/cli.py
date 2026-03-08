@@ -1,3 +1,14 @@
+"""
+cli.py
+
+Implements the command line interface for the
+Student Performance Tracker system.
+
+This module displays the interactive menu and
+connects user inputs with the appropriate
+functions from other modules such as student
+management, analytics, visualization, and exports.
+"""
 from modules.student import add_student,view_student,edit_student,delete_student
 from modules.analytics import rank_students,class_average,subject_topper,overall_topper,section_average,section_topper,top_n_students,filter_by_result,filter_by_section
 from modules.export import export_leaderboard
@@ -209,8 +220,8 @@ def menu():
 
     else:
 
-        print("invalid option")   
-                   
+        print("invalid option")    
+
     
         
     

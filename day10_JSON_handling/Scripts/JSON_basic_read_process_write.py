@@ -6,6 +6,8 @@ with open("day10_JSON_handling/Data/students.json","r") as f:
         data['age']=int(data['age'])+5
     with open("day10_JSON_handling/Data/output.json","w") as file:
         json.dump(json_reader,file,indent=4)
+
+    
     
     
 

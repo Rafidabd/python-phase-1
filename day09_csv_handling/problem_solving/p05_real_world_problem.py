@@ -48,7 +48,7 @@ with open("day09_csv_handling/data_files/students_summary.csv", "w", newline="")
             for row in reader:
                 if row["id"] == sid:
                     name = row["name"]
-                    break  # first occurrence only
+                    break  # first occurrence only.then it will go out of the loop
 
         csv_writer.writerow({
             "id": sid,

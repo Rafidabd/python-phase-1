@@ -13,12 +13,12 @@ true / false   True / False
 null	          None
 """
 import json
-# with open ("day10_JSON_handling/Data/students.json") as f:
-#     data=json.load(f)    ##Now json file-------->Python
-#     print(data)
-#     print(type(data))
-#     #Accesing the Data:
-#     print(data[0]['scores']['cs'])  #First list index,then dictionaries inside.
+with open ("day10_JSON_handling/Data/students.json") as f:
+    data=json.load(f)    ##Now json file-------->Python
+    print(data)
+    print(type(data))
+    #Accesing the Data:
+    print(data[0]['scores']['cs'])  #First list index,then dictionaries inside.
 
 
 #----------------------------------------#

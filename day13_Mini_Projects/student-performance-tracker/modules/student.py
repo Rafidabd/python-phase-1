@@ -1,3 +1,15 @@
+"""
+student.py
+
+Contains all student management operations.
+
+This module handles core CRUD functionality:
+adding students, viewing student records,
+editing student details, and deleting students.
+
+It also validates input data using the rules
+defined in the configuration file.
+"""
 from modules.storage import load_data,save_data 
 from modules.config_loader import load_config
 from modules.analytics import total_mark_calculator,average_mark_calculator,grade_calculator,pass_fail_determiner
@@ -5,7 +17,29 @@ from modules.analytics import total_mark_calculator,average_mark_calculator,grad
 
 
 
-def add_student(sid,name,section,mark_dict):
+def add_student(sid, name, section, mark_dict):
+    """
+    Adds a new student to the system.
+
+    The function checks several things before adding:
+    - student ID must be unique.
+    - section must exist in config.
+    - subjects must match the configured subjects 
+    - marks must be within the allowed range.range is checked.
+
+    If everything is valid, the student record
+    is saved to the JSON database.
+
+    Args to be provided:
+        sid (str): student ID
+        name (str): student name
+        section (str): section name
+        mark_dict (dict): dictionary of subject marks.
+
+    Returns:
+        dict: status message indicating success or error 
+    """
+    
     config=load_config()
     
     
@@ -61,6 +95,26 @@ def add_student(sid,name,section,mark_dict):
         
         
 def view_student(student_id):
+    """
+    Retrieves a full report of a student.
+
+    The report includes:
+    - basic information
+    - subject marks
+    - total marks
+    - average marks
+    - pass/fail result
+    - grade
+
+    If the student ID does not exist,
+    an error message is returned rather than crashing..
+
+    Args to be provided:
+        student_id (str): ID of the student 
+
+    Returns:
+        dict: detailed student report 
+    """
     data=load_data()
     config=load_config()
     if student_id not in data:
@@ -99,6 +153,22 @@ def view_student(student_id):
 
 
 def edit_student(sid,name,section,mark_dict):
+     """
+    Updates the information of an existing student.
+
+    The function performs the same validations
+    as add_student to ensure the updated data
+    follows the system rules.
+
+    Args provided:
+        sid (str): student ID
+        name (str): updated name
+        section (str): updated section
+        mark_dict (dict): updated marks 
+
+    Returns:
+        dict: status message indicating success or error.
+    """
      data=load_data()
      config=load_config()
      if not sid or not name or not section:
@@ -134,6 +204,19 @@ def edit_student(sid,name,section,mark_dict):
      return {"status":"success"}   
 
 def delete_student(sid):
+    """
+    Removes a student from the database.
+
+    If the given student ID exists, the record
+    is deleted and the updated data is saved.
+    Otherwise an error message is returned.
+
+    Args provided:
+        sid (str): student ID
+
+    Returns:
+        dict: status message .
+    """
     data = load_data()
 
     if sid not in data:
@@ -142,7 +225,7 @@ def delete_student(sid):
     del data[sid]
     save_data(data)
 
-    return {"status": "success"}  
+    return {"status": "success"}    
  
      
      

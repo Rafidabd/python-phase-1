@@ -1,6 +1,17 @@
+"""
+visualize.py
+
+Generates graphical visualizations of student data.
+
+This module uses matplotlib to create charts such as
+top performer charts, pass/fail analysis, section
+comparisons, and grade distributions.
+
+All generated charts are saved inside the Reports folder.
+"""
 from modules.analytics import rank_students,pass_fail_determiner,section_average,grade_calculator,average_mark_calculator,total_mark_calculator
 from modules.storage import load_data 
-import matplotlib.pyplot as plt
+import  matplotlib.pyplot as plt 
 from modules.config_loader import load_config
 from pathlib import Path
 from modules.utils import ensure_reports_folder
