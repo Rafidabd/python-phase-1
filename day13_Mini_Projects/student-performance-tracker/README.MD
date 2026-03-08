@@ -156,19 +156,19 @@ The program can also generate bar charts showing top performers and other statis
 
 **Top performing students:
 
-[Top Students](Reports/top_performers.png)
+[Top Students](Reports/top5_students.png)
 
 **Pass vs Fail distribution:
 
-![Pass Fail](Reports/pass_fail.png)
+![Pass Fail](Reports/pass_fail_analysis.png)
 
 **Section comparison:
 
-![Section Comparison](Reports/section_comparison.png)
+![Section Comparison](Reports/section_wise_analysis.png)
 
 **Grade distribution:
 
-![Grades](Reports/grade_distribution.png)
+![Grades](Reports/grade_distribution.png) 
 
 
 ## What I Learned
@@ -195,4 +195,4 @@ Some ideas I might explore later:
 * building a web version
 * adding more advanced analytics
 
-For now, this project mainly served as a learning experience while practicing Python programming. 
+For now, this project mainly served as a learning experience while practicing Python programming.  
