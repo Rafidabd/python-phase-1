@@ -13,7 +13,7 @@ It’s still a simple CLI application, but building it helped me understand how 
 ---
 ## Project Demo
 
-![Demo](Demo/Demo_project.gif) 
+![Demo](./Demo/Demo_project.gif) 
 
 
 ## Features
