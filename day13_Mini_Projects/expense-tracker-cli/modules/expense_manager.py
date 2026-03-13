@@ -26,6 +26,30 @@ def get_all_expenses():
     expenses=load_expenses()
     return expenses 
 
+def delete_expense(expense_id):
+
+    expenses = load_expenses()
+
+    for expense in expenses:
+        if expense["id"] == expense_id:
+            expenses.remove(expense)
+            save_expenses(expenses)
+
+            return {
+                "status": "success",
+                "message": f"Expense {expense_id} deleted successfully"
+            }
+
+    return {
+        "status": "error",
+        "message": "Expense ID not found"
+    } 
+    
+
+
+
+
+
 
 
    
