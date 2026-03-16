@@ -95,4 +95,4 @@ def menu():
 
         else:
 
-            print("Invalid option.") 
+            print("Invalid option.please choose properly from the menu")  
