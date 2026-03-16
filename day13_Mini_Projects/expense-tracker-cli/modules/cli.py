@@ -34,6 +34,7 @@ def menu():
         elif choice == "2":
 
             expenses = get_all_expenses()
+
             display_expenses(expenses)
 
 
@@ -50,11 +51,8 @@ def menu():
                 print(result["status"])
                 print(result["message"])
 
-            elif confirmation == "n":
-                print("Deletion cancelled.")
-
             else:
-                print("Please enter y or n.")
+                print("Deletion cancelled.")
 
 
         elif choice == "4":
@@ -96,4 +94,5 @@ def menu():
             break
 
         else:
+
             print("Invalid option.") 

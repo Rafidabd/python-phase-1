@@ -38,16 +38,12 @@ def filter_by_category(expenses, category):
             "message": "Invalid category"
         }
 
-    filtered_expenses = []
+    filtered = []
 
     for expense in expenses:
         if expense["category"] == category:
-            filtered_expenses.append(expense)
+            filtered.append(expense)
 
-    return filtered_expenses  
-            
-    
-    
-
+    return filtered 
 
 
