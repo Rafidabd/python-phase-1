@@ -180,6 +180,15 @@ While building this project I focused on improving:
 It also helped me understand why **clean architecture matters**, even for small programs.
 
 ---
+## Screenshots
+### CLI Menu
+![Menu](assets/menu.png)
+
+### Expense Records
+![Expenses](assets/expenses.png)
+
+### Category Analytics
+![Analytics](assets/analytics.png)
 
 # Final Thoughts
 
@@ -191,4 +200,11 @@ The next step for me is to build **larger and more ambitious projects**, especia
 
 If you're reading this and have suggestions or feedback, I'd genuinely appreciate it.
 
-— Rafid
+— Rafid 
+
+
+
+
+
+
+

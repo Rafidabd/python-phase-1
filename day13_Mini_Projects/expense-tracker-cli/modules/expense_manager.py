@@ -1,5 +1,6 @@
 from modules.storage import load_expenses, save_expenses, generate_expense_id
 from modules.config_loader import load_config
+from datetime import datetime
 
 
 def add_expense(title, amount, category, date):
@@ -9,18 +10,42 @@ def add_expense(title, amount, category, date):
     config = load_config()
     categories = config["categories"]
 
+    # Title validation
     if not title:
-        return {"status": "error", "message": "Title cannot be empty"}
+        return {
+            "status": "error",
+            "message": "Title cannot be empty"
+        }
 
+    # Amount validation
     try:
         amount = int(amount)
         if amount <= 0:
-            return {"status": "error", "message": "Amount must be greater than 0"}
-    except:
-        return {"status": "error", "message": "Invalid amount"}
+            return {
+                "status": "error",
+                "message": "Amount must be greater than 0"
+            }
+    except ValueError:
+        return {
+            "status": "error",
+            "message": "Invalid amount"
+        }
 
+    # Category validation
     if category not in categories:
-        return {"status": "error", "message": "Invalid category"}
+        return {
+            "status": "error",
+            "message": "Invalid category"
+        }
+
+    # Date validation (YYYY-MM-DD)
+    try:
+        datetime.strptime(date, "%Y-%m-%d") 
+    except ValueError:
+        return {
+            "status": "error",
+            "message": "Invalid date format. Use YYYY-MM-DD"
+        }
 
     expense_id = generate_expense_id(expenses)
 
@@ -67,10 +92,7 @@ def delete_expense(expense_id):
     return {
         "status": "error",
         "message": "Expense ID not found"
-    } 
-
-
-
+    }
 
 
 

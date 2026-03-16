@@ -3,7 +3,7 @@ from pathlib import Path
 
 
 # Loading the path 
-EXPENSE_FILE = Path("data/expenses.json")
+EXPENSE_FILE = Path("day13_Mini_Projects/expense-tracker-cli/data/expenses.json")
 
 def load_expenses():
     
