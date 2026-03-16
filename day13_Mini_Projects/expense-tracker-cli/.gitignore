@@ -1,5 +1,8 @@
 __pycache__/
 *.pyc
-data/expenses.json 
+*.pyo
+*.pyd
+.env
+data/expenses.json  
 
 
