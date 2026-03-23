@@ -8,6 +8,27 @@
     "Biology",
     "ICT"
   ],
+  "boards": [
+    "Dhaka",
+    "Rajshahi",
+    "Cumilla",
+    "Jashore",
+    "Chattogram",
+    "Barishal",
+    "Sylhet",
+    "Dinajpur",
+    "Mymensingh",
+    "Madrasah",
+    "Technical"
+  ],
+  "dataset_types": [
+    "internal",
+    "board"
+  ],
+  "mark_limits": {
+    "min": 0,
+    "max": 100
+  },
   "grading_scale": [
     { "min": 80, "grade": "A+", "gpa": 5.0 },
     { "min": 70, "grade": "A", "gpa": 4.0 },
@@ -26,9 +47,5 @@
     "min_gpa": 2.5,
     "decline_count": 2,
     "weak_subject_threshold": 2
-  },
-  "dataset_types": [
-    "internal",
-    "board"
-  ]
+  }
 } 

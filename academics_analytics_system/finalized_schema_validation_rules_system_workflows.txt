@@ -1,0 +1,114 @@
+DATA DESIGN & RULES (FINALIZED)
+
+STUDENT SCHEMA:
+Each student must contain:
+- id (integer, globally unique system ID)
+- name (formatted, non-empty)
+- institution (non-empty)
+- section (non-empty)
+- board (must match config boards)
+- batch (integer)
+- class_roll (integer, required)
+- board_roll (optional)
+- board_registration (optional)
+
+STUDENT RULES:
+- id must be unique across the system
+- class_roll must be unique within same institution + section + batch
+- board must be validated against config
+- no empty required fields allowed
+
+----------------------------------------
+
+DATASET SCHEMA:
+Each dataset must contain:
+- exam_name (string, unique)
+- type ("internal" or "board")
+- institution (required for internal, null for board)
+- board (required for board, null for internal)
+- batch (integer)
+- records (list)
+
+Each record must contain:
+- student_id (must exist in students.json)
+- marks (object with all subjects)
+
+----------------------------------------
+
+DATASET RULES:
+- exam_name must be unique (should include institution + exam context)
+- dataset type must match config (internal/board)
+- one student can appear only once per dataset
+- student can appear across multiple datasets (internal + board allowed)
+- institution required for internal datasets
+- board required for board datasets
+
+----------------------------------------
+
+MARKS RULES:
+- all configured subjects must be present
+- no extra subjects allowed
+- marks must be numeric
+- marks must be within config-defined limits (e.g., 0–100)
+
+----------------------------------------
+
+DELETION POLICY:
+- student deletion is blocked if any record exists in datasets
+
+----------------------------------------
+
+CONFIG USAGE:
+- subjects, boards, dataset types, grading, limits all controlled via config
+- system behavior must adapt if config changes
+- config must be accessed consistently across modules
+
+----------------------------------------
+
+MODULE RESPONSIBILITIES:
+
+student_manager:
+- add student
+- update student
+- delete student (with validation)
+- get student
+- enforce student rules
+
+dataset_manager:
+- create dataset
+- add student record
+- retrieve datasets
+- enforce dataset + record rules
+
+helpers:
+- reusable validation (marks, subjects, formatting)
+
+storage:
+- only load/save JSON (no logic)
+
+----------------------------------------
+
+CORE WORKFLOWS:
+
+Add Student:
+- load students
+- validate fields
+- check duplicate id
+- check class_roll uniqueness
+- save
+
+Create Dataset:
+- load datasets
+- validate name + type
+- save empty dataset
+
+Add Record:
+- load config, students, datasets
+- validate student exists
+- validate dataset exists
+- validate subjects + marks
+- ensure no duplicate record
+- save
+
+----------------------------------------   
+
