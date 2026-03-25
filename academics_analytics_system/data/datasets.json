@@ -1,3 +1,58 @@
 {
-  "datasets": []
-} 
+    "datasets": [
+        {
+            "exam_name": "Notre Dame College Midterm 2025",
+            "type": "internal",
+            "institution": "Notre Dame College",
+            "board": null,
+            "batch": 2026,
+            "records": [
+                {
+                    "student_id": 101,
+                    "marks": {
+                        "Bangla": 89,
+                        "English": 90,
+                        "Math": 100,
+                        "Physics": 100,
+                        "Chemistry": 100,
+                        "Biology": 99,
+                        "ICT": 100
+                    }
+                },
+                {
+                    "student_id": 102,
+                    "marks": {
+                        "Bangla": 82,
+                        "English": 79,
+                        "Math": 91,
+                        "Physics": 87,
+                        "Chemistry": 84,
+                        "Biology": 80,
+                        "ICT": 88
+                    }
+                }
+            ]
+        },
+        {
+            "exam_name": "HSC Board 2026",
+            "type": "board",
+            "institution": null,
+            "board": "Dhaka",
+            "batch": 2026,
+            "records": [
+                {
+                    "student_id": 101,
+                    "marks": {
+                        "Bangla": 78,
+                        "English": 74,
+                        "Math": 88,
+                        "Physics": 85,
+                        "Chemistry": 81,
+                        "Biology": 76,
+                        "ICT": 90
+                    }
+                }
+            ]
+        }
+    ]
+}

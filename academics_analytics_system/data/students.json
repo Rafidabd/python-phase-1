@@ -1,3 +1,48 @@
 {
-  "students": []
-} 
+    "students": [
+        {
+            "id": 101,
+            "name": "Rafid Abdullah",
+            "institution": "Notre Dame College",
+            "section": "Science-A",
+            "board": "Dhaka",
+            "batch": 2026,
+            "class_roll": 1,
+            "board_roll": null,
+            "board_registration": null
+        },
+        {
+            "id": 102,
+            "name": "Tamim Abdullah",
+            "institution": "Notre Dame College",
+            "section": "Science-A",
+            "board": "Dhaka",
+            "batch": 2026,
+            "class_roll": 7,
+            "board_roll": null,
+            "board_registration": null
+        },
+        {
+            "id": 104,
+            "name": "Abrar Ahmed",
+            "institution": "Dhaka College",
+            "section": "Science-B",
+            "board": "Dhaka",
+            "batch": 2026,
+            "class_roll": 9,
+            "board_roll": 12093183,
+            "board_registration": 1341911313
+        },
+        {
+            "id": 105,
+            "name": "Hasnin Jahan Masfi",
+            "institution": "Dinajpur Government College",
+            "section": "Science-A",
+            "board": "Dinajpur",
+            "batch": 2026,
+            "class_roll": 1,
+            "board_roll": null,
+            "board_registration": null
+        }
+    ]
+}
