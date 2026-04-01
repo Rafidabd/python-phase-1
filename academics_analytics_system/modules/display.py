@@ -122,6 +122,139 @@ def display_all_datasets(datasets):
         print(f"{'Record Count':<20}: {len(dataset['records'])}")
         print()
 
+
+def display_dataset_statistics(statistics):
+    if not statistics:
+        print("No Dataset Statistics available")
+        return
+    print("==========Dataset Statistics==========")
+    print("-" * 40)
+    print(f"{'Total Students':<20}: {statistics['student_count']}")
+    print(f"{'Mean Total Marks':<20}: {statistics['dataset_mean_total']}")
+    print(f"{'Mean Average Marks':<20}: {statistics['dataset_mean_average']}")
+    print(f"{'Mean GPA':<20}: {statistics['mean_gpa']}")
+    print(f"{'Highest Total':<20}: {statistics['highest_total']}")
+    print(f"{'Lowest Total':<20}: {statistics['lowest_total']}")
+    print()
+    
+ 
+
+def display_subject_averages(subject_averages):
+    if not subject_averages:
+        print("No Subject average data available")
+        return
+    print("==========Subject Averages==========")
+    print("-" * 40)
+    for subject,mark in subject_averages.items():
+        print(f"{subject:<20}: {mark}")
+
+        
+    print()
+
+
+
+def display_single_subject_insight(title,subject_name):
+    if not subject_name:
+        print(f"{title:<20}: {'Not Available'}")
+        print()
+        return
+
+    print(f"{title:<20}: {subject_name}")
+    print()
+
+
+
+def display_student_evaluation(student_record):
+    if not student_record:
+        print("No Student Record Available")
+        return
+    print("--- Student Evaluation ---")
+     
+    
+    print()
+    print(f"{'Student ID':<20}: {student_record['student_id']}")
+    print(f"{'Total Marks':<20}: {student_record['total']}")
+    print(f"{'Average Marks':<20}: {student_record['average']}")
+    print(f"{'GPA':<20}: {student_record['gpa']}") 
+    print(f"{'Performance':<20}: {student_record['performance']}")
+    print(f"{'Strongest Subject':<20}: {student_record['strongest_subject']}")
+    print(f"{'Weakest Subject':<20}: {student_record['weakest_subject']}")
+    print(f"{'Weak Subject Count':<20}: {student_record['weak_subject_count']}") 
+    weak_subjects = student_record["weak_subjects"]
+    weak_subjects_string = ", ".join(weak_subjects) if weak_subjects else "None"
+    
+    print(f"{'Weak Subjects':<20}: {weak_subjects_string}") 
+    print()
+    print("--- Subject Grades ---")
+    for subject,status in student_record["subject_grades"].items():
+        print(f"{subject:<20}: {status['grade']} (GPA: {status['gpa']})")
+    print() 
+
+    
+
+def display_ranked_students(ranked_students):
+    if not ranked_students:
+        print("No Ranking data available")
+        return
+    else:
+         print("--- Ranked Students ---")
+         print()
+         print(f"{'Rank':>6} {'Student ID':>8} {'Total':>8} {'Average':>8} {'GPA':>8} {'Performance':<20} ") 
+         print("---------------------------------------------")
+         for student in ranked_students:
+             stu_rank=student["rank"]
+             sid=student["student_id"]
+             total=student["total"]
+             average=student["average"]
+             gpa=student["gpa"]
+             performance=student["performance"]
+             print(f"{stu_rank:>6} {sid:>8} {total:>8} {average:>8} {gpa:>8} {performance:<20} ") 
+         print() 
+
+
+def display_weak_students(weak_students):
+    if not weak_students:
+        print("No Weak student found")
+        return
+    else:
+         print("--- Weak Students ---")
+         print()
+         print(f"{'Student ID':>8} {'Average':>8} {'GPA':>8} {'Weak Subject Count':>20} {'Performance':<20} ") 
+         print("---------------------------------------------")
+         for student in weak_students:
+             
+             sid=student["student_id"]
+             average=student["average"]
+             gpa=student["gpa"]
+             weak_subj_count=student["weak_subject_count"]
+             performance=student["performance"]
+             print(f"{sid:>8} {average:>8} {gpa:>8} {weak_subj_count:>20} {performance:<20} ") 
+             weak_subjects = student["weak_subjects"]
+             weak_subjects_string = ", ".join(weak_subjects) if weak_subjects else "None"
+             weak_subjects_string = ", ".join(weak_subjects)
+             print(f"{'Weak Subjects':<20}: {weak_subjects_string}") 
+
+         print() 
+
+
+
+
+
+
+
+
+
+
+        
+
+
+    
+    
+
+    
+    
+
+
      
 
 
