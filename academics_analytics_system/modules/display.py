@@ -6,7 +6,8 @@ def show_main_menu():
      print("\n1.Student Management")
      print("2.Dataset Management")
      print("3.View Data")
-     print("4.Exit")
+     print("4.Analytics")
+     print("5.Exit")
      
 
 

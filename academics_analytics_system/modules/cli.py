@@ -2,6 +2,27 @@ from modules.display import show_main_menu,show_dataset_menu,show_student_menu,s
 from modules.student_manager import add_student,update_student,delete_student,get_all_students
 from modules.dataset_manager import create_dataset,add_student_record,get_all_datasets,get_student_by_id,get_dataset_by_name
 from modules.config_loader import load_config
+from modules.analytics import (
+    rank_students,
+    get_topper,
+    get_lowest_performer,
+    get_weak_students,
+    get_dataset_statistics,
+    get_subject_averages,
+    get_strongest_subject_overall,
+    get_weakest_subject_overall,
+    evaluate_student_record
+)
+
+from modules.display import (
+    show_message,
+    display_ranked_students,
+    display_dataset_statistics,
+    display_subject_averages,
+    display_single_subject_insight,
+    display_weak_students,
+    display_student_evaluation
+)
 def student_menu():
     while True:
         show_student_menu()
@@ -227,6 +248,117 @@ def view_menu():
         else:
             print("Invalid choice")
 
+def get_dataset_input():
+    exam_name = input("Enter dataset/exam name: ")
+    dataset = get_dataset_by_name(exam_name)
+
+    if not dataset:
+        print("Dataset not found.")
+        return None
+
+    return dataset
+
+def get_student_record_from_dataset(dataset, student_id):
+    for record in dataset.get("records", []):
+        if str(record["student_id"]) == str(student_id):
+            return record
+    return None 
+    
+         
+         
+
+
+def analytics_menu():
+    config = load_config()
+
+    while True:
+        print("========== Analytics Menu ==========")
+        print("1. Rank Students in Dataset")
+        print("2. Show Top Performer")
+        print("3. Show Lowest Performer")
+        print("4. Show Weak Students")
+        print("5. Show Dataset Statistics")
+        print("6. Show Subject Averages")
+        print("7. Show Strongest Subject Overall")
+        print("8. Show Weakest Subject Overall")
+        print("9. Evaluate Student in Dataset")
+        print("10. Back")
+
+        choice = input("Enter your choice: ")
+
+        if choice == "1":
+            dataset = get_dataset_input()
+            if dataset:
+                ranked_students = rank_students(dataset, config)
+                display_ranked_students(ranked_students)
+        elif choice=="2":
+           dataset = get_dataset_input()
+           if dataset:
+              topper_info=get_topper(dataset,config)
+              print("---Top Peformer---")
+              display_student_evaluation(topper_info)
+        
+                
+           
+        
+
+        elif choice=="3":
+           dataset = get_dataset_input()
+           if dataset:
+              weakest_student_info=get_lowest_performer(dataset,config)
+              print("---Lowest Peformer---")
+              display_student_evaluation(weakest_student_info) 
+           
+        elif choice=="4":
+           dataset = get_dataset_input()
+           if dataset:
+              weak_students_info=get_weak_students(dataset,config)
+              display_weak_students(weak_students_info)  
+           
+           
+        elif choice=="5":
+           dataset = get_dataset_input()
+           if dataset:
+              dataset_statistics=get_dataset_statistics(dataset,config)
+              display_dataset_statistics(dataset_statistics)   
+           
+           
+        elif choice=="6":
+           dataset = get_dataset_input()
+           if dataset:
+              subject_average=get_subject_averages(dataset)
+              display_subject_averages(subject_average)   
+           
+        elif choice=="7":
+           dataset = get_dataset_input()
+           if dataset:
+              strongest_subject=get_strongest_subject_overall(dataset)
+              display_single_subject_insight("Strongest Subject Overall", strongest_subject)
+           
+        
+        elif choice=="8":
+           dataset = get_dataset_input()
+           if dataset:
+              weakest_subject=get_weakest_subject_overall(dataset)
+              display_single_subject_insight("Weakest Subject Overall", weakest_subject) 
+           
+           
+        elif choice=="9":
+            dataset = get_dataset_input()
+            if dataset:
+                student_id = input("Student ID: ").strip()
+                student_record = get_student_record_from_dataset(dataset, student_id)
+
+                if not student_record:
+                    print("Student not found in this dataset.")
+                else:
+                    evaluated_student = evaluate_student_record(student_record, config)
+                    display_student_evaluation(evaluated_student) 
+        elif choice == "10":
+               break
+        else:
+            print("Invalid option.")  
+
 
 
 def run_cli():
@@ -241,10 +373,13 @@ def run_cli():
         elif choice == "3":
             view_menu()
         elif choice == "4":
+           analytics_menu()
+           
+        elif choice == "5":
             print("Exiting...")
             break
         else:
-            print("Invalid choice") 
+            print("Invalid choice")   
 
 
     
