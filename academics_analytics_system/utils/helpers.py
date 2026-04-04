@@ -1,6 +1,10 @@
 """
 Reusable helper functions for validation, formatting, and utilities.
+
+
 """ 
+
+from datetime import datetime
 
 def is_valid_int(value, field_name="Value"):
     if isinstance(value, bool):
@@ -149,6 +153,28 @@ def find_dataset_by_name(datasets, exam_name):
         if dataset["exam_name"].strip().lower() == exam_name.strip().lower():
             return dataset
     return None 
+
+
+
+def is_valid_exam_date(exam_date):
+    if not isinstance(exam_date, str) or not exam_date.strip():
+        return {
+            "status": "error",
+            "message": "Exam date cannot be empty."
+        }
+
+    exam_date = exam_date.strip()
+
+    try:
+        datetime.strptime(exam_date, "%Y-%m-%d")
+        return {
+            "status": "success"
+        }
+    except ValueError:
+        return {
+            "status": "error",
+            "message": "Exam date must be in YYYY-MM-DD format and be a valid calendar date."
+        } 
 
 
 

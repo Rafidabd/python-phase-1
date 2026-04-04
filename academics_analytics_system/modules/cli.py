@@ -163,6 +163,7 @@ def dataset_menu():
 
         if choice == "1":
             exam_name = input("Exam Name: ").strip()
+            exam_date = input("Exam Date (YYYY-MM-DD): ").strip()
             dataset_type = input("Dataset Type: ").strip().lower()
 
             try:
@@ -181,7 +182,7 @@ def dataset_menu():
                 print("Invalid dataset type. Use internal or board.")
                 continue
 
-            creating_dataset = create_dataset(exam_name, dataset_type, institution, board, batch)
+            creating_dataset = create_dataset(exam_name, exam_date, dataset_type, institution, board, batch)
             show_message(creating_dataset)
 
         elif choice == "2":
@@ -217,7 +218,10 @@ def dataset_menu():
             break
 
         else:
-            print("Invalid choice") 
+            print("Invalid choice")
+
+
+
 def view_menu():
     while True:
         show_view_menu()

@@ -5,7 +5,7 @@ from utils.helpers import (
     find_dataset_by_name,
     is_valid_int,
     is_valid_str,
-    validate_board,validate_marks_range,validate_subjects
+    validate_board,validate_marks_range,validate_subjects,is_valid_exam_date
 )
 
 from pathlib import Path
@@ -25,7 +25,7 @@ def get_dataset_by_name(exam_name):
     return dataset
 
 
-def create_dataset(exam_name, dataset_type, institution, board, batch):
+def create_dataset(exam_name,exam_date, dataset_type, institution, board, batch):
     config = load_config()
     allowed_types = config["dataset_types"]
     allowed_boards=config["boards"]
@@ -36,6 +36,7 @@ def create_dataset(exam_name, dataset_type, institution, board, batch):
     name_validation = is_valid_str(exam_name, "Exam name")
     type_validation = is_valid_str(dataset_type, "Dataset type")
     batch_validation = is_valid_int(batch, "Batch")
+    date_validation = is_valid_exam_date(exam_date)
 
     if name_validation["status"] == "error":
         return name_validation
@@ -43,6 +44,12 @@ def create_dataset(exam_name, dataset_type, institution, board, batch):
         return type_validation
     if batch_validation["status"] == "error":
         return batch_validation
+    if date_validation["status"] == "error":
+        return date_validation
+    exam_name = exam_name.strip()
+    exam_date = exam_date.strip()
+    dataset_type = dataset_type.strip().lower()
+    
 
     for dataset in datasets:
         if dataset["exam_name"].strip().lower() == exam_name.strip().lower():
@@ -91,6 +98,7 @@ def create_dataset(exam_name, dataset_type, institution, board, batch):
 
     dataset_dict = {
         "exam_name": exam_name.strip(),
+        "exam_date": exam_date.strip(),
         "type": dataset_type.strip(),
         "institution": institution,
         "board": board,
@@ -104,9 +112,9 @@ def create_dataset(exam_name, dataset_type, institution, board, batch):
     return {
         "status": "success",
         "message": "Dataset created successfully."
-    }
-             
+    }  
                  
+
 def add_student_record(exam_name, student_id, marks):
     loaded_datasets = load_json(datasets_file_path)
     datasets = loaded_datasets["datasets"]
