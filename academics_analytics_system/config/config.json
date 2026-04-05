@@ -59,5 +59,20 @@
     "weak_subject_mark": 40,
     "max_weak_subjects": 2,
     "decline_count": 2
+  } 
+  , "trend_thresholds": {
+  "average": {
+    "decline_margin": -5,
+    "improvement_margin": 5
+  },
+  "gpa": {
+    "decline_margin": -0.5,
+    "improvement_margin": 0.5
+  },
+  "weak_subject_count": {
+    "decline_margin": 1,
+    "improvement_margin": -1
   }
+}
+
 } 
