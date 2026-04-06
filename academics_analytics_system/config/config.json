@@ -8,6 +8,7 @@
     "Biology",
     "ICT"
   ],
+
   "boards": [
     "Dhaka",
     "Rajshahi",
@@ -21,14 +22,17 @@
     "Madrasah",
     "Technical"
   ],
+
   "dataset_types": [
     "internal",
     "board"
   ],
+
   "mark_limits": {
     "min": 0,
     "max": 100
   },
+
   "grading_scale": [
     { "min": 80, "grade": "A+", "gpa": 5.0 },
     { "min": 70, "grade": "A", "gpa": 4.0 },
@@ -38,41 +42,81 @@
     { "min": 33, "grade": "D", "gpa": 1.0 },
     { "min": 0, "grade": "F", "gpa": 0.0 }
   ],
+
   "performance_levels": {
     "excellent": 80,
     "good": 65,
     "average": 50,
     "poor": 0
   },
+
   "ranking_criteria": {
     "primary": "total",
     "secondary": "average",
     "tertiary": "gpa"
   },
+
   "prediction_weights": {
     "recent": 0.5,
     "average": 0.3,
     "trend": 0.2
   },
+
+  "prediction_rules": {
+    "min_datasets_required": 2
+  },
+
+  "trend_thresholds": {
+    "average": {
+      "decline_margin": -5,
+      "improvement_margin": 5
+    },
+    "gpa": {
+      "decline_margin": -0.5,
+      "improvement_margin": 0.5
+    },
+    "weak_subject_count": {
+      "decline_margin": 1,
+      "improvement_margin": -1
+    }
+  },
+
   "risk_rules": {
     "min_gpa": 2.5,
     "weak_subject_mark": 40,
     "max_weak_subjects": 2,
     "decline_count": 2
-  } 
-  , "trend_thresholds": {
-  "average": {
-    "decline_margin": -5,
-    "improvement_margin": 5
   },
-  "gpa": {
-    "decline_margin": -0.5,
-    "improvement_margin": 0.5
-  },
-  "weak_subject_count": {
-    "decline_margin": 1,
-    "improvement_margin": -1
-  }
-}
 
+  "risk_scoring": {
+    "low_gpa": 2,
+    "high_weak_subject_burden": 2,
+    "declining_average_trend": 1,
+    "declining_gpa_trend": 1,
+    "worsening_weak_subject_trend": 1,
+    "overall_declining_trend": 2,
+    "repeated_decline": 2
+  },
+
+  "risk_levels": {
+    "low": {
+      "min_score": 0,
+      "max_score": 1
+    },
+    "moderate": {
+      "min_score": 2,
+      "max_score": 3
+    },
+    "high": {
+      "min_score": 4,
+      "max_score": 999
+    }
+  },
+
+  "risk_policies": {
+    "at_risk_levels": [
+      "moderate",
+      "high"
+    ]
+  }
 } 
