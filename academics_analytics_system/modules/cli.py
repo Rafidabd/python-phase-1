@@ -13,6 +13,24 @@ from modules.analytics import (
     get_weakest_subject_overall,
     evaluate_student_record
 )
+from modules.predictor import (
+    get_student_academic_history,
+    build_student_performance_series,
+    analyze_student_trend,
+    analyze_student_risk,
+    predict_student_performance,
+    
+)
+from modules.insights import generate_student_insights
+
+from modules.display import (
+    display_student_academic_history,
+    display_student_performance_series,
+    display_student_trend,
+    display_student_risk,
+    display_student_prediction,
+    display_student_insights,show_academic_intelligence_menu
+)
 
 from modules.display import (
     show_message,
@@ -252,6 +270,7 @@ def view_menu():
         else:
             print("Invalid choice")
 
+
 def get_dataset_input():
     exam_name = input("Enter dataset/exam name: ")
     dataset = get_dataset_by_name(exam_name)
@@ -364,6 +383,80 @@ def analytics_menu():
             print("Invalid option.")  
 
 
+def academic_intelligence_menu():
+    while True:
+        show_academic_intelligence_menu()
+        choice = input("Enter your choice: ")
+
+        if choice == "1":
+            try:
+                student_id = int(input("Student ID: ").strip())
+            except ValueError:
+                print("Invalid Value. Please enter an integer.")
+                continue
+
+            result = get_student_academic_history(student_id)
+            display_student_academic_history(result)
+
+        elif choice == "2":
+            try:
+                student_id = int(input("Student ID: ").strip())
+            except ValueError:
+                print("Invalid Value. Please enter an integer.")
+                continue
+
+            result = build_student_performance_series(student_id)
+            display_student_performance_series(result)
+
+        elif choice == "3":
+            try:
+                student_id = int(input("Student ID: ").strip())
+            except ValueError:
+                print("Invalid Value. Please enter an integer.")
+                continue
+
+            result = analyze_student_trend(student_id)
+            display_student_trend(result)
+
+        elif choice == "4":
+            try:
+                student_id = int(input("Student ID: ").strip())
+            except ValueError:
+                print("Invalid Value. Please enter an integer.")
+                continue
+
+            result = analyze_student_risk(student_id)
+            display_student_risk(result)
+
+        elif choice == "5":
+            try:
+                student_id = int(input("Student ID: ").strip())
+            except ValueError:
+                print("Invalid Value. Please enter an integer.")
+                continue
+
+            result = predict_student_performance(student_id)
+            display_student_prediction(result)
+
+        elif choice == "6":
+            try:
+                student_id = int(input("Student ID: ").strip())
+            except ValueError:
+                print("Invalid Value. Please enter an integer.")
+                continue
+
+            result = generate_student_insights(student_id)
+            display_student_insights(result)
+
+        elif choice == "7":
+            break
+
+        else:
+            print("Invalid choice")
+
+
+
+
 
 def run_cli():
     while True:
@@ -378,8 +471,10 @@ def run_cli():
             view_menu()
         elif choice == "4":
            analytics_menu()
-           
         elif choice == "5":
+           academic_intelligence_menu()
+           
+        elif choice == "6":
             print("Exiting...")
             break
         else:

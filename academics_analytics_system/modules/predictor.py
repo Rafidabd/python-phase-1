@@ -585,10 +585,12 @@ def finalize_prediction_outputs(predicted_average, predicted_gpa, predicted_weak
 
 
 def predict_student_performance(student_id):
-    performance_series=build_student_performance_series(student_id)
-    student_performance_series=performance_series["performance_series"]
-    if student_performance_series["status"]=="error":
-        return student_performance_series
+    performance_series = build_student_performance_series(student_id)
+
+    if performance_series["status"] == "error":
+      return performance_series
+
+    student_performance_series = performance_series["performance_series"]
     config=load_config()
     if len(student_performance_series)<config["prediction_rules"]["min_datasets_required"]:
         return {

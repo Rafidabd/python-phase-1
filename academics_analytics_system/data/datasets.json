@@ -1,58 +1,214 @@
 {
-    "datasets": [
+  "datasets": [
+    {
+      "exam_name": "NDC Monthly Test 1",
+      "exam_date": "2025-01-15",
+      "type": "internal",
+      "institution": "Notre Dame College",
+      "board": null,
+      "batch": 2026,
+      "records": [
         {
-            "exam_name": "Notre Dame College Midterm 2025",
-            "type": "internal",
-            "institution": "Notre Dame College",
-            "board": null,
-            "batch": 2026,
-            "records": [
-                {
-                    "student_id": 101,
-                    "marks": {
-                        "Bangla": 89,
-                        "English": 90,
-                        "Math": 100,
-                        "Physics": 100,
-                        "Chemistry": 100,
-                        "Biology": 99,
-                        "ICT": 100
-                    }
-                },
-                {
-                    "student_id": 102,
-                    "marks": {
-                        "Bangla": 82,
-                        "English": 79,
-                        "Math": 91,
-                        "Physics": 87,
-                        "Chemistry": 84,
-                        "Biology": 80,
-                        "ICT": 88
-                    }
-                }
-            ]
+          "student_id": 101,
+          "marks": {
+            "Bangla": 72,
+            "English": 75,
+            "Math": 80,
+            "Physics": 74,
+            "Chemistry": 70,
+            "Biology": 76,
+            "ICT": 82
+          }
         },
         {
-            "exam_name": "HSC Board 2026",
-            "type": "board",
-            "institution": null,
-            "board": "Dhaka",
-            "batch": 2026,
-            "records": [
-                {
-                    "student_id": 101,
-                    "marks": {
-                        "Bangla": 78,
-                        "English": 74,
-                        "Math": 88,
-                        "Physics": 85,
-                        "Chemistry": 81,
-                        "Biology": 76,
-                        "ICT": 90
-                    }
-                }
-            ]
+          "student_id": 102,
+          "marks": {
+            "Bangla": 58,
+            "English": 60,
+            "Math": 55,
+            "Physics": 52,
+            "Chemistry": 50,
+            "Biology": 57,
+            "ICT": 62
+          }
+        },
+        {
+          "student_id": 103,
+          "marks": {
+            "Bangla": 88,
+            "English": 85,
+            "Math": 92,
+            "Physics": 90,
+            "Chemistry": 87,
+            "Biology": 89,
+            "ICT": 94
+          }
+        },
+        {
+          "student_id": 104,
+          "marks": {
+            "Bangla": 42,
+            "English": 45,
+            "Math": 38,
+            "Physics": 35,
+            "Chemistry": 40,
+            "Biology": 44,
+            "ICT": 48
+          }
+        },
+        {
+          "student_id": 105,
+          "marks": {
+            "Bangla": 66,
+            "English": 64,
+            "Math": 68,
+            "Physics": 70,
+            "Chemistry": 65,
+            "Biology": 67,
+            "ICT": 72
+          }
         }
-    ]
-}
+      ]
+    },
+    {
+      "exam_name": "NDC Midterm 2025",
+      "exam_date": "2025-04-20",
+      "type": "internal",
+      "institution": "Notre Dame College",
+      "board": null,
+      "batch": 2026,
+      "records": [
+        {
+          "student_id": 101,
+          "marks": {
+            "Bangla": 78,
+            "English": 80,
+            "Math": 86,
+            "Physics": 82,
+            "Chemistry": 79,
+            "Biology": 81,
+            "ICT": 88
+          }
+        },
+        {
+          "student_id": 102,
+          "marks": {
+            "Bangla": 55,
+            "English": 58,
+            "Math": 53,
+            "Physics": 50,
+            "Chemistry": 48,
+            "Biology": 54,
+            "ICT": 60
+          }
+        },
+        {
+          "student_id": 103,
+          "marks": {
+            "Bangla": 90,
+            "English": 88,
+            "Math": 95,
+            "Physics": 93,
+            "Chemistry": 91,
+            "Biology": 90,
+            "ICT": 96
+          }
+        },
+        {
+          "student_id": 104,
+          "marks": {
+            "Bangla": 38,
+            "English": 40,
+            "Math": 35,
+            "Physics": 32,
+            "Chemistry": 36,
+            "Biology": 39,
+            "ICT": 44
+          }
+        },
+        {
+          "student_id": 105,
+          "marks": {
+            "Bangla": 68,
+            "English": 67,
+            "Math": 72,
+            "Physics": 74,
+            "Chemistry": 70,
+            "Biology": 71,
+            "ICT": 75
+          }
+        }
+      ]
+    },
+    {
+      "exam_name": "NDC Final 2025",
+      "exam_date": "2025-08-10",
+      "type": "internal",
+      "institution": "Notre Dame College",
+      "board": null,
+      "batch": 2026,
+      "records": [
+        {
+          "student_id": 101,
+          "marks": {
+            "Bangla": 82,
+            "English": 84,
+            "Math": 90,
+            "Physics": 86,
+            "Chemistry": 83,
+            "Biology": 85,
+            "ICT": 91
+          }
+        },
+        {
+          "student_id": 102,
+          "marks": {
+            "Bangla": 52,
+            "English": 54,
+            "Math": 50,
+            "Physics": 47,
+            "Chemistry": 45,
+            "Biology": 51,
+            "ICT": 58
+          }
+        },
+        {
+          "student_id": 103,
+          "marks": {
+            "Bangla": 92,
+            "English": 90,
+            "Math": 97,
+            "Physics": 95,
+            "Chemistry": 93,
+            "Biology": 94,
+            "ICT": 98
+          }
+        },
+        {
+          "student_id": 104,
+          "marks": {
+            "Bangla": 35,
+            "English": 36,
+            "Math": 30,
+            "Physics": 28,
+            "Chemistry": 32,
+            "Biology": 34,
+            "ICT": 40
+          }
+        },
+        {
+          "student_id": 105,
+          "marks": {
+            "Bangla": 72,
+            "English": 70,
+            "Math": 75,
+            "Physics": 78,
+            "Chemistry": 73,
+            "Biology": 74,
+            "ICT": 79
+          }
+        }
+      ]
+    }
+  ]
+} 
