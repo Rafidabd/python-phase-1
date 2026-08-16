@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Academic Analytics System</h1>
+
+<h2>Students</h2>
+
+{% if students %}
+
+<ul>
+    {% for student in students %}
+        <li>
+            {{ student["id"] }} -
+            {{ student["name"] }}
+        </li>
+    {% endfor %}
+</ul>
+
+{% else %}
+
+<p>No students found.</p>
+
+{% endif %}
+
+{% endblock %} 

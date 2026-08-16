@@ -370,5 +370,3 @@ def generate_student_insights(student_id):
 
     
     
-
-    

@@ -8,3 +8,8 @@ config_file_path = BASE_DIR / "config" / "config.json"
 
 def load_config():
     return load_json(config_file_path) 
+
+
+
+
+

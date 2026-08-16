@@ -175,13 +175,6 @@ def add_student_record(exam_name, student_id, marks):
     }  
 
 
-    
-            
-
-
-
-    
-
 
 
 
