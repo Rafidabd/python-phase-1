@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Datasets</h1>
+<a href="{{ url_for('create_dataset_page') }}">Create Dataset</a>
+
+{% if datasets %}
+
+    {% for dataset in datasets %}
+
+        <div>
+            <h2>
+    <a href="{{ url_for('dataset_detail', exam_name=dataset['exam_name']) }}">
+        {{ dataset["exam_name"] }}</a>
+            </h2> 
+
+            <p>Type: {{ dataset["type"] }}</p>
+            <p>Date: {{ dataset["exam_date"] }}</p>
+            <p>Batch: {{ dataset["batch"] }}</p>
+
+            {% if dataset["institution"] %}
+                <p>Institution: {{ dataset["institution"] }}</p>
+            {% endif %}
+
+            {% if dataset["board"] %}
+                <p>Board: {{ dataset["board"] }}</p>
+            {% endif %}
+
+            <p>Total Records: {{ dataset["records"]|length }}</p>
+
+        </div>
+
+        <hr>
+
+    {% endfor %}
+
+{% else %}
+
+    <p>No datasets found.</p>
+
+{% endif %}
+
+{% endblock %} 

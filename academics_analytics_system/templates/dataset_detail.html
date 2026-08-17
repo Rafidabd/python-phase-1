@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>{{ dataset["exam_name"] }}</h1>
+
+<p><strong>Date:</strong> {{ dataset["exam_date"] }}</p>
+<p><strong>Type:</strong> {{ dataset["type"] }}</p>
+<p><strong>Batch:</strong> {{ dataset["batch"] }}</p>
+
+{% if dataset["institution"] %}
+    <p><strong>Institution:</strong> {{ dataset["institution"] }}</p>
+{% endif %}
+
+{% if dataset["board"] %}
+    <p><strong>Board:</strong> {{ dataset["board"] }}</p>
+{% endif %}
+
+<h2>Student Records</h2>
+
+{% if dataset["records"] %}
+
+    {% for record in dataset["records"] %}
+
+        <div>
+            <p>
+                <strong>Student ID:</strong>
+                {{ record["student_id"] }}
+            </p>
+
+            {% for subject, mark in record["marks"].items() %}
+                <p>{{ subject }}: {{ mark }}</p>
+            {% endfor %}
+        </div>
+
+        <hr>
+
+    {% endfor %}
+
+{% else %}
+
+    <p>No student records have been added.</p>
+
+{% endif %}
+
+<a href="{{ url_for('add_record_page', exam_name=dataset['exam_name']) }}">
+    Add Student Record
+</a>
+
+<br><br>
+
+<a href="{{ url_for('datasets') }}">Back to Datasets</a>
+
+{% endblock %} 

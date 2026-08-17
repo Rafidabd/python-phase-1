@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Add Student Record</h1>
+
+<h2>{{ dataset["exam_name"] }}</h2>
+
+{% if error %}
+    <p>{{ error }}</p>
+{% endif %}
+
+<form method="POST">
+
+    <label>Student ID</label>
+    <input type="number" name="student_id" required>
+
+    <br><br>
+
+    {% for subject in subjects %}
+
+        <label>{{ subject }}</label>
+        <input
+            type="number"
+            name="{{ subject }}"
+            min="0"
+            max="100"
+            required>
+
+        <br><br>
+    {% endfor %}
+
+    <button type="submit">Add Record</button>
+
+</form>
+
+<br>
+
+<a href="{{ url_for('dataset_detail', exam_name=dataset['exam_name']) }}">
+    Back to Dataset
+</a>
+
+{% endblock %} 
