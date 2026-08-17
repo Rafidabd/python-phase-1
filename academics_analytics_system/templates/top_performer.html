@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}Top Performer - {{ dataset["exam_name"] }}{% endblock %}
+
+{% block content %}
+
+<h1>Top Performer</h1>
+
+<h2>{{ dataset["exam_name"] }}</h2>
+
+{% if topper %}
+
+<p><strong>Student ID:</strong> {{ topper["student_id"] }}</p>
+<p><strong>Total:</strong> {{ topper["total"] }}</p>
+<p><strong>Average:</strong> {{ topper["average"] }}</p>
+<p><strong>GPA:</strong> {{ topper["gpa"] }}</p>
+<p><strong>Performance:</strong> {{ topper["performance"] }}</p>
+
+{% else %}
+
+<p>No student data found.</p>
+
+{% endif %}
+
+<br>
+
+<a href="{{ url_for('analytics_dataset', exam_name=dataset['exam_name']) }}">
+    Back to Analytics
+</a>
+
+{% endblock %} 

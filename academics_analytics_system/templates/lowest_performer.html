@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}Lowest performer - {{ dataset["exam_name"] }}{% endblock %}
+
+{% block content %}
+
+<h1>Lowest performer</h1>
+
+<h2>{{ dataset["exam_name"] }}</h2>
+
+{% if student %}
+
+<p><strong>Student ID:</strong> {{ student["student_id"] }}</p>
+<p><strong>Total:</strong> {{ student["total"] }}</p>
+<p><strong>Average:</strong> {{ student["average"] }}</p>
+<p><strong>GPA:</strong> {{ student["gpa"] }}</p>
+<p><strong>Performance:</strong> {{ student["performance"] }}</p>
+
+{% else %}
+
+<p>No student data found.</p>
+
+{% endif %}
+
+<br>
+
+<a href="{{ url_for('analytics_dataset', exam_name=dataset['exam_name']) }}">
+    Back to Analytics
+</a>
+
+{% endblock %} 

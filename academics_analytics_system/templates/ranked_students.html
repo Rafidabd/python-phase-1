@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block title %}Rankings - {{ dataset["exam_name"] }}{% endblock %}
+
+{% block content %}
+
+<h1>Student Rankings</h1>
+
+<h2>{{ dataset["exam_name"] }}</h2>
+
+{% if ranked_students %}
+
+<table border="1">
+
+    <tr>
+        <th>Rank</th>
+        <th>Student ID</th>
+        <th>Total</th>
+        <th>Average</th>
+        <th>GPA</th>
+        <th>Performance</th>
+    </tr>
+
+    {% for student in ranked_students %}
+
+    <tr>
+        <td> {{ loop.index }}</td>
+        <td> {{ student["student_id"] }}</td>
+        <td>{{ student["total"] }}</td>
+        <td>{{ student["average"] }}</td>
+        
+         <td>{{ student["gpa"] }}</td>
+        
+        <td>{{ student["performance"] }}</td>
+   
+   
+    </tr>
+
+    {% endfor %}
+
+</table>
+
+{% else %}
+
+<p>No students found in this dataset.</p>
+
+{% endif %}
+
+<br>
+
+<a href="{{ url_for('analytics_dataset', exam_name=dataset['exam_name']) }}">
+    Back to Analytics
+</a>
+
+{% endblock %} 

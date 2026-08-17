@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %}Dataset Statistics - {{ dataset["exam_name"] }}{% endblock %}
+
+{% block content %}
+
+<h1>Dataset Statistics</h1>
+
+<h2>{{ dataset["exam_name"] }}</h2>
+
+{% if statistics %}
+
+<ul>
+
+    {% for key, value in statistics.items() %}
+
+        <li>
+            <strong>{{ key }}:</strong> {{ value }}
+        </li>
+
+    {% endfor %}
+
+</ul>
+
+{% else %}
+
+<p>No statistics available.</p>
+
+{% endif %}
+
+<br>
+
+<a href="{{ url_for('analytics_dataset', exam_name=dataset['exam_name']) }}">
+    Back to Analytics
+</a>
+
+{% endblock %} 

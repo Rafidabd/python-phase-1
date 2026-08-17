@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}Subject Averages - {{ dataset["exam_name"] }}{% endblock %}
+
+{% block content %}
+
+<h1>Subject Averages</h1>
+
+<h2>{{ dataset["exam_name"] }}</h2>
+
+{% if subject_averages %}
+
+<table border="1">
+
+    <tr>
+        <th>Subject</th>
+        <th>Average</th>
+    </tr>
+
+    {% for subject, average in subject_averages.items() %}
+
+    <tr>
+        <td>{{ subject }}</td>
+        <td>{{ average }}</td>
+    </tr>
+
+    {% endfor %}
+
+</table>
+
+{% else %}
+
+<p>No subject averages available.</p>
+
+{% endif %}
+
+<br>
+
+<a href="{{ url_for('analytics_dataset', exam_name=dataset['exam_name']) }}">
+    Back to Analytics
+</a>
+
+{% endblock %} 

@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+
+{% block title %}Analytics - {{ dataset["exam_name"] }}{% endblock %}
+
+{% block content %}
+
+<h1>Analytics</h1>
+
+<h2>{{ dataset["exam_name"] }}</h2>
+
+<p>
+    Dataset selected successfully.
+</p>
+
+<p>
+    Date: {{ dataset["exam_date"] }}
+</p>
+
+<p>
+    Type: {{ dataset["type"] }}
+</p>
+
+<h3>Student Rankings</h3>
+
+<form method="POST" action="{{ url_for('rank_students_page', exam_name=dataset['exam_name']) }}">
+    <button type="submit">Rank Students</button>
+
+</form> 
+
+<h3>Top Performer</h3>
+
+<form method="POST" action="{{ url_for('top_performer_page', exam_name=dataset['exam_name']) }}">
+    
+    <button type="submit">Show Top Performer</button>
+
+</form>
+<h3>Lowest Performer</h3>
+
+
+<form method="POST"
+      action="{{ url_for('lowest_performer_page',
+                         exam_name=dataset['exam_name']) }}">
+    <button type="submit">
+        Show Lowest Performer
+    </button>
+</form>
+
+<h3>Weak Students</h3>
+
+<form method="POST"
+      action="{{ url_for('weak_students_page',
+                         exam_name=dataset['exam_name']) }}">
+    <button type="submit">Show Weak Students</button>
+</form>
+
+<h3>Dataset Statistics</h3>
+
+<form method="POST"
+      action="{{ url_for('dataset_statistics_page',
+                         exam_name=dataset['exam_name']) }}">
+    <button type="submit">Show Dataset Statistics</button>
+</form> 
+
+<h3>Subject Averages</h3>
+
+<form method="POST"
+      action="{{ url_for('subject_averages_page',
+                         exam_name=dataset['exam_name']) }}">
+    <button type="submit">Show Subject Averages</button>
+</form> 
+
+<h3>Strongest Subject Overall</h3>
+
+<form method="POST"
+      action="{{ url_for('strongest_subject_page',
+                         exam_name=dataset['exam_name']) }}">
+    <button type="submit">Show Strongest Subject</button>
+</form> 
+
+<h3>Weakest Subject Overall</h3>
+
+<form method="POST"
+      action="{{ url_for('weakest_subject_page',
+                         exam_name=dataset['exam_name']) }}">
+    <button type="submit">Show Weakest Subject</button>
+</form> 
+
+<h3>Evaluate Student</h3>
+
+<form method="GET"
+      action="{{ url_for('evaluate_student_page',
+                         exam_name=dataset['exam_name']) }}">
+
+    <label for="student_id">Student ID:</label>
+
+    <input
+        type="number"
+        id="student_id"
+        name="student_id"
+        required
+    >
+
+    <button type="submit">Evaluate Student</button>
+
+</form> 
+
+
+<a href="{{ url_for('analytics') }}">
+    Back to Analytics
+</a>
+
+{% endblock %} 

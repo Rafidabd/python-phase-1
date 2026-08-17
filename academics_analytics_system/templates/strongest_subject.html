@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}Strongest Subject - {{ dataset["exam_name"] }}{% endblock %}
+
+{% block content %}
+
+<h1>Strongest Subject Overall</h1>
+
+<h2>{{ dataset["exam_name"] }}</h2>
+
+{% if strongest_subject %}
+
+<p>
+    <strong>Subject:</strong>
+    {{ strongest_subject }}
+</p>
+
+{% else %}
+
+<p>No strongest subject could be determined.</p>
+
+{% endif %}
+
+<br>
+
+<a href="{{ url_for('analytics_dataset', exam_name=dataset['exam_name']) }}">
+    Back to Analytics
+</a>
+ 
+{% endblock %}  

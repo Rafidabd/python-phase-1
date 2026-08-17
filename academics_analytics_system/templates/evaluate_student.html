@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block title %}Evaluate Student - {{ dataset["exam_name"] }}{% endblock %}
+
+{% block content %}
+
+<h1>Evaluate Student</h1>
+
+<h2>{{ dataset["exam_name"] }}</h2>
+
+<form method="GET"
+      action="{{ url_for('evaluate_student_page',
+                         exam_name=dataset['exam_name']) }}">
+
+    <label for="student_id">Student ID:</label>
+
+    <input
+        type="number"
+        id="student_id"
+        name="student_id"
+        required
+    >
+
+    <button type="submit">Evaluate</button>
+
+</form>
+
+{% if error %}
+
+<p>{{ error }}</p>
+
+{% endif %}
+
+
+{% if evaluation %}
+
+<hr>
+
+<h2>Student Evaluation</h2>
+
+<ul>
+
+    {% for key, value in evaluation.items() %}
+
+        <li>
+            <strong>{{ key }}:</strong> {{ value }}
+        </li>
+
+    {% endfor %}
+
+</ul>
+
+{% endif %}
+
+<br>
+
+<a href="{{ url_for('analytics_dataset',
+                    exam_name=dataset['exam_name']) }}">
+    Back to Analytics
+</a>
+
+{% endblock %} 

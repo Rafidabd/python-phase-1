@@ -229,7 +229,12 @@ def delete_student(student_id):
 
 
      
-     
+def get_student_record_from_dataset(dataset, student_id):
+    for record in dataset.get("records", []):
+        if str(record["student_id"]) == str(student_id):
+            return record
+
+    return None      
      
      
      
