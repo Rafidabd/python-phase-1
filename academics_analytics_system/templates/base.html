@@ -1,31 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset= "UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title> {% block title %} Academic Analytics System {% endblock %}   </title>
-</head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <title>{% block title %}Academic Analytics System{% endblock %}</title>
+</head> 
 
 <body>
 
-    <nav>
+    <nav class="main-nav">
+
+    <div class="nav-brand">
+        <a href="{{ url_for('home') }}">
+            Academic Analytics
+        </a>
+    </div>
+
+    <div class="nav-links">
+
         <a href="{{ url_for('home') }}">Home</a>
-        |
-        <a href="{{ url_for('students') }}">Students </a>
-        |
-        <a href="{{ url_for('datasets') }}">Datasets</a> 
-        |
+
+        <a href="{{ url_for('students') }}">Students</a>
+
+        <a href="{{ url_for('datasets') }}">Datasets</a>
+
         <a href="{{ url_for('analytics') }}">Analytics</a>
-        |
-        
-       <a href="{{ url_for('academic_intelligence') }}">Academic Intelligence</a> 
+
+        <a href="{{ url_for('academic_intelligence') }}">
+            Academic Intelligence
+        </a>
+
+    </div>
+
     </nav>
 
-    <hr>
+<main class="page-container">
 
     {% block content %}
     {% endblock %}
+
+</main>
 
 </body>
 </html> 

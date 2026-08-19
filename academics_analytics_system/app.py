@@ -17,11 +17,27 @@ app = Flask(__name__)
 @app.route("/")
 def home():
     students = get_all_students()
+    datasets = get_all_datasets()
+
+    student_count = len(students)
+    dataset_count = len(datasets)
+
+    total_records = 0
+
+    for dataset in datasets:
+        total_records += len(dataset.get("records", []))
 
     return render_template(
         "index.html",
-        students=students
-         )
+        students=students,
+        datasets=datasets,
+        student_count=student_count,
+        dataset_count=dataset_count,
+        total_records=total_records
+    )
+
+
+
 @app.route("/students")
 def students():
     students = get_all_students()
