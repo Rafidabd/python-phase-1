@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+
+{% block title %}Trend Analysis{% endblock %}
+
+{% block content %}
+
+<h1>Academic Trend Analysis</h1>
+
+{% if result["status"] == "error" %}
+
+<p>{{ result["message"] }}</p>
+
+{% else %}
+
+<h2>Overall Trend</h2>
+
+<p>
+    <strong>{{ result["overall_trend"] }}</strong>
+</p>
+
+<hr>
+
+<h2>Average Trend</h2>
+
+<p>
+    Trend: {{ result["average_trend"]["trend"] }}
+</p>
+
+<p>
+    Improvements: {{ result["average_trend"]["improvement_count"] }}
+</p>
+
+<p>
+    Declines: {{ result["average_trend"]["decline_count"] }}
+</p>
+
+<p>
+    Stable: {{ result["average_trend"]["stable_count"] }}
+</p>
+
+<hr>
+
+<h2>GPA Trend</h2>
+
+<p>
+    Trend: {{ result["gpa_trend"]["trend"] }}
+</p>
+
+<p>
+    Improvements: {{ result["gpa_trend"]["improvement_count"] }}
+</p>
+
+<p>
+    Declines: {{ result["gpa_trend"]["decline_count"] }}
+</p>
+
+<p>
+    Stable: {{ result["gpa_trend"]["stable_count"] }}
+</p>
+
+<hr>
+
+<h2>Weak Subject Trend</h2>
+
+<p>
+    Trend: {{ result["weak_subject_trend"]["trend"] }}
+</p>
+
+<p>
+    Improvements: {{ result["weak_subject_trend"]["improvement_count"] }}
+</p>
+
+<p>
+    Declines: {{ result["weak_subject_trend"]["decline_count"] }}
+</p>
+
+<p>
+    Stable: {{ result["weak_subject_trend"]["stable_count"] }}
+</p>
+
+<hr>
+
+<h2>Exam-to-Exam Changes</h2>
+
+{% for step in result["trend_steps"] %}
+
+<h3>
+    {{ step["from_exam"] }} → {{ step["to_exam"] }}
+</h3>
+
+<ul>
+    <li>
+        Average Change: {{ step["average_change"] }}
+    </li>
+
+    <li>
+        GPA Change: {{ step["gpa_change"] }}
+    </li>
+
+    <li>
+        Weak Subject Count Change:
+        {{ step["weak_subject_count_change"] }}
+    </li>
+</ul>
+
+{% endfor %}
+
+<br>
+
+<a href="{{ url_for('academic_intelligence') }}">
+    Back to Academic Intelligence
+</a>
+
+{% endif %}
+
+{% endblock %} 

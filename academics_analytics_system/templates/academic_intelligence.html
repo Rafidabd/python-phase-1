@@ -1,0 +1,142 @@
+{% extends "base.html" %}
+
+{% block title %}Academic Intelligence{% endblock %}
+
+{% block content %}
+
+<h1>Academic Intelligence</h1>
+
+<form method="GET"
+      action="{{ url_for('academic_history') }}">
+
+    <label for="student_id">Student ID:</label>
+
+    <input
+        type="number"
+        id="student_id"
+        name="student_id"
+        required
+    >
+
+    <button type="submit">View Academic History</button>
+
+</form>
+
+<hr>
+
+<h2>Performance Series</h2>
+
+<form method="GET"
+      action="{{ url_for('academic_performance') }}">
+
+    <label for="performance_student_id">Student ID:</label>
+
+    <input
+        type="number"
+        id="performance_student_id"
+        name="student_id"
+        required
+    >
+
+    <button type="submit">
+        View Performance Series
+    </button>
+
+</form>
+
+<hr>
+
+<h2>Trend Analysis</h2>
+
+<form method="GET"
+      action="{{ url_for('academic_trend') }}">
+
+    <label for="trend_student_id">Student ID:</label>
+
+    <input
+        type="number"
+        id="trend_student_id"
+        name="student_id"
+        required
+    >
+
+    <button type="submit">
+        Analyze Trend
+    </button>
+
+</form>  
+
+<hr>
+
+<h2>Risk Analysis</h2>
+
+<form method="GET"
+      action="{{ url_for('academic_risk') }}">
+
+    <label for="risk_student_id">Student ID:</label>
+
+    <input
+        type="number"
+        id="risk_student_id"
+        name="student_id"
+        required
+    >
+
+    <button type="submit">
+        Analyze Risk
+    </button>
+
+</form> 
+
+<hr>
+
+<h2>Performance Prediction</h2>
+
+<form method="GET"
+      action="{{ url_for('academic_prediction') }}">
+
+    <label for="prediction_student_id">Student ID:</label>
+
+    <input
+        type="number"
+        id="prediction_student_id"
+        name="student_id"
+        required
+    >
+
+    <button type="submit">
+        Predict Performance
+    </button>
+
+</form> 
+
+<hr>
+
+<h2>Student Insights</h2>
+
+<form method="GET"
+      action="{{ url_for('academic_insights') }}">
+
+    <label for="insights_student_id">Student ID:</label>
+
+    <input
+        type="number"
+        id="insights_student_id"
+        name="student_id"
+        required
+    >
+
+    <button type="submit">
+        Generate Student Insights
+    </button>
+
+</form> 
+
+
+{% if error %}
+
+<p>{{ error }}</p>
+
+{% endif %} 
+
+{% endblock %}  

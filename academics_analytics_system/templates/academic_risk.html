@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+
+{% block title %}Risk Analysis{% endblock %}
+
+{% block content %}
+
+<h1>Academic Risk Analysis</h1>
+
+{% if result["status"] == "error" %}
+
+<p>{{ result["message"] }}</p>
+
+{% else %}
+
+<h2>Risk Level</h2>
+
+<p>
+    <strong>{{ result["risk_level"] }}</strong>
+</p>
+
+<p>
+    <strong>At Risk:</strong>
+    {{ result["at_risk"] }}
+</p>
+
+<p>
+    <strong>Risk Score:</strong>
+    {{ result["risk_score"] }}
+</p>
+
+<hr>
+
+<h2>Current Snapshot</h2>
+
+<ul>
+    <li>Average: {{ result["current_snapshot"]["average"] }}</li>
+    <li>GPA: {{ result["current_snapshot"]["gpa"] }}</li>
+    <li>
+        Weak Subjects:
+        {{ result["current_snapshot"]["weak_subject_count"] }}
+    </li>
+    <li>
+        Performance:
+        {{ result["current_snapshot"]["performance"] }}
+    </li>
+</ul>
+
+<hr>
+
+<h2>Trend Snapshot</h2>
+
+<ul>
+    <li>
+        Average Trend:
+        {{ result["trend_snapshot"]["average_trend"] }}
+    </li>
+
+    <li>
+        GPA Trend:
+        {{ result["trend_snapshot"]["gpa_trend"] }}
+    </li>
+
+    <li>
+        Weak Subject Trend:
+        {{ result["trend_snapshot"]["weak_subject_trend"] }}
+    </li>
+
+    <li>
+        Overall Trend:
+        {{ result["trend_snapshot"]["overall_trend"] }}
+    </li>
+</ul>
+
+<hr>
+
+<h2>Risk Flags</h2>
+
+<ul>
+
+{% for flag, value in result["risk_flags"].items() %}
+
+    <li>
+        <strong>{{ flag }}:</strong> {{ value }}
+    </li>
+
+{% endfor %}
+
+</ul>
+
+<hr>
+
+<h2>Risk Reasons</h2>
+
+{% if result["risk_reasons"] %}
+
+<ul>
+
+{% for reason in result["risk_reasons"] %}
+
+    <li>{{ reason }}</li>
+
+{% endfor %}
+
+</ul>
+
+{% else %}
+
+<p>No specific risk reasons were detected.</p>
+
+{% endif %}
+
+<br>
+
+<a href="{{ url_for('academic_intelligence') }}">
+    Back to Academic Intelligence
+</a>
+
+{% endif %}
+
+{% endblock %} 

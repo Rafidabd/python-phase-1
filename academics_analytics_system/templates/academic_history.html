@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block title %}Academic History{% endblock %}
+
+{% block content %}
+
+<h1>Academic History</h1>
+
+{% if result["status"] == "error" %}
+
+<p>{{ result["message"] }}</p>
+
+{% else %}
+
+{% for entry in result["history"] %}
+
+<hr>
+
+<h2>{{ entry["exam_name"] }}</h2>
+
+<p>
+    <strong>Date:</strong>
+    {{ entry["exam_date"] }}
+</p>
+
+<p>
+    <strong>Dataset Type:</strong>
+    {{ entry["dataset_type"] }}
+</p>
+
+<p>
+    <strong>Institution:</strong>
+    {{ entry["institution"] }}
+</p>
+
+<p>
+    <strong>Board:</strong>
+    {{ entry["board"] }}
+</p>
+
+<p>
+    <strong>Batch:</strong>
+    {{ entry["batch"] }}
+</p>
+
+<h3>Marks</h3>
+
+<ul>
+
+    {% for subject, mark in entry["marks"].items() %}
+
+    <li>
+        <strong>{{ subject }}:</strong> {{ mark }}
+    </li>
+
+    {% endfor %}
+
+</ul>
+
+{% endfor %}
+
+{% endif %}
+
+<br>
+
+<a href="{{ url_for('academic_intelligence') }}">
+    Back to Academic Intelligence
+</a>
+
+{% endblock %} 

@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+
+{% block title %}Performance Prediction{% endblock %}
+
+{% block content %}
+
+<h1>Academic Performance Prediction</h1>
+
+{% if result["status"] == "error" %}
+
+<p>{{ result["message"] }}</p>
+
+{% else %}
+
+<h2>Predicted Performance</h2>
+
+<p>
+    <strong>Performance Level:</strong>
+    {{ result["predicted_performance"] }}
+</p>
+
+<hr>
+
+<h2>Predicted Metrics</h2>
+
+<ul>
+    <li>
+        Average:
+        {{ result["predicted_metrics"]["average"] }}
+    </li>
+
+    <li>
+        GPA:
+        {{ result["predicted_metrics"]["gpa"] }}
+    </li>
+
+    <li>
+        Weak Subject Count:
+        {{ result["predicted_metrics"]["weak_subject_count"] }}
+    </li>
+</ul>
+
+<hr>
+
+<h2>Prediction Basis</h2>
+
+<ul>
+    <li>
+        Recent Exam:
+        {{ result["prediction_basis"]["recent_exam"] }}
+    </li>
+
+    <li>
+        Recent Exam Date:
+        {{ result["prediction_basis"]["recent_exam_date"] }}
+    </li>
+
+    <li>
+        History Count:
+        {{ result["prediction_basis"]["history_count"] }}
+    </li>
+</ul>
+
+<hr>
+
+<h2>Prediction Components</h2>
+
+{% for metric, component in result["prediction_components"].items() %}
+
+<h3>{{ metric }}</h3>
+
+<ul>
+    <li>
+        Recent Value:
+        {{ component["recent_value"] }}
+    </li>
+
+    <li>
+        Historical Mean:
+        {{ component["historical_mean"] }}
+    </li>
+
+    <li>
+        Trend Mean Change:
+        {{ component["trend_mean_change"] }}
+    </li>
+</ul>
+
+{% endfor %}
+
+<br>
+
+<a href="{{ url_for('academic_intelligence') }}">
+    Back to Academic Intelligence
+</a>
+
+{% endif %}
+
+{% endblock %} 

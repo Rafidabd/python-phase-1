@@ -7,7 +7,8 @@ from modules.analytics import (
 rank_students,get_topper,get_lowest_performer,get_weak_students,get_dataset_statistics,
 get_subject_averages,get_strongest_subject_overall,get_weakest_subject_overall,evaluate_student_record
 )
-
+from modules.predictor import get_student_academic_history, build_student_performance_series,analyze_student_trend,analyze_student_risk,predict_student_performance
+from modules.insights import generate_student_insights
 
 
 app = Flask(__name__)
@@ -356,6 +357,151 @@ def evaluate_student_page(exam_name):
         dataset=dataset,
         evaluation=evaluation
     )
+
+@app.route("/academic-intelligence")
+def academic_intelligence():
+
+    return render_template("academic_intelligence.html") 
+
+
+@app.route("/academic-intelligence/history")
+def academic_history():
+
+    student_id = request.args.get("student_id")
+
+    if not student_id:
+        return redirect(url_for("academic_intelligence"))
+
+    try:
+        student_id = int(student_id)
+    except ValueError:
+        return render_template(
+            "academic_intelligence.html",
+            error="Student ID must be an integer."
+        )
+
+    result = get_student_academic_history(student_id)
+
+    return render_template(
+        "academic_history.html",
+        result=result
+    )
+
+@app.route("/academic-intelligence/performance")
+def academic_performance():
+
+    student_id = request.args.get("student_id")
+
+    if not student_id:
+        return redirect(url_for("academic_intelligence"))
+
+    try:
+        student_id = int(student_id)
+    except ValueError:
+        return render_template(
+            "academic_intelligence.html",
+            error="Student ID must be an integer."
+        )
+
+    result = build_student_performance_series(student_id)
+
+    return render_template(
+        "academic_performance.html",
+        result=result
+    )
+
+
+@app.route("/academic-intelligence/trend")
+def academic_trend():
+
+    student_id = request.args.get("student_id")
+
+    if not student_id:
+        return redirect(url_for("academic_intelligence"))
+
+    try:
+        student_id = int(student_id)
+    except ValueError:
+        return render_template(
+            "academic_intelligence.html",
+            error="Student ID must be an integer."
+        )
+
+    result = analyze_student_trend(student_id)
+
+    return render_template(
+        "academic_trend.html",
+        result=result
+    )
+
+@app.route("/academic-intelligence/risk")
+
+def academic_risk():
+
+    student_id = request.args.get("student_id")
+
+    if not student_id:
+        return redirect(url_for("academic_intelligence"))
+
+    try:
+        student_id = int(student_id)
+    except ValueError:
+        return render_template(
+            "academic_intelligence.html",
+            error="Student ID must be an integer."
+        )
+
+    result = analyze_student_risk(student_id)
+
+    return render_template(
+        "academic_risk.html",
+        result=result
+    )
+@app.route("/academic-intelligence/prediction")
+def academic_prediction():
+
+    student_id = request.args.get("student_id")
+
+    if not student_id:
+        return redirect(url_for("academic_intelligence"))
+
+    try:
+        student_id = int(student_id)
+    except ValueError:
+        return render_template(
+            "academic_intelligence.html",
+            error="Student ID must be an integer."
+        )
+
+    result = predict_student_performance(student_id)
+
+    return render_template(
+        "academic_prediction.html",
+        result=result
+    ) 
+
+@app.route("/academic-intelligence/insights")
+def academic_insights():
+
+    student_id = request.args.get("student_id")
+
+    if not student_id:
+        return redirect(url_for("academic_intelligence"))
+
+    try:
+        student_id = int(student_id)
+    except ValueError:
+        return render_template(
+            "academic_intelligence.html",
+            error="Student ID must be an integer."
+        )
+
+    result = generate_student_insights(student_id)
+
+    return render_template(
+        "academic_insights.html",
+        result=result
+    ) 
 
 if __name__ == "__main__":
     app.run(debug=True)       

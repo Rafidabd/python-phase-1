@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block title %}Performance Series{% endblock %}
+
+{% block content %}
+
+<h1>Student Performance Series</h1>
+
+{% if result["status"] == "error" %}
+
+<p>{{ result["message"] }}</p>
+
+{% else %}
+
+{% for entry in result["performance_series"] %}
+
+<hr>
+
+<h2>{{ entry["exam_name"] }}</h2>
+
+<p><strong>Date:</strong> {{ entry["exam_date"] }}</p>
+
+<p><strong>Total:</strong> {{ entry["total"] }}</p>
+
+<p><strong>Average:</strong> {{ entry["average"] }}</p>
+
+<p><strong>GPA:</strong> {{ entry["gpa"] }}</p>
+
+<p><strong>Performance:</strong> {{ entry["performance"] }}</p>
+
+<p>
+    <strong>Strongest Subject:</strong>
+    {{ entry["strongest_subject"] }}
+</p>
+
+<p>
+    <strong>Weakest Subject:</strong>
+    {{ entry["weakest_subject"] }}
+</p>
+
+<p>
+    <strong>Weak Subject Count:</strong>
+    {{ entry["weak_subject_count"] }}
+</p>
+
+{% endfor %}
+
+{% endif %}
+
+<br>
+
+<a href="{{ url_for('academic_intelligence') }}">
+    Back to Academic Intelligence
+</a>
+
+{% endblock %} 
