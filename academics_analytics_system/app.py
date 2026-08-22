@@ -5,7 +5,7 @@ from modules.dataset_manager import get_all_datasets,get_dataset_by_name,create_
 from modules.config_loader import load_config
 from modules.analytics import (
 rank_students,get_topper,get_lowest_performer,get_weak_students,get_dataset_statistics,
-get_subject_averages,get_strongest_subject_overall,get_weakest_subject_overall,evaluate_student_record
+get_subject_averages,get_strongest_subject_overall,get_weakest_subject_overall,evaluate_student_record,evaluate_dataset_records
 )
 from modules.predictor import get_student_academic_history, build_student_performance_series,analyze_student_trend,analyze_student_risk,predict_student_performance
 from modules.insights import generate_student_insights
@@ -180,10 +180,24 @@ def analytics_dataset(exam_name):
     if not dataset:
         return render_template("404.html"), 404
 
+    config = load_config()
+
+    subject_averages = get_subject_averages(dataset)
+
+    ranked_students = rank_students(dataset, config)
+    top_students = ranked_students[:5]
+
+    evaluated_students = evaluate_dataset_records(dataset, config)
+    statistics = get_dataset_statistics(dataset, config)
+
     return render_template(
-        "analytics_dataset.html",
-        dataset=dataset
-    ) 
+    "analytics_dataset.html",
+    dataset=dataset,
+    subject_averages=subject_averages,
+    top_students=top_students,
+    evaluated_students=evaluated_students,
+    statistics=statistics
+      )
 
 @app.route("/analytics/<exam_name>/rank", methods=["POST"])
 def rank_students_page(exam_name):

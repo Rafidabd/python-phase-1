@@ -8,49 +8,145 @@
 
 <h2>{{ dataset["exam_name"] }}</h2>
 
-<form method="GET"
-      action="{{ url_for('evaluate_student_page',
-                         exam_name=dataset['exam_name']) }}">
+{% if not evaluation %}
 
-    <label for="student_id">Student ID:</label>
+    <form method="GET"
+          action="{{ url_for('evaluate_student_page',
+                             exam_name=dataset['exam_name']) }}">
 
-    <input
-        type="number"
-        id="student_id"
-        name="student_id"
-        required
-    >
+        <label for="student_id">Student ID:</label>
 
-    <button type="submit">Evaluate</button>
+        <input
+            type="number"
+            id="student_id"
+            name="student_id"
+            required
+        >
 
-</form>
+        <button type="submit">Evaluate</button>
 
-{% if error %}
+    </form>
 
-<p>{{ error }}</p>
+{% else %}
+
+<section class="evaluation-summary">
+
+    <h2>Student Evaluation</h2>
+
+    <div class="evaluation-cards">
+
+        <div class="evaluation-card">
+            <strong>Student ID</strong>
+            <p>{{ evaluation["student_id"] }}</p>
+        </div>
+
+        <div class="evaluation-card">
+            <strong>Total</strong>
+            <p>{{ evaluation["total"] }}</p>
+        </div>
+
+        <div class="evaluation-card">
+            <strong>Average</strong>
+            <p>{{ evaluation["average"] }}</p>
+        </div>
+
+        <div class="evaluation-card">
+            <strong>GPA</strong>
+            <p>{{ evaluation["gpa"] }}</p>
+        </div>
+
+        <div class="evaluation-card">
+            <strong>Performance</strong>
+            <p>{{ evaluation["performance"] }}</p>
+        </div>
+
+    </div>
+
+</section>
+
+
+<section class="evaluation-section">
+
+    <h2>Subject Performance</h2>
+
+    <table>
+
+        <thead>
+            <tr>
+                <th>Subject</th>
+                <th>Mark</th>
+                <th>Grade</th>
+                <th>GPA</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            {% for subject, mark in evaluation["marks"].items() %}
+
+                <tr>
+
+                    <td>{{ subject }}</td>
+
+                    <td>{{ mark }}</td>
+
+                    <td>
+                        {{ evaluation["subject_grades"][subject]["grade"] }}
+                    </td>
+
+                    <td>
+                        {{ evaluation["subject_grades"][subject]["gpa"] }}
+                    </td>
+
+                </tr>
+
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</section>
+
+
+<section class="evaluation-section">
+
+    <h2>Academic Overview</h2>
+
+    <p>
+        <strong>Strongest Subject:</strong>
+        {{ evaluation["strongest_subject"] }}
+    </p>
+
+    <p>
+        <strong>Weakest Subject:</strong>
+        {{ evaluation["weakest_subject"] }}
+    </p>
+
+    <p>
+        <strong>Weak Subjects:</strong>
+
+        {% if evaluation["weak_subjects"] %}
+
+            {{ evaluation["weak_subjects"] | join(", ") }}
+
+        {% else %}
+
+            None
+
+        {% endif %}
+
+    </p>
+
+    <p>
+        <strong>Weak Subject Count:</strong>
+        {{ evaluation["weak_subject_count"] }}
+    </p>
+
+</section>
 
 {% endif %}
 
-
-{% if evaluation %}
-
-<hr>
-
-<h2>Student Evaluation</h2>
-
-<ul>
-
-    {% for key, value in evaluation.items() %}
-
-        <li>
-            <strong>{{ key }}:</strong> {{ value }}
-        </li>
-
-    {% endfor %}
-
-</ul>
-
-{% endif %}
 
 <br>
 

@@ -20,90 +20,373 @@
     Type: {{ dataset["type"] }}
 </p>
 
-<h3>Student Rankings</h3>
 
-<form method="POST" action="{{ url_for('rank_students_page', exam_name=dataset['exam_name']) }}">
-    <button type="submit">Rank Students</button>
+<h3>Dataset Summary</h3>
 
-</form> 
+<div class="statistics-cards">
 
-<h3>Top Performer</h3>
+    <div class="statistics-card">
+        <strong>Students</strong>
+        <p>{{ statistics["student_count"] }}</p>
+    </div>
 
-<form method="POST" action="{{ url_for('top_performer_page', exam_name=dataset['exam_name']) }}">
-    
-    <button type="submit">Show Top Performer</button>
+    <div class="statistics-card">
+        <strong>Mean Total</strong>
+        <p>{{ statistics["dataset_mean_total"] }}</p>
+    </div>
 
-</form>
-<h3>Lowest Performer</h3>
+    <div class="statistics-card">
+        <strong>Mean Average</strong>
+        <p>{{ statistics["dataset_mean_average"] }}</p>
+    </div>
+
+    <div class="statistics-card">
+        <strong>Mean GPA</strong>
+        <p>{{ statistics["mean_gpa"] }}</p>
+    </div>
+
+    <div class="statistics-card">
+        <strong>Highest Total</strong>
+        <p>{{ statistics["highest_total"] }}</p>
+    </div>
+
+    <div class="statistics-card">
+        <strong>Lowest Total</strong>
+        <p>{{ statistics["lowest_total"] }}</p>
+    </div>
+
+</div>
 
 
-<form method="POST"
-      action="{{ url_for('lowest_performer_page',
-                         exam_name=dataset['exam_name']) }}">
-    <button type="submit">
-        Show Lowest Performer
-    </button>
-</form>
+<section class="analysis-tools">
 
-<h3>Weak Students</h3>
+    <h2>Analysis Tools</h2>
 
-<form method="POST"
-      action="{{ url_for('weak_students_page',
-                         exam_name=dataset['exam_name']) }}">
-    <button type="submit">Show Weak Students</button>
-</form>
 
-<h3>Dataset Statistics</h3>
+    <h3>Student Rankings</h3>
 
-<form method="POST"
-      action="{{ url_for('dataset_statistics_page',
-                         exam_name=dataset['exam_name']) }}">
-    <button type="submit">Show Dataset Statistics</button>
-</form> 
+    <form method="POST"
+          action="{{ url_for('rank_students_page',
+                             exam_name=dataset['exam_name']) }}">
 
-<h3>Subject Averages</h3>
+        <button type="submit">Rank Students</button>
 
-<form method="POST"
-      action="{{ url_for('subject_averages_page',
-                         exam_name=dataset['exam_name']) }}">
-    <button type="submit">Show Subject Averages</button>
-</form> 
+    </form>
 
-<h3>Strongest Subject Overall</h3>
 
-<form method="POST"
-      action="{{ url_for('strongest_subject_page',
-                         exam_name=dataset['exam_name']) }}">
-    <button type="submit">Show Strongest Subject</button>
-</form> 
+    <h3>Top Performer</h3>
 
-<h3>Weakest Subject Overall</h3>
+    <form method="POST"
+          action="{{ url_for('top_performer_page',
+                             exam_name=dataset['exam_name']) }}">
 
-<form method="POST"
-      action="{{ url_for('weakest_subject_page',
-                         exam_name=dataset['exam_name']) }}">
-    <button type="submit">Show Weakest Subject</button>
-</form> 
+        <button type="submit">Show Top Performer</button>
 
-<h3>Evaluate Student</h3>
+    </form>
 
-<form method="GET"
-      action="{{ url_for('evaluate_student_page',
-                         exam_name=dataset['exam_name']) }}">
 
-    <label for="student_id">Student ID:</label>
+    <h3>Lowest Performer</h3>
 
-    <input
-        type="number"
-        id="student_id"
-        name="student_id"
-        required
-    >
+    <form method="POST"
+          action="{{ url_for('lowest_performer_page',
+                             exam_name=dataset['exam_name']) }}">
 
-    <button type="submit">Evaluate Student</button>
+        <button type="submit">
+            Show Lowest Performer
+        </button>
 
-</form> 
+    </form>
 
+
+    <h3>Weak Students</h3>
+
+    <form method="POST"
+          action="{{ url_for('weak_students_page',
+                             exam_name=dataset['exam_name']) }}">
+
+        <button type="submit">Show Weak Students</button>
+
+    </form>
+
+
+    <h3>Dataset Statistics</h3>
+
+    <form method="POST"
+          action="{{ url_for('dataset_statistics_page',
+                             exam_name=dataset['exam_name']) }}">
+
+        <button type="submit">Show Dataset Statistics</button>
+
+    </form>
+
+
+    <h3>Subject Averages</h3>
+
+    <form method="POST"
+          action="{{ url_for('subject_averages_page',
+                             exam_name=dataset['exam_name']) }}">
+
+        <button type="submit">Show Subject Averages</button>
+
+    </form>
+
+
+    <h3>Strongest Subject Overall</h3>
+
+    <form method="POST"
+          action="{{ url_for('strongest_subject_page',
+                             exam_name=dataset['exam_name']) }}">
+
+        <button type="submit">Show Strongest Subject</button>
+
+    </form>
+
+
+    <h3>Weakest Subject Overall</h3>
+
+    <form method="POST"
+          action="{{ url_for('weakest_subject_page',
+                             exam_name=dataset['exam_name']) }}">
+
+        <button type="submit">Show Weakest Subject</button>
+
+    </form>
+
+
+    <h3>Evaluate Student</h3>
+
+    <form method="GET"
+          action="{{ url_for('evaluate_student_page',
+                             exam_name=dataset['exam_name']) }}">
+
+        <label for="student_id">Student ID:</label>
+
+        <input
+            type="number"
+            id="student_id"
+            name="student_id"
+            required
+        >
+
+        <button type="submit">Evaluate Student</button>
+
+    </form>
+
+</section>
+
+
+<h3>Subject Average Performance</h3>
+
+{% if subject_averages %}
+
+<div id="subjectAverageData"
+     data-values='{{ subject_averages | tojson }}'>
+</div>
+
+<div class="chart-container">
+    <canvas id="subjectAverageChart"></canvas>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    const data = document.getElementById("subjectAverageData");
+
+    const subjectAverages = JSON.parse(data.dataset.values);
+
+    const subjectNames = Object.keys(subjectAverages);
+    const averageMarks = Object.values(subjectAverages);
+
+    new Chart(
+        document.getElementById("subjectAverageChart"),
+        {
+            type: "bar",
+
+            data: {
+                labels: subjectNames,
+
+                datasets: [
+                    {
+                        label: "Average Mark",
+                        data: averageMarks
+                    }
+                ]
+            },
+
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100
+                    }
+                }
+            }
+        }
+    );
+</script>
+
+{% else %}
+
+<p>No subject data available for this dataset.</p>
+
+{% endif %}
+
+
+<h3>Top Student Performance</h3>
+
+{% if top_students %}
+
+<div id="topStudentData"
+     data-students='{{ top_students | tojson }}'>
+</div>
+
+<div class="chart-container">
+    <canvas id="topStudentChart"></canvas>
+</div>
+
+<script>
+    const studentData = document.getElementById("topStudentData");
+
+    const topStudents = JSON.parse(
+        studentData.dataset.students
+    );
+
+    const studentNames = topStudents.map(
+        student => "Student " + student.student_id
+    );
+
+    const studentTotals = topStudents.map(
+        student => student.total
+    );
+
+    new Chart(
+        document.getElementById("topStudentChart"),
+        {
+            type: "bar",
+
+            data: {
+                labels: studentNames,
+
+                datasets: [
+                    {
+                        label: "Total Marks",
+                        data: studentTotals
+                    }
+                ]
+            },
+
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        }
+    );
+</script>
+
+{% else %}
+
+<p>No student performance data available.</p>
+
+{% endif %}
+
+
+<h3>Performance Distribution</h3>
+
+{% if evaluated_students %}
+
+<div id="performanceData"
+     data-students='{{ evaluated_students | tojson }}'>
+</div>
+
+<div class="chart-container">
+    <canvas id="performanceChart"></canvas>
+</div>
+
+<script>
+    const performanceData =
+        document.getElementById("performanceData");
+
+    const evaluatedStudents = JSON.parse(
+        performanceData.dataset.students
+    );
+
+    let excellentCount = 0;
+    let goodCount = 0;
+    let averageCount = 0;
+    let poorCount = 0;
+
+    evaluatedStudents.forEach(function(student) {
+
+        if (student.performance === "excellent") {
+            excellentCount++;
+        }
+
+        else if (student.performance === "good") {
+            goodCount++;
+        }
+
+        else if (student.performance === "average") {
+            averageCount++;
+        }
+
+        else if (student.performance === "poor") {
+            poorCount++;
+        }
+
+    });
+
+    new Chart(
+        document.getElementById("performanceChart"),
+        {
+            type: "bar",
+
+            data: {
+                labels: [
+                    "Excellent",
+                    "Good",
+                    "Average",
+                    "Poor"
+                ],
+
+                datasets: [
+                    {
+                        label: "Number of Students",
+
+                        data: [
+                            excellentCount,
+                            goodCount,
+                            averageCount,
+                            poorCount
+                        ]
+                    }
+                ]
+            },
+
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            stepSize: 1
+                        }
+                    }
+                }
+            }
+        }
+    );
+</script>
+
+{% else %}
+
+<p>No performance data available.</p>
+
+{% endif %}
+
+
+<br><br>
 
 <a href="{{ url_for('analytics') }}">
     Back to Analytics
