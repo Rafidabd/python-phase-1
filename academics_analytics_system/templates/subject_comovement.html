@@ -1,0 +1,137 @@
+{% extends "base.html" %}
+
+{% block title %}Subject Co-movement{% endblock %}
+
+{% block content %}
+
+<h1>Subject Co-movement</h1>
+
+<p>
+    Examines whether pairs of subjects tend to move in the same
+    direction across a student's examination history.
+</p>
+
+{% if error %}
+
+    <section class="evaluation-section">
+        <p>{{ error }}</p>
+    </section>
+
+{% endif %}
+
+
+{% if not result %}
+
+    <section class="analysis-tools">
+
+        <h2>Select Student</h2>
+
+        <form method="GET"
+              action="{{ url_for('subject_comovement') }}">
+
+            <label for="student_id">Student ID:</label>
+
+            <input
+                type="number"
+                id="student_id"
+                name="student_id"
+                required
+            >
+
+            <button type="submit">
+                Analyze Subject Co-movement
+            </button>
+
+        </form>
+
+    </section>
+
+
+{% elif result["status"] == "success" %}
+
+    <section class="evaluation-section">
+
+        <h2>Student {{ result["student_id"] }}</h2>
+
+        <p>
+            <strong>Exams analyzed:</strong>
+            {{ result["exam_count"] }}
+        </p>
+
+    </section>
+
+
+    <section class="evaluation-section">
+
+        <h2>Subject Pair Analysis</h2>
+
+        <table>
+
+            <thead>
+
+                <tr>
+                    <th>Subject 1</th>
+                    <th>Subject 2</th>
+                    <th>Same Direction</th>
+                    <th>Opposite Direction</th>
+                    <th>Comparable</th>
+                    <th>Co-movement</th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% for pair in result["subject_pairs"] %}
+
+                    <tr>
+
+                        <td>{{ pair["subject_1"] }}</td>
+
+                        <td>{{ pair["subject_2"] }}</td>
+
+                        <td>{{ pair["same_direction_count"] }}</td>
+
+                        <td>{{ pair["opposite_direction_count"] }}</td>
+
+                        <td>{{ pair["comparable_count"] }}</td>
+
+                        <td>
+                            {% if pair["co_movement_percentage"] is not none %}
+                                {{ pair["co_movement_percentage"] }}%
+                            {% else %}
+                                N/A
+                            {% endif %}
+                        </td>
+
+                    </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </section>
+
+
+{% else %}
+
+    <section class="evaluation-section">
+
+        <h2>Analysis Error</h2>
+
+        <p>{{ result["message"] }}</p>
+
+    </section>
+
+{% endif %}
+
+
+<br>
+
+<a href="{{ url_for('academic_intelligence') }}">
+    Back to Academic Intelligence
+</a>
+
+{% endblock %} 

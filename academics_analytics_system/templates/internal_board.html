@@ -1,0 +1,258 @@
+{% extends "base.html" %}
+
+{% block title %}Internal vs Board Performance{% endblock %}
+
+{% block content %}
+
+<h1>Internal vs Board Performance</h1>
+
+<p>
+    Compare a student's performance between an internal examination
+    and a board examination.
+</p>
+
+
+<section class="analysis-tools">
+
+    <h2>Select Examinations</h2>
+
+    {% if error %}
+
+        <p>{{ error }}</p>
+
+    {% endif %}
+
+    <form method="GET"
+          action="{{ url_for('internal_board_comparison') }}">
+
+        <label for="student_id">Student ID:</label>
+
+        <input
+            type="number"
+            id="student_id"
+            name="student_id"
+            value="{{ student_id if student_id else '' }}"
+            required
+        >
+
+        <br><br>
+
+        <label for="internal_exam">Internal Examination:</label>
+
+        <select
+            id="internal_exam"
+            name="internal_exam"
+            required
+        >
+
+            <option value="">Select an internal dataset</option>
+
+            {% for dataset in internal_datasets %}
+
+                <option
+                    value="{{ dataset['exam_name'] }}"
+                    {% if request.args.get("internal_exam") == dataset["exam_name"] %}
+                        selected
+                    {% endif %}
+                >
+                    {{ dataset["exam_name"] }}
+                </option>
+
+            {% endfor %}
+
+        </select>
+
+        <br><br>
+
+        <label for="board_exam">Board Examination:</label>
+
+        <select
+            id="board_exam"
+            name="board_exam"
+            required
+        >
+
+            <option value="">Select a board dataset</option>
+
+            {% for dataset in board_datasets %}
+
+                <option
+                    value="{{ dataset['exam_name'] }}"
+                    {% if request.args.get("board_exam") == dataset["exam_name"] %}
+                        selected
+                    {% endif %}
+                >
+                    {{ dataset["exam_name"] }}
+                </option>
+
+            {% endfor %}
+
+        </select>
+
+        <br><br>
+
+        <button type="submit">
+            Compare Performance
+        </button>
+
+    </form>
+
+</section>
+
+
+{% if result %}
+
+    {% if result["status"] == "success" %}
+
+        <section class="evaluation-section">
+
+            <h2>Comparison Result</h2>
+
+            <p>
+                <strong>Student ID:</strong>
+                {{ result["student_id"] }}
+            </p>
+
+            <p>
+                <strong>Internal Examination:</strong>
+                {{ result["internal_exam"] }}
+            </p>
+
+            <p>
+                <strong>Board Examination:</strong>
+                {{ result["board_exam"] }}
+            </p>
+
+
+            <div class="statistics-cards">
+
+                <div class="statistics-card">
+                    <strong>Internal Average</strong>
+                    <p>{{ result["internal_average"] }}</p>
+                </div>
+
+                <div class="statistics-card">
+                    <strong>Board Average</strong>
+                    <p>{{ result["board_average"] }}</p>
+                </div>
+
+                <div class="statistics-card">
+                    <strong>Performance Gap</strong>
+                    <p>{{ result["average_gap"] }}</p>
+                </div>
+
+                <div class="statistics-card">
+                    <strong>Retention</strong>
+
+                    {% if result["retention_percentage"] is not none %}
+                        <p>{{ result["retention_percentage"] }}%</p>
+                    {% else %}
+                        <p>N/A</p>
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <section class="evaluation-section">
+
+            <h2>Subject Comparison</h2>
+
+            {% if result["subject_gaps"] %}
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+                            <th>Subject</th>
+                            <th>Internal</th>
+                            <th>Board</th>
+                            <th>Gap</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+    {% for subject, comparison in result["subject_gaps"].items() %}
+
+        <tr>
+
+            <td>{{ subject }}</td>
+
+            <td>{{ comparison["internal"] }}</td>
+
+            <td>{{ comparison["board"] }}</td>
+
+            <td>{{ comparison["gap"] }}</td>
+
+        </tr>
+
+    {% endfor %}
+
+</tbody>
+                </table>
+
+            {% else %}
+
+                <p>
+                    No comparable subject data was found.
+                </p>
+
+            {% endif %}
+
+        </section>
+
+
+        <section class="evaluation-section">
+
+            <h2>Largest Subject Decline</h2>
+
+            {% if result["largest_decline_subject"] %}
+
+                <p>
+                    <strong>Subject:</strong>
+                    {{ result["largest_decline_subject"] }}
+                </p>
+
+                <p>
+                    <strong>Change:</strong>
+                    {{ result["largest_decline"] }}
+                </p>
+
+            {% else %}
+
+                <p>
+                    No subject-level decline could be identified.
+                </p>
+
+            {% endif %}
+
+        </section>
+
+    {% else %}
+
+        <section class="evaluation-section">
+
+            <h2>Comparison Error</h2>
+
+            <p>{{ result["message"] }}</p>
+
+        </section>
+
+    {% endif %}
+
+{% endif %}
+
+
+<br>
+
+<a href="{{ url_for('academic_intelligence') }}">
+    Back to Academic Intelligence
+</a>
+
+{% endblock %} 

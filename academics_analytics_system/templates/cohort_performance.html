@@ -1,0 +1,222 @@
+{% extends "base.html" %}
+
+{% block title %}Cohort Performance{% endblock %}
+
+{% block content %}
+
+<h1>Cohort Performance</h1>
+
+<p>
+    Compares a student's performance with the wider group
+    in the selected examination.
+</p>
+
+
+{% if error %}
+
+    <section class="evaluation-section">
+        <p>{{ error }}</p>
+    </section>
+
+{% endif %}
+
+
+<section class="analysis-tools">
+
+    <h2>Select Student and Examination</h2>
+
+    <form method="GET"
+          action="{{ url_for('cohort_performance') }}">
+
+        <label for="student_id">Student ID:</label>
+
+        <input
+            type="number"
+            id="student_id"
+            name="student_id"
+            value="{{ student_id if student_id else '' }}"
+            required
+        >
+
+        <br><br>
+
+        <label for="exam_name">Examination:</label>
+
+        <select
+            id="exam_name"
+            name="exam_name"
+            required
+        >
+
+            <option value="">Select an examination</option>
+
+            {% for dataset in datasets %}
+
+                {% if dataset["records"] %}
+
+                    <option
+                        value="{{ dataset['exam_name'] }}"
+                        {% if request.args.get("exam_name") == dataset["exam_name"] %}
+                            selected
+                        {% endif %}
+                    >
+                        {{ dataset["exam_name"] }}
+                    </option>
+
+                {% endif %}
+
+            {% endfor %}
+
+        </select>
+
+        <br><br>
+
+        <button type="submit">
+            Analyze Cohort Performance
+        </button>
+
+    </form>
+
+</section>
+
+
+{% if result %}
+
+    {% if result["status"] == "success" %}
+
+        <section class="evaluation-section">
+
+            <h2>{{ result["exam_name"] }}</h2>
+
+            <p>
+                <strong>Student ID:</strong>
+                {{ result["student_id"] }}
+            </p>
+
+            <p>
+                <strong>Examination Date:</strong>
+                {{ result["exam_date"] }}
+            </p>
+
+
+            <div class="statistics-cards">
+
+                <div class="statistics-card">
+                    <strong>Cohort Size</strong>
+                    <p>{{ result["cohort_size"] }}</p>
+                </div>
+
+                <div class="statistics-card">
+                    <strong>Student Average</strong>
+                    <p>{{ result["student_average"] }}</p>
+                </div>
+
+                <div class="statistics-card">
+                    <strong>Cohort Average</strong>
+                    <p>{{ result["mean_average"] }}</p>
+                </div>
+
+                <div class="statistics-card">
+                    <strong>Relative Gap</strong>
+                    <p>{{ result["relative_gap"] }}</p>
+                </div>
+
+                <div class="statistics-card">
+                    <strong>Student Rank</strong>
+                    <p>{{ result["student_rank"] }}</p>
+                </div>
+
+                <div class="statistics-card">
+                    <strong>Mean GPA</strong>
+                    <p>{{ result["mean_gpa"] }}</p>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <section class="evaluation-section">
+
+            <h2>Cohort Overview</h2>
+
+            <p>
+                <strong>Highest Average:</strong>
+                {{ result["highest_average"] }}
+            </p>
+
+            <p>
+                <strong>Lowest Average:</strong>
+                {{ result["lowest_average"] }}
+            </p>
+
+            <p>
+                <strong>Mean GPA:</strong>
+                {{ result["mean_gpa"] }}
+            </p>
+
+        </section>
+
+
+        <section class="evaluation-section">
+
+            <h2>Interpretation</h2>
+
+            {% if result["relative_gap"] > 0 %}
+
+                <p>
+                    The student's average was
+                    {{ result["relative_gap"] }} marks above
+                    the cohort average.
+                </p>
+
+            {% elif result["relative_gap"] < 0 %}
+
+                <p>
+                    The student's average was
+                    {{ result["relative_gap"] | abs }} marks below
+                    the cohort average.
+                </p>
+
+            {% else %}
+
+                <p>
+                    The student's average was equal to
+                    the cohort average.
+                </p>
+
+            {% endif %}
+
+            <p>
+                The student ranked
+                {{ result["student_rank"] }}
+                out of
+                {{ result["cohort_size"] }}
+                students in this dataset.
+            </p>
+
+        </section>
+
+
+    {% else %}
+
+        <section class="evaluation-section">
+
+            <h2>Analysis Error</h2>
+
+            <p>{{ result["message"] }}</p>
+
+        </section>
+
+    {% endif %}
+
+{% endif %}
+
+
+<br>
+
+<a href="{{ url_for('academic_intelligence') }}">
+    Back to Academic Intelligence
+</a>
+
+{% endblock %}  

@@ -218,6 +218,40 @@
             "board": null,
             "batch": 2026,
             "records": []
+        },
+        {
+            "exam_name": "HSC Board 2026",
+            "exam_date": "2026-02-22",
+            "type": "board",
+            "institution": null,
+            "board": "Dhaka",
+            "batch": 2026,
+            "records": [
+                {
+                    "student_id": 101,
+                    "marks": {
+                        "Bangla": 90,
+                        "English": 99,
+                        "Math": 92,
+                        "Physics": 100,
+                        "Chemistry": 98,
+                        "Biology": 97,
+                        "ICT": 89
+                    }
+                },
+                {
+                    "student_id": 103,
+                    "marks": {
+                        "Bangla": 90,
+                        "English": 94,
+                        "Math": 88,
+                        "Physics": 87,
+                        "Chemistry": 100,
+                        "Biology": 100,
+                        "ICT": 98
+                    }
+                }
+            ]
         }
     ]
 }

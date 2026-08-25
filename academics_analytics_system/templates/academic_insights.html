@@ -8,50 +8,153 @@
 
 {% if result["status"] == "error" %}
 
-<p>{{ result["message"] }}</p>
+    <section class="evaluation-section">
+
+        <p>{{ result["message"] }}</p>
+
+    </section>
 
 {% else %}
 
-{% for key, value in result.items() %}
+    <h2>Student {{ result["student_id"] }}</h2>
 
-    {% if key != "status" %}
 
-        <h3>{{ key }}</h3>
+    <section class="evaluation-section">
 
-        {% if value is string %}
+        <h2>Insight Summary</h2>
 
-            <p>{{ value }}</p>
+        <p>
+            <strong>Current Status:</strong>
+            {{ result["insight_sections"]["current_status"] }}
+        </p>
 
-        {% elif value is mapping %}
+        <p>
+            <strong>Trend:</strong>
+            {{ result["insight_sections"]["trend"] }}
+        </p>
+
+        <p>
+            <strong>Risk:</strong>
+            {{ result["insight_sections"]["risk"] }}
+        </p>
+
+        <p>
+            <strong>Prediction:</strong>
+            {{ result["insight_sections"]["prediction"] }}
+        </p>
+
+        <p>
+            <strong>Overall Summary:</strong>
+            {{ result["insight_sections"]["summary"] }}
+        </p>
+
+    </section>
+
+
+    <section class="evaluation-section">
+
+        <h2>Key Strengths</h2>
+
+        {% if result["key_strengths"] %}
 
             <ul>
-            {% for item_key, item_value in value.items() %}
-                <li>
-                    <strong>{{ item_key }}:</strong>
-                    {{ item_value }}
-                </li>
-            {% endfor %}
-            </ul>
 
-        {% elif value is iterable %}
+                {% for strength in result["key_strengths"] %}
 
-            <ul>
-            {% for item in value %}
-                <li>{{ item }}</li>
-            {% endfor %}
+                    <li>{{ strength }}</li>
+
+                {% endfor %}
+
             </ul>
 
         {% else %}
 
-            <p>{{ value }}</p>
+            <p>No major strengths were identified.</p>
 
         {% endif %}
 
-    {% endif %}
+    </section>
 
-{% endfor %}
+
+    <section class="evaluation-section">
+
+        <h2>Key Concerns</h2>
+
+        {% if result["key_concerns"] %}
+
+            <ul>
+
+                {% for concern in result["key_concerns"] %}
+
+                    <li>{{ concern }}</li>
+
+                {% endfor %}
+
+            </ul>
+
+        {% else %}
+
+            <p>No major concerns were identified.</p>
+
+        {% endif %}
+
+    </section>
+
+
+    <section class="evaluation-section">
+
+        <h2>Priority Signals</h2>
+
+        {% if result["priority_signals"] %}
+
+            <ul>
+
+                {% for signal in result["priority_signals"] %}
+
+                    <li>{{ signal }}</li>
+
+                {% endfor %}
+
+            </ul>
+
+        {% else %}
+
+            <p>No priority signals were identified.</p>
+
+        {% endif %}
+
+    </section>
+
+
+    <section class="evaluation-section">
+
+        <h2>Intervention Suggestions</h2>
+
+        {% if result["intervention_suggestions"] %}
+
+            <ul>
+
+                {% for suggestion in result["intervention_suggestions"] %}
+
+                    <li>{{ suggestion }}</li>
+
+                {% endfor %}
+
+            </ul>
+
+        {% else %}
+
+            <p>
+                No intervention suggestions were generated from
+                the available analysis.
+            </p>
+
+        {% endif %}
+
+    </section>
 
 {% endif %}
+
 
 <br>
 

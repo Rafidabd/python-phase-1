@@ -1,0 +1,168 @@
+{% extends "base.html" %}
+
+{% block title %}Subject Consistency{% endblock %}
+
+{% block content %}
+
+<h1>Subject Consistency</h1>
+
+<p>
+    Examines how consistently a student performs in each subject
+    across their examination history.
+</p>
+
+
+{% if error %}
+
+    <section class="evaluation-section">
+        <p>{{ error }}</p>
+    </section>
+
+{% endif %}
+
+
+{% if not result %}
+
+    <section class="analysis-tools">
+
+        <h2>Select Student</h2>
+
+        <form method="GET"
+              action="{{ url_for('subject_consistency') }}">
+
+            <label for="student_id">Student ID:</label>
+
+            <input
+                type="number"
+                id="student_id"
+                name="student_id"
+                required
+            >
+
+            <button type="submit">
+                Analyze Subject Consistency
+            </button>
+
+        </form>
+
+    </section>
+
+
+{% elif result["status"] == "success" %}
+
+    <section class="evaluation-section">
+
+        <h2>Student {{ result["student_id"] }}</h2>
+
+        <p>
+            <strong>Exams analyzed:</strong>
+            {{ result["exam_count"] }}
+        </p>
+
+        <div class="statistics-cards">
+
+            <div class="statistics-card">
+                <strong>Most Consistent</strong>
+                <p>{{ result["most_consistent_subject"] }}</p>
+            </div>
+
+            <div class="statistics-card">
+                <strong>Least Consistent</strong>
+                <p>{{ result["least_consistent_subject"] }}</p>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section class="evaluation-section">
+
+        <h2>Subject Consistency</h2>
+
+        <table>
+
+            <thead>
+
+                <tr>
+                    <th>Subject</th>
+                    <th>Exams</th>
+                    <th>Mean Mark</th>
+                    <th>Standard Deviation</th>
+                    <th>Highest</th>
+                    <th>Lowest</th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% for subject, data in result["subjects"].items() %}
+
+                    <tr>
+
+                        <td>{{ subject }}</td>
+
+                        <td>{{ data["exam_count"] }}</td>
+
+                        <td>{{ data["mean_mark"] }}</td>
+
+                        <td>{{ data["standard_deviation"] }}</td>
+
+                        <td>{{ data["highest_mark"] }}</td>
+
+                        <td>{{ data["lowest_mark"] }}</td>
+
+                    </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </section>
+
+
+    <section class="evaluation-section">
+
+        <h2>Interpretation</h2>
+
+        <p>
+            <strong>Most consistent subject:</strong>
+            {{ result["most_consistent_subject"] }}
+        </p>
+
+        <p>
+            <strong>Least consistent subject:</strong>
+            {{ result["least_consistent_subject"] }}
+        </p>
+
+        <p>
+            A lower standard deviation indicates that marks have
+            varied less across the available examinations.
+        </p>
+
+    </section>
+
+
+{% else %}
+
+    <section class="evaluation-section">
+
+        <h2>Analysis Error</h2>
+
+        <p>{{ result["message"] }}</p>
+
+    </section>
+
+{% endif %}
+
+
+<br>
+
+<a href="{{ url_for('academic_intelligence') }}">
+    Back to Academic Intelligence
+</a>
+
+{% endblock %}  

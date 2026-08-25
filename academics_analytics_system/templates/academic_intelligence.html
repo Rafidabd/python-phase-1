@@ -6,6 +6,9 @@
 
 <h1>Academic Intelligence</h1>
 
+
+<h2>Academic History</h2>
+
 <form method="GET"
       action="{{ url_for('academic_history') }}">
 
@@ -18,11 +21,14 @@
         required
     >
 
-    <button type="submit">View Academic History</button>
+    <button type="submit">
+        View Academic History
+    </button>
 
 </form>
 
 <hr>
+
 
 <h2>Performance Series</h2>
 
@@ -46,6 +52,7 @@
 
 <hr>
 
+
 <h2>Trend Analysis</h2>
 
 <form method="GET"
@@ -64,9 +71,10 @@
         Analyze Trend
     </button>
 
-</form>  
+</form>
 
 <hr>
+
 
 <h2>Risk Analysis</h2>
 
@@ -86,9 +94,10 @@
         Analyze Risk
     </button>
 
-</form> 
+</form>
 
 <hr>
+
 
 <h2>Performance Prediction</h2>
 
@@ -108,9 +117,10 @@
         Predict Performance
     </button>
 
-</form> 
+</form>
 
 <hr>
+
 
 <h2>Student Insights</h2>
 
@@ -130,13 +140,183 @@
         Generate Student Insights
     </button>
 
+</form>
+
+<hr>
+
+
+<h2>Advanced Analysis</h2>
+
+
+<h3>Internal vs Board Performance</h3>
+
+<form method="GET"
+      action="{{ url_for('internal_board_comparison') }}">
+
+    <label for="internal_board_student_id">Student ID:</label>
+
+    <input
+        type="number"
+        id="internal_board_student_id"
+        name="student_id"
+        required
+    >
+
+    <button type="submit">
+        Compare Internal vs Board
+    </button>
+
+</form>
+
+
+<h3>Weakness Persistence</h3>
+
+<form method="GET"
+      action="{{ url_for('weakness_persistence') }}">
+
+    <label for="weakness_student_id">Student ID:</label>
+
+    <input
+        type="number"
+        id="weakness_student_id"
+        name="student_id"
+        required
+    >
+
+    <button type="submit">
+        Analyze Weakness Persistence
+    </button>
+
+</form>
+
+
+<h3>Academic Stability</h3>
+
+<form method="GET"
+      action="{{ url_for('academic_stability') }}">
+
+    <label for="stability_student_id">Student ID:</label>
+
+    <input
+        type="number"
+        id="stability_student_id"
+        name="student_id"
+        required
+    >
+
+    <button type="submit">
+        Analyze Academic Stability
+    </button>
+
 </form> 
+
+<h3>Improvement Momentum</h3>
+
+<form method="GET"
+      action="{{ url_for('improvement_momentum') }}">
+
+    <label for="momentum_student_id">Student ID:</label>
+
+    <input
+        type="number"
+        id="momentum_student_id"
+        name="student_id"
+        required
+    >
+
+    <button type="submit">
+        Analyze Improvement Momentum
+    </button>
+
+</form> 
+
+
+
+<h3>Subject Co-movement</h3>
+
+<form method="GET"
+      action="{{ url_for('subject_comovement') }}">
+
+    <label for="comovement_student_id">Student ID:</label>
+
+    <input
+        type="number"
+        id="comovement_student_id"
+        name="student_id"
+        required
+    >
+
+    <button type="submit">
+        Analyze Subject Co-movement
+    </button>
+
+</form> 
+
+<h3>Exam Context Analysis</h3>
+
+<form method="GET"
+      action="{{ url_for('exam_context') }}">
+
+    <label for="exam_context_student_id">Student ID:</label>
+
+    <input
+        type="number"
+        id="exam_context_student_id"
+        name="student_id"
+        required
+    >
+
+    <button type="submit">
+        Analyze Exam Context
+    </button>
+
+</form> 
+<h3>Cohort Performance</h3>
+
+<form method="GET"
+      action="{{ url_for('cohort_performance') }}">
+
+    <label for="cohort_student_id">Student ID:</label>
+
+    <input
+        type="number"
+        id="cohort_student_id"
+        name="student_id"
+        required
+    >
+
+    <button type="submit">
+        Analyze Cohort Performance
+    </button>
+
+</form> 
+
+<h3>Subject Consistency</h3>
+
+<form method="GET"
+      action="{{ url_for('subject_consistency') }}">
+
+    <label for="consistency_student_id">Student ID:</label>
+
+    <input
+        type="number"
+        id="consistency_student_id"
+        name="student_id"
+        required
+    >
+
+    <button type="submit">
+        Analyze Subject Consistency
+    </button>
+
+</form> 
+
 
 
 {% if error %}
 
-<p>{{ error }}</p>
+    <p>{{ error }}</p>
 
-{% endif %} 
+{% endif %}
 
 {% endblock %}  

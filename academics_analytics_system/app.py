@@ -7,8 +7,8 @@ from modules.analytics import (
 rank_students,get_topper,get_lowest_performer,get_weak_students,get_dataset_statistics,
 get_subject_averages,get_strongest_subject_overall,get_weakest_subject_overall,evaluate_student_record,evaluate_dataset_records
 )
-from modules.predictor import get_student_academic_history, build_student_performance_series,analyze_student_trend,analyze_student_risk,predict_student_performance
-from modules.insights import generate_student_insights
+from modules.predictor import get_student_academic_history, build_student_performance_series,analyze_student_trend,analyze_student_risk,predict_student_performance, compare_internal_board_performance,analyze_weakness_persistence,analyze_academic_stability,analyze_improvement_momentum,analyze_subject_comovement,analyze_exam_context,analyze_cohort_performance,analyze_subject_consistency
+from modules.insights import generate_student_insights 
 
 
 app = Flask(__name__)
@@ -533,5 +533,281 @@ def academic_insights():
         result=result
     ) 
 
+
+
+@app.route("/academic-intelligence/internal-board")
+def internal_board_comparison():
+
+    
+
+    student_id = request.args.get("student_id")
+
+    if not student_id:
+        return render_template(
+            "internal_board.html",
+            error="Student ID is required."
+        )
+
+    try:
+        student_id = int(student_id)
+    except ValueError:
+        return render_template(
+            "internal_board.html",
+            error="Student ID must be an integer."
+        )
+
+    datasets = get_all_datasets()
+
+    internal_datasets = []
+    board_datasets = []
+
+    for dataset in datasets:
+
+        if dataset["type"] == "internal":
+            internal_datasets.append(dataset)
+
+        elif dataset["type"] == "board":
+            board_datasets.append(dataset)
+
+    internal_exam = request.args.get("internal_exam")
+    board_exam = request.args.get("board_exam")
+
+    result = None
+
+    if internal_exam and board_exam:
+        result = compare_internal_board_performance(
+            student_id,
+            internal_exam,
+            board_exam
+        )
+
+    return render_template(
+        "internal_board.html",
+        student_id=student_id,
+        internal_datasets=internal_datasets,
+        board_datasets=board_datasets,
+        result=result
+    ) 
+
+@app.route("/academic-intelligence/weakness-persistence")
+def weakness_persistence():
+
+    student_id = request.args.get("student_id")
+
+    if not student_id:
+        return render_template(
+            "weakness_persistence.html",
+            error="Student ID is required."
+        )
+
+    try:
+        student_id = int(student_id)
+    except ValueError:
+        return render_template(
+            "weakness_persistence.html",
+            error="Student ID must be an integer."
+        )
+
+    result = analyze_weakness_persistence(student_id)
+
+    return render_template(
+        "weakness_persistence.html",
+        result=result,
+        student_id=student_id
+    ) 
+
+@app.route("/academic-intelligence/stability")
+def academic_stability():
+
+    student_id = request.args.get("student_id")
+
+    if not student_id:
+        return render_template(
+            "academic_stability.html",
+            error="Student ID is required."
+        )
+
+    try:
+        student_id = int(student_id)
+    except ValueError:
+        return render_template(
+            "academic_stability.html",
+            error="Student ID must be an integer."
+        )
+
+    result = analyze_academic_stability(student_id)
+
+    return render_template(
+        "academic_stability.html",
+        result=result,
+        student_id=student_id
+    ) 
+
+
+@app.route("/academic-intelligence/momentum")
+def improvement_momentum():
+
+    student_id = request.args.get("student_id")
+
+    if not student_id:
+        return render_template(
+            "improvement_momentum.html",
+            error="Student ID is required."
+        )
+
+    try:
+        student_id = int(student_id)
+    except ValueError:
+        return render_template(
+            "improvement_momentum.html",
+            error="Student ID must be an integer."
+        )
+
+    result = analyze_improvement_momentum(student_id)
+
+    return render_template(
+        "improvement_momentum.html",
+        result=result,
+        student_id=student_id
+    ) 
+
+
+@app.route("/academic-intelligence/subject-comovement")
+def subject_comovement():
+
+    student_id = request.args.get("student_id")
+
+    if not student_id:
+        return render_template(
+            "subject_comovement.html",
+            error="Student ID is required."
+        )
+
+    try:
+        student_id = int(student_id)
+    except ValueError:
+        return render_template(
+            "subject_comovement.html",
+            error="Student ID must be an integer."
+        )
+
+    result = analyze_subject_comovement(student_id)
+
+    return render_template(
+        "subject_comovement.html",
+        result=result,
+        student_id=student_id
+    ) 
+@app.route("/academic-intelligence/exam-context")
+def exam_context():
+
+    student_id = request.args.get("student_id")
+
+    if not student_id:
+        return render_template(
+            "exam_context.html",
+            error="Student ID is required."
+        )
+
+    try:
+        student_id = int(student_id)
+    except ValueError:
+        return render_template(
+            "exam_context.html",
+            error="Student ID must be an integer."
+        )
+
+    datasets = get_all_datasets()
+
+    result = None
+
+    exam_name = request.args.get("exam_name")
+
+    if exam_name:
+        result = analyze_exam_context(
+            student_id,
+            exam_name
+        )
+
+    return render_template(
+        "exam_context.html",
+        student_id=student_id,
+        datasets=datasets,
+        result=result
+    ) 
+
+
+@app.route("/academic-intelligence/cohort")
+def cohort_performance():
+
+    student_id = request.args.get("student_id")
+
+    if not student_id:
+        return render_template(
+            "cohort_performance.html",
+            error="Student ID is required."
+        )
+
+    try:
+        student_id = int(student_id)
+    except ValueError:
+        return render_template(
+            "cohort_performance.html",
+            error="Student ID must be an integer."
+        )
+
+    datasets = get_all_datasets()
+
+    exam_name = request.args.get("exam_name")
+
+    result = None
+
+    if exam_name:
+        result = analyze_cohort_performance(
+            student_id,
+            exam_name
+        )
+
+    return render_template(
+        "cohort_performance.html",
+        student_id=student_id,
+        datasets=datasets,
+        result=result
+    ) 
+
+
+@app.route("/academic-intelligence/subject-consistency")
+def subject_consistency():
+
+    student_id = request.args.get("student_id")
+
+    if not student_id:
+        return render_template(
+            "subject_consistency.html",
+            error="Student ID is required."
+        )
+
+    try:
+        student_id = int(student_id)
+    except ValueError:
+        return render_template(
+            "subject_consistency.html",
+            error="Student ID must be an integer."
+        )
+
+    result = analyze_subject_consistency(student_id)
+
+    return render_template(
+        "subject_consistency.html",
+        result=result,
+        student_id=student_id
+    ) 
+
+
+
+
+
 if __name__ == "__main__":
     app.run(debug=True)       
+
+

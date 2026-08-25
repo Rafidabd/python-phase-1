@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+
+{% block title %}Improvement Momentum{% endblock %}
+
+{% block content %}
+
+<h1>Improvement Momentum</h1>
+
+<p>
+    Examines whether recent changes in a student's performance
+    are strengthening, weakening, or remaining stable.
+</p>
+
+
+{% if error %}
+
+    <section class="evaluation-section">
+        <p>{{ error }}</p>
+    </section>
+
+{% endif %}
+
+
+{% if not result %}
+
+    <section class="analysis-tools">
+
+        <h2>Select Student</h2>
+
+        <form method="GET"
+              action="{{ url_for('improvement_momentum') }}">
+
+            <label for="student_id">Student ID:</label>
+
+            <input
+                type="number"
+                id="student_id"
+                name="student_id"
+                required
+            >
+
+            <button type="submit">
+                Analyze Momentum
+            </button>
+
+        </form>
+
+    </section>
+
+
+{% elif result["status"] == "success" %}
+
+    <section class="evaluation-section">
+
+        <h2>Student {{ result["student_id"] }}</h2>
+
+        <div class="statistics-cards">
+
+            <div class="statistics-card">
+                <strong>Exam Count</strong>
+                <p>{{ result["exam_count"] }}</p>
+            </div>
+
+            <div class="statistics-card">
+                <strong>Recent Change</strong>
+                <p>{{ result["recent_change"] }}</p>
+            </div>
+
+            <div class="statistics-card">
+                <strong>Earlier Average Change</strong>
+                <p>{{ result["earlier_average_change"] }}</p>
+            </div>
+
+            <div class="statistics-card">
+                <strong>Momentum</strong>
+                <p>{{ result["momentum"] }}</p>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section class="evaluation-section">
+
+        <h2>Momentum Result</h2>
+
+        <p>
+            <strong>Direction:</strong>
+            {{ result["momentum_direction"] }}
+        </p>
+
+        <p>
+            <strong>Recent Change:</strong>
+            {{ result["recent_change"] }}
+        </p>
+
+        <p>
+            <strong>Earlier Average Change:</strong>
+            {{ result["earlier_average_change"] }}
+        </p>
+
+        <p>
+            <strong>Momentum:</strong>
+            {{ result["momentum"] }}
+        </p>
+
+    </section>
+
+
+{% else %}
+
+    <section class="evaluation-section">
+
+        <h2>Analysis Error</h2>
+
+        <p>{{ result["message"] }}</p>
+
+    </section>
+
+{% endif %}
+
+
+<br>
+
+<a href="{{ url_for('academic_intelligence') }}">
+    Back to Academic Intelligence
+</a>
+
+{% endblock %} 

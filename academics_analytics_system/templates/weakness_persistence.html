@@ -1,0 +1,147 @@
+{% extends "base.html" %}
+
+{% block title %}Weakness Persistence{% endblock %}
+
+{% block content %}
+
+<h1>Weakness Persistence</h1>
+
+<p>
+    Identifies subjects where weak performance appears repeatedly
+    across a student's examination history.
+</p>
+
+{% if error %}
+
+    <section class="evaluation-section">
+        <p>{{ error }}</p>
+    </section>
+
+{% endif %}
+
+
+{% if not result %}
+
+    <section class="analysis-tools">
+
+        <h2>Select Student</h2>
+
+        <form method="GET"
+              action="{{ url_for('weakness_persistence') }}">
+
+            <label for="student_id">Student ID:</label>
+
+            <input
+                type="number"
+                id="student_id"
+                name="student_id"
+                required
+            >
+
+            <button type="submit">
+                Analyze Weaknesses
+            </button>
+
+        </form>
+
+    </section>
+
+{% elif result["status"] == "success" %}
+
+    <section class="evaluation-section">
+
+        <h2>Student {{ result["student_id"] }}</h2>
+
+        {% if result["persistent_weaknesses"] %}
+
+            <p>
+                <strong>Persistent Weaknesses:</strong>
+                {{ result["persistent_weaknesses"] | join(", ") }}
+            </p>
+
+        {% else %}
+
+            <p>
+                No persistent subject weakness was identified.
+            </p>
+
+        {% endif %}
+
+    </section>
+
+
+    <section class="evaluation-section">
+
+        <h2>Subject History</h2>
+
+        <table>
+
+            <thead>
+
+                <tr>
+                    <th>Subject</th>
+                    <th>Total Exams</th>
+                    <th>Weak Exams</th>
+                    <th>Persistence</th>
+                    <th>Current Mark</th>
+                    <th>Currently Weak</th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% for subject, data in result["subjects"].items() %}
+
+                    <tr>
+
+                        <td>{{ subject }}</td>
+
+                        <td>{{ data["total_exams"] }}</td>
+
+                        <td>{{ data["weak_exams"] }}</td>
+
+                        <td>
+                            {{ data["persistence_percentage"] }}%
+                        </td>
+
+                        <td>{{ data["current_mark"] }}</td>
+
+                        <td>
+                            {% if data["currently_weak"] %}
+                                Yes
+                            {% else %}
+                                No
+                            {% endif %}
+                        </td>
+
+                    </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </section>
+
+{% else %}
+
+    <section class="evaluation-section">
+
+        <h2>Analysis Error</h2>
+
+        <p>{{ result["message"] }}</p>
+
+    </section>
+
+{% endif %}
+
+
+<br>
+
+<a href="{{ url_for('academic_intelligence') }}">
+    Back to Academic Intelligence
+</a>
+
+{% endblock %} 

@@ -1,7 +1,15 @@
 """
 Transforms analysis results into human-readable insights.
 """
-from modules.predictor import analyze_student_risk,analyze_student_trend,predict_student_performance
+from modules.predictor import (
+    analyze_student_risk,
+    analyze_student_trend,
+    predict_student_performance,
+    analyze_weakness_persistence,
+    analyze_academic_stability,
+    analyze_improvement_momentum,
+    analyze_subject_consistency
+)
 from modules.config_loader import load_config
 def build_current_status_insight(risk_result):
     if not risk_result:
@@ -334,39 +342,249 @@ def build_summary_insight(trend_result, risk_result, prediction_result):
 
 
 def generate_student_insights(student_id):
-    trend_result=analyze_student_trend(student_id)
-    if trend_result["status"]=="error":
-        return trend_result
-    risk_result=analyze_student_risk(student_id)
-    if risk_result["status"]=="error":
-        return risk_result
-    prediction_result=predict_student_performance(student_id)
-    if prediction_result["status"]=="error":
-        return prediction_result
-    config=load_config()
-    current_status_insight = build_current_status_insight(risk_result)
-    trend_insight = build_trend_insight(trend_result)
-    risk_insight = build_risk_insight(risk_result)
-    prediction_insight = build_prediction_insight(prediction_result, config)
-    summary_insight = build_summary_insight(trend_result, risk_result, prediction_result)
-    key_strengths = extract_key_strengths(trend_result, risk_result, prediction_result)
-    key_concerns = extract_key_concerns(trend_result, risk_result, prediction_result)
-    priority_signals = extract_priority_signals(trend_result, risk_result, prediction_result, config)
-    return {
-    "status": "success",
-    "student_id": student_id,
-    "insight_sections": {
-        "current_status": current_status_insight,
-        "trend": trend_insight,
-        "risk": risk_insight,
-        "prediction": prediction_insight,
-        "summary": summary_insight
-    },
-    "key_strengths": key_strengths,
-    "key_concerns": key_concerns,
-    "priority_signals": priority_signals
-          } 
-    
 
+    trend_result = analyze_student_trend(student_id)
+
+    if trend_result["status"] == "error":
+        return trend_result
+
+    risk_result = analyze_student_risk(student_id)
+
+    if risk_result["status"] == "error":
+        return risk_result
+
+    prediction_result = predict_student_performance(student_id)
+
+    if prediction_result["status"] == "error":
+        return prediction_result
+
+    weakness_result = analyze_weakness_persistence(student_id)
+
+    if weakness_result["status"] == "error":
+        weakness_result = None
+
+    stability_result = analyze_academic_stability(student_id)
+
+    if stability_result["status"] == "error":
+        stability_result = None
+
+    momentum_result = analyze_improvement_momentum(student_id)
+
+    if momentum_result["status"] == "error":
+        momentum_result = None
+
+    consistency_result = analyze_subject_consistency(student_id)
+
+    if consistency_result["status"] == "error":
+        consistency_result = None
+
+    config = load_config()
+
+    current_status_insight = build_current_status_insight(
+        risk_result
+    )
+
+    trend_insight = build_trend_insight(
+        trend_result
+    )
+
+    risk_insight = build_risk_insight(
+        risk_result
+    )
+
+    prediction_insight = build_prediction_insight(
+        prediction_result,
+        config
+    )
+
+    summary_insight = build_summary_insight(
+        trend_result,
+        risk_result,
+        prediction_result
+    )
+
+    key_strengths = extract_key_strengths(
+        trend_result,
+        risk_result,
+        prediction_result
+    )
+
+    key_concerns = extract_key_concerns(
+        trend_result,
+        risk_result,
+        prediction_result
+    )
+
+    priority_signals = extract_priority_signals(
+        trend_result,
+        risk_result,
+        prediction_result,
+        config
+    )
+
+    intervention_suggestions = generate_intervention_suggestions(
+        trend_result,
+        risk_result,
+        prediction_result,
+        weakness_result,
+        stability_result,
+        momentum_result,
+        None,
+        consistency_result
+    )
+
+    return {
+        "status": "success",
+        "student_id": student_id,
+
+        "insight_sections": {
+            "current_status": current_status_insight,
+            "trend": trend_insight,
+            "risk": risk_insight,
+            "prediction": prediction_insight,
+            "summary": summary_insight
+        },
+
+        "key_strengths": key_strengths,
+
+        "key_concerns": key_concerns,
+
+        "priority_signals": priority_signals,
+
+        "intervention_suggestions": intervention_suggestions
+    } 
+    
+def generate_intervention_suggestions(
+    trend_result,
+    risk_result,
+    prediction_result,
+    weakness_result,
+    stability_result,
+    momentum_result,
+    internal_board_result,
+    consistency_result
+):
+
+    suggestions = []
+
+    if weakness_result and weakness_result["status"] == "success":
+
+        persistent_weaknesses = weakness_result["persistent_weaknesses"]
+
+        if persistent_weaknesses:
+            subjects = ", ".join(persistent_weaknesses)
+
+            suggestions.append(
+                "Prioritize targeted practice in "
+                + subjects
+                + " because weakness has persisted across multiple examinations."
+            )
+
+    if trend_result and trend_result["status"] == "success":
+
+        if trend_result["overall_trend"] == "declining":
+            suggestions.append(
+                "Review recent academic performance and identify the main causes "
+                "of the continuing decline before the next examination."
+            )
+
+    if momentum_result and momentum_result["status"] == "success":
+
+        if momentum_result["momentum_direction"] == "strengthening":
+            suggestions.append(
+                "Maintain the current improvement pattern while continuing to "
+                "monitor recent performance."
+            )
+
+        elif momentum_result["momentum_direction"] == "weakening":
+            suggestions.append(
+                "Monitor the recent slowdown in improvement and reinforce "
+                "the areas contributing most to the weaker momentum."
+            )
+
+    if stability_result and stability_result["status"] == "success":
+
+        if stability_result["stability_status"] == "volatile":
+            suggestions.append(
+                "Investigate large fluctuations between examinations and work "
+                "toward a more consistent preparation routine."
+            )
+
+    if risk_result and risk_result["status"] == "success":
+
+        if risk_result["risk_level"] == "high":
+            suggestions.append(
+                "Prioritize immediate academic attention because multiple "
+                "current risk signals are present."
+            )
+
+        elif risk_result["risk_level"] == "moderate":
+            suggestions.append(
+                "Monitor the student's performance closely because moderate "
+                "risk signals are currently present."
+            )
+
+    if prediction_result and prediction_result["status"] == "success":
+
+        if prediction_result["predicted_performance"] == "poor":
+            suggestions.append(
+                "Focus on the weakest areas before the next examination because "
+                "the current prediction indicates a poor performance outlook."
+            )
+
+        elif prediction_result["predicted_performance"] == "average":
+            suggestions.append(
+                "Target areas of weaker performance to improve the expected "
+                "outcome in the next examination."
+            )
+
+    if internal_board_result and internal_board_result["status"] == "success":
+
+        if internal_board_result["average_gap"] < -5:
+            suggestions.append(
+                "Review board-style preparation because board performance was "
+                "substantially below the selected internal examination."
+            )
+
+        if internal_board_result["largest_decline_subject"]:
+
+            if internal_board_result["largest_decline"] <= -10:
+
+                subject = internal_board_result[
+                    "largest_decline_subject"
+                ]
+
+                suggestions.append(
+                    "Give additional attention to "
+                    + subject
+                    + " because it showed the largest internal-to-board decline."
+                )
+
+    if consistency_result and consistency_result["status"] == "success":
+
+        least_consistent = consistency_result[
+            "least_consistent_subject"
+        ]
+
+        suggestions.append(
+            "Monitor "
+            + least_consistent
+            + " closely because it shows the greatest variation across examinations."
+        )
+
+    if not suggestions:
+        suggestions.append(
+            "No major intervention signal was identified from the available "
+            "academic analysis."
+        )
+
+    final_suggestions = []
+
+    for suggestion in suggestions:
+
+        if suggestion not in final_suggestions:
+            final_suggestions.append(suggestion)
+
+    return final_suggestions[:6] 
     
     
