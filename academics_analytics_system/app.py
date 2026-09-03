@@ -35,6 +35,7 @@ from modules.intelligence.advanced_analysis import (
     analyze_subject_consistency
 )
 from modules.insights import generate_student_insights 
+from modules.intelligence.history import get_student_record_from_dataset
 
 
 app = Flask(__name__)
@@ -958,5 +959,4 @@ def subject_consistency():
 
 if __name__ == "__main__":
     app.run(debug=True)       
-
 
