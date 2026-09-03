@@ -203,41 +203,55 @@ def update_student(student_id,name,institution,section,board,batch,class_roll,bo
 
 
 def delete_student(student_id):
-    students_data=load_json(students_file_path)
-    students=students_data["students"]
+    base_dir = Path(__file__).resolve().parent.parent
 
-    target_student=student_finder_by_id(students,student_id)
+    students_file_path = base_dir / "data" / "students.json"
+    datasets_file_path = base_dir / "data" / "datasets.json"
+
+    students_data = load_json(students_file_path)
+    students = students_data["students"]
+
+    target_student = None
+
+    for student in students:
+        if str(student["id"]) == str(student_id):
+            target_student = student
+            break
+
     if target_student is None:
-        return {"status":"error","message":"Student not found."}
+        return {
+            "status": "error",
+            "message": "Student not found."
+        }
 
-    datasets_data=load_json("data/datasets.json")
-    datasets=datasets_data["datasets"]
+    datasets_data = load_json(datasets_file_path)
+    datasets = datasets_data["datasets"]
 
     for dataset in datasets:
-        for record in dataset["records"]:
-            if record["student_id"]==student_id:
-                return {"status":"error","message":"Cannot delete student with linked academic records."}
+        for record in dataset.get("records", []):
+            if str(record["student_id"]) == str(student_id):
+                return {
+                    "status": "error",
+                    "message": "Cannot delete student with linked academic records."
+                }
 
-    updated_students=[]
+    updated_students = []
+
     for student in students:
-        if student["id"]!=student_id:
+        if str(student["id"]) != str(student_id):
             updated_students.append(student)
 
-    students_data["students"]=updated_students
-    save_json(students_file_path,students_data)
-    return {"status":"success","message":"Student deleted successfully."} 
+    students_data["students"] = updated_students
 
+    save_json(students_file_path, students_data)
+
+    return {
+        "status": "success",
+        "message": "Student deleted successfully."
+    }
 
      
-def get_student_record_from_dataset(dataset, student_id):
-    for record in dataset.get("records", []):
-        if str(record["student_id"]) == str(student_id):
-            return record
 
-    return None      
-     
-     
-     
 
 
 

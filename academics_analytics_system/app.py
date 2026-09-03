@@ -1,13 +1,39 @@
-from flask import Flask, render_template, abort
-from flask import Flask, render_template, request, redirect, url_for
-from modules.student_manager import get_all_students,get_student_by_id,get_student_record_from_dataset
-from modules.dataset_manager import get_all_datasets,get_dataset_by_name,create_dataset,add_student_record
+from flask import Flask, render_template, request, redirect, url_for, abort
+from modules.student_manager import (
+    get_all_students,
+    get_student_by_id,
+    add_student,
+    update_student,
+    delete_student
+)
+
+from modules.dataset_manager import (
+    get_all_datasets,
+    get_dataset_by_name,
+    create_dataset,
+    add_student_record,
+    delete_dataset
+)
 from modules.config_loader import load_config
 from modules.analytics import (
 rank_students,get_topper,get_lowest_performer,get_weak_students,get_dataset_statistics,
 get_subject_averages,get_strongest_subject_overall,get_weakest_subject_overall,evaluate_student_record,evaluate_dataset_records
 )
-from modules.predictor import get_student_academic_history, build_student_performance_series,analyze_student_trend,analyze_student_risk,predict_student_performance, compare_internal_board_performance,analyze_weakness_persistence,analyze_academic_stability,analyze_improvement_momentum,analyze_subject_comovement,analyze_exam_context,analyze_cohort_performance,analyze_subject_consistency
+from modules.intelligence.history import get_student_academic_history
+from modules.intelligence.performance import build_student_performance_series
+from modules.intelligence.trends import analyze_student_trend
+from modules.intelligence.risk import analyze_student_risk
+from modules.intelligence.prediction import predict_student_performance
+from modules.intelligence.advanced_analysis import (
+    compare_internal_board_performance,
+    analyze_weakness_persistence,
+    analyze_academic_stability,
+    analyze_improvement_momentum,
+    analyze_subject_comovement,
+    analyze_exam_context,
+    analyze_cohort_performance,
+    analyze_subject_consistency
+)
 from modules.insights import generate_student_insights 
 
 
@@ -63,6 +89,115 @@ def student_detail(student_id):
 @app.errorhandler(404)
 def page_not_found(error):
     return render_template("404.html"), 404 
+
+@app.route("/students/add", methods=["GET", "POST"])
+def add_student_page():
+
+    if request.method == "POST":
+
+        student_id = int(request.form["student_id"])
+        name = request.form["name"]
+        institution = request.form["institution"]
+        section = request.form["section"]
+        board = request.form["board"]
+        batch = int(request.form["batch"])
+        class_roll = int(request.form["class_roll"])
+
+        board_roll = request.form.get("board_roll")
+        board_registration = request.form.get("board_registration")
+
+        result = add_student(
+            student_id,
+            name,
+            institution,
+            section,
+            board,
+            batch,
+            class_roll,
+            board_roll,
+            board_registration
+        )
+
+        if result["status"] == "success":
+            return redirect(url_for("students"))
+
+        return render_template(
+            "add_student.html",
+            error=result["message"]
+        )
+
+    return render_template("add_student.html")
+
+
+@app.route("/students/<int:student_id>/edit", methods=["GET", "POST"])
+def edit_student_page(student_id):
+
+    student = get_student_by_id(student_id)
+
+    if not student:
+        return render_template("404.html"), 404
+
+    if request.method == "POST":
+
+        name = request.form["name"]
+        institution = request.form["institution"]
+        section = request.form["section"]
+        board = request.form["board"]
+        batch = int(request.form["batch"])
+        class_roll = int(request.form["class_roll"])
+
+        board_roll = request.form.get("board_roll")
+        board_registration = request.form.get("board_registration")
+
+        result = update_student(
+            student_id,
+            name,
+            institution,
+            section,
+            board,
+            batch,
+            class_roll,
+            board_roll,
+            board_registration
+        )
+
+        if result["status"] == "success":
+            return redirect(
+                url_for("student_detail", student_id=student_id)
+            )
+
+        return render_template(
+            "edit_student.html",
+            student=student,
+            error=result["message"]
+        )
+
+    return render_template(
+        "edit_student.html",
+        student=student
+    )
+
+
+@app.route("/students/<int:student_id>/delete", methods=["POST"])
+def delete_student_page(student_id):
+
+    result = delete_student(student_id)
+
+    if result["status"] == "success":
+        return redirect(url_for("students"))
+
+    student = get_student_by_id(student_id)
+
+    return render_template(
+        "student_detail.html",
+        student=student,
+        error=result["message"]
+    ) 
+
+
+
+
+
 
 
 @app.route("/datasets")
@@ -154,7 +289,21 @@ def add_record_page(exam_name):
         dataset=dataset,
         subjects=config["subjects"]
     )
+@app.route("/datasets/<exam_name>/delete", methods=["POST"])
+def delete_dataset_page(exam_name):
 
+    result = delete_dataset(exam_name)
+
+    if result["status"] == "success":
+        return redirect(url_for("datasets"))
+
+    dataset = get_dataset_by_name(exam_name)
+
+    return render_template(
+        "dataset_detail.html",
+        dataset=dataset,
+        error=result["message"]
+    ) 
 
 @app.route("/analytics", methods=["GET", "POST"])
 def analytics():

@@ -5,12 +5,17 @@ from modules.predictor import (
     analyze_student_risk,
     analyze_student_trend,
     predict_student_performance,
+    compare_internal_board_performance,
     analyze_weakness_persistence,
     analyze_academic_stability,
     analyze_improvement_momentum,
     analyze_subject_consistency
-)
+) 
 from modules.config_loader import load_config
+from modules.intelligence.history import (
+    get_student_record_from_dataset,
+    get_student_academic_history
+)
 def build_current_status_insight(risk_result):
     if not risk_result:
         return "Current Academic Status could not be interpreted"
@@ -378,6 +383,47 @@ def generate_student_insights(student_id):
     if consistency_result["status"] == "error":
         consistency_result = None
 
+    internal_board_result = None
+
+    history_result = get_student_academic_history(student_id)
+
+    if history_result["status"] == "success":
+
+        history = history_result["history"]
+
+        internal_exams = []
+        board_exams = []
+
+        for entry in history:
+
+            if entry["dataset_type"] == "internal":
+                internal_exams.append(entry)
+
+            elif entry["dataset_type"] == "board":
+                board_exams.append(entry)
+
+        if internal_exams and board_exams:
+
+            internal_exams.sort(
+                key=lambda entry: entry["exam_date"]
+            )
+
+            board_exams.sort(
+                key=lambda entry: entry["exam_date"]
+            )
+
+            latest_internal_exam = internal_exams[-1]
+            latest_board_exam = board_exams[-1]
+
+            internal_board_result = compare_internal_board_performance(
+                student_id,
+                latest_internal_exam["exam_name"],
+                latest_board_exam["exam_name"]
+            )
+
+            if internal_board_result["status"] == "error":
+                internal_board_result = None
+
     config = load_config()
 
     current_status_insight = build_current_status_insight(
@@ -429,7 +475,7 @@ def generate_student_insights(student_id):
         weakness_result,
         stability_result,
         momentum_result,
-        None,
+        internal_board_result,
         consistency_result
     )
 

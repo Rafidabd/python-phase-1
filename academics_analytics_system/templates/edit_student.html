@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Update Student</h1>
+
+{% if error %}
+
+<p>{{ error }}</p>
+{% endif %}
+
+<form method="POST">
+
+```
+<label>Student ID</label>
+<input type="number" value="{{ student.id }}" disabled>
+
+<label>Name</label>
+<input type="text" name="name" value="{{ student.name }}" required>
+
+<label>Institution</label>
+<input type="text" name="institution" value="{{ student.institution }}" required>
+
+<label>Section</label>
+<input type="text" name="section" value="{{ student.section }}" required>
+
+<label>Board</label>
+<input type="text" name="board" value="{{ student.board }}" required>
+
+<label>Batch</label>
+<input type="number" name="batch" value="{{ student.batch }}" required>
+
+<label>Class Roll</label>
+<input type="number" name="class_roll" value="{{ student.class_roll }}" required>
+
+<label>Board Roll</label>
+<input
+    type="number"
+    name="board_roll"
+    value="{{ student.board_roll if student.board_roll is not none else '' }}"
+>
+
+<label>Board Registration</label>
+<input
+    type="number"
+    name="board_registration"
+    value="{{ student.board_registration if student.board_registration is not none else '' }}"
+>
+
+<button type="submit">Update Student</button>
+```
+
+</form>
+
+<a href="{{ url_for('student_detail', student_id=student.id) }}">
+    Cancel
+</a>
+
+{% endblock %}
+ 

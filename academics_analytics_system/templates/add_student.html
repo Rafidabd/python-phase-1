@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Add Student</h1>
+
+{% if error %}
+
+<p>{{ error }}</p>
+{% endif %}
+
+<form method="POST">
+
+```
+<label>Student ID</label>
+<input type="number" name="student_id" required>
+
+<label>Name</label>
+<input type="text" name="name" required>
+
+<label>Institution</label>
+<input type="text" name="institution" required>
+
+<label>Section</label>
+<input type="text" name="section" required>
+
+<label>Board</label>
+<input type="text" name="board" required>
+
+<label>Batch</label>
+<input type="number" name="batch" required>
+
+<label>Class Roll</label>
+<input type="number" name="class_roll" required>
+
+<label>Board Roll</label>
+<input type="number" name="board_roll">
+
+<label>Board Registration</label>
+<input type="number" name="board_registration">
+
+<button type="submit">Add Student</button>
+```
+
+</form>
+
+<a href="{{ url_for('students') }}">Back to Students</a>
+
+{% endblock %}
+ 

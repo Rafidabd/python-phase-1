@@ -6,16 +6,25 @@
 
 <h1>Students</h1>
 
+<a href="{{ url_for('add_student_page') }}">Add Student</a>
+
 {% if students %}
 
 <ul>
     {% for student in students %}
         <li>
-    <a href="{{ url_for('student_detail', student_id=student['id']) }}">
-        {{ student["id"] }} - {{ student["name"] }}
-    </a>
-</li>
-    {% endfor %}
+            <a href="{{ url_for('student_detail', student_id=student['id']) }}">
+                {{ student["id"] }} - {{ student["name"] }}
+            </a>
+
+```
+        <a href="{{ url_for('edit_student_page', student_id=student['id']) }}">
+            Edit
+        </a>
+    </li>
+{% endfor %}
+```
+
 </ul>
 
 {% else %}
@@ -24,4 +33,4 @@
 
 {% endif %}
 
-{% endblock %}  
+{% endblock %}

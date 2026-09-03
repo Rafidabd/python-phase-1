@@ -3,42 +3,56 @@
 {% block content %}
 
 <h1>Datasets</h1>
+
 <a href="{{ url_for('create_dataset_page') }}">Create Dataset</a>
 
 {% if datasets %}
 
-    {% for dataset in datasets %}
+```
+{% for dataset in datasets %}
 
-        <div>
-            <h2>
-    <a href="{{ url_for('dataset_detail', exam_name=dataset['exam_name']) }}">
-        {{ dataset["exam_name"] }}</a>
-            </h2> 
+    <div>
+        <h2>
+            <a href="{{ url_for('dataset_detail', exam_name=dataset['exam_name']) }}">
+                {{ dataset["exam_name"] }}
+            </a>
+        </h2>
 
-            <p>Type: {{ dataset["type"] }}</p>
-            <p>Date: {{ dataset["exam_date"] }}</p>
-            <p>Batch: {{ dataset["batch"] }}</p>
+        <p>Type: {{ dataset["type"] }}</p>
+        <p>Date: {{ dataset["exam_date"] }}</p>
+        <p>Batch: {{ dataset["batch"] }}</p>
 
-            {% if dataset["institution"] %}
-                <p>Institution: {{ dataset["institution"] }}</p>
-            {% endif %}
+        {% if dataset["institution"] %}
+            <p>Institution: {{ dataset["institution"] }}</p>
+        {% endif %}
 
-            {% if dataset["board"] %}
-                <p>Board: {{ dataset["board"] }}</p>
-            {% endif %}
+        {% if dataset["board"] %}
+            <p>Board: {{ dataset["board"] }}</p>
+        {% endif %}
 
-            <p>Total Records: {{ dataset["records"]|length }}</p>
+        <p>Total Records: {{ dataset["records"]|length }}</p>
 
-        </div>
+        <form
+            method="POST"
+            action="{{ url_for('delete_dataset_page', exam_name=dataset['exam_name']) }}"
+            onsubmit="return confirm('Are you sure you want to delete this dataset and all its academic records?');"
+        >
+            <button type="submit">Delete Dataset</button>
+        </form>
 
-        <hr>
+    </div>
 
-    {% endfor %}
+    <hr>
+
+{% endfor %}
+```
 
 {% else %}
 
-    <p>No datasets found.</p>
+```
+<p>No datasets found.</p>
+```
 
 {% endif %}
 
-{% endblock %} 
+{% endblock %}

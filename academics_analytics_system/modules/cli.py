@@ -1,6 +1,18 @@
 from modules.display import show_main_menu,show_dataset_menu,show_student_menu,show_view_menu,show_message,display_student,display_all_students,display_dataset,display_all_datasets
-from modules.student_manager import add_student,update_student,delete_student,get_all_students
-from modules.dataset_manager import create_dataset,add_student_record,get_all_datasets,get_student_by_id,get_dataset_by_name
+from modules.student_manager import (
+    add_student,
+    update_student,
+    delete_student,
+    get_all_students,
+    get_student_by_id
+)
+
+from modules.dataset_manager import (
+    create_dataset,
+    add_student_record,
+    get_all_datasets,
+    get_dataset_by_name
+)
 from modules.config_loader import load_config
 from modules.analytics import (
     rank_students,
@@ -40,6 +52,11 @@ from modules.display import (
     display_single_subject_insight,
     display_weak_students,
     display_student_evaluation
+)
+
+from modules.intelligence.history import (
+    get_student_record_from_dataset,
+    get_student_academic_history
 )
 def student_menu():
     while True:
@@ -281,12 +298,7 @@ def get_dataset_input():
 
     return dataset
 
-def get_student_record_from_dataset(dataset, student_id):
-    for record in dataset.get("records", []):
-        if str(record["student_id"]) == str(student_id):
-            return record
-    return None 
-    
+
          
          
 
@@ -481,6 +493,4 @@ def run_cli():
             print("Invalid choice")   
 
 
-    
-    
-    
+

@@ -176,6 +176,37 @@ def add_student_record(exam_name, student_id, marks):
 
 
 
+def delete_dataset(exam_name):
+    datasets_data = load_json(datasets_file_path)
+    datasets = datasets_data["datasets"]
+
+    target_dataset = None
+
+    for dataset in datasets:
+        if dataset["exam_name"].strip().lower() == exam_name.strip().lower():
+            target_dataset = dataset
+            break
+
+    if target_dataset is None:
+        return {
+            "status": "error",
+            "message": "Dataset not found."
+        }
+
+    updated_datasets = []
+
+    for dataset in datasets:
+        if dataset["exam_name"] != target_dataset["exam_name"]:
+            updated_datasets.append(dataset)
+
+    datasets_data["datasets"] = updated_datasets
+
+    save_json(datasets_file_path, datasets_data)
+
+    return {
+        "status": "success",
+        "message": "Dataset deleted successfully."
+    } 
 
 
 
