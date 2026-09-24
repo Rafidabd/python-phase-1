@@ -113,10 +113,22 @@
     }
   },
 
-  "risk_policies": {
+    "risk_policies": {
     "at_risk_levels": [
       "moderate",
       "high"
+    ]
+  },
+
+  "admission_prep": {
+    "subjects": [
+      "Physics",
+      "Chemistry",
+      "Higher Mathematics"
+    ],
+    "papers": [
+      "1st",
+      "2nd"
     ]
   }
 } 
