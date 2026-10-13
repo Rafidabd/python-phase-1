@@ -1,21 +1,21 @@
-# My first Python mini projects
+# My first mini projects
 
-This folder has two of the first Python programs I spent more than a few exercises on. Both run in the terminal and save data locally.
+These were the first two Python programs I kept working on after the basic exercises. Both are command-line apps and both save their data locally.
 
-I was trying to figure out how to make a project manageable once it stopped fitting comfortably into a single script. These were my attempts at separating the menu, file handling, calculations, and output into different files.
+I was getting used to putting code in separate modules instead of one long script.
 
-| Project | What it does | Demo |
+| Project | Features | Demo |
 | --- | --- | --- |
-| [Student Performance Tracker](https://github.com/Rafidabd/student-performance-tracker) | Stores student marks, calculates rankings and averages, makes charts, and exports CSV. | [Original demo GIF](student-performance-tracker/Demo/Demo_project.gif) |
-| [Expense Tracker CLI](https://github.com/Rafidabd/expense-tracker-cli) | Adds and deletes expenses, keeps them in JSON, and summarizes spending. | [Original screenshots](expense-tracker-cli/assets/menu.png) |
+| [Expense Tracker CLI](https://github.com/Rafidabd/expense-tracker-cli) | Add and delete expenses, save JSON, show totals by category. | [Screenshots](expense-tracker-cli/assets/menu.png) |
+| [Student Performance Tracker](https://github.com/Rafidabd/student-performance-tracker) | Student records, rankings, section averages, charts and CSV export. | [Demo GIF](student-performance-tracker/Demo/Demo_project.gif) |
 
-## Which version should you use?
+## Which copy should I use?
 
-The folders here are the **original copies** from my Python practice repository. The linked standalone repositories have the project-specific Git commit history and newer fixes to their data paths, tests, and setup instructions.
+The folders here are the **original versions** inside my Python practice repository. I made separate GitHub repositories for both projects later, keeping their project-specific commit histories.
 
-If you want to run either one, use its standalone repository:
+If you want to run one, use the standalone version:
 
-- [Student Performance Tracker](https://github.com/Rafidabd/student-performance-tracker)
 - [Expense Tracker CLI](https://github.com/Rafidabd/expense-tracker-cli)
+- [Student Performance Tracker](https://github.com/Rafidabd/student-performance-tracker)
 
-I've kept these copies because they are part of the original timeline of this repository, not because I expect people to maintain two versions.
+Those have the updated instructions and tests. I left these folders here because they're part of the original repo history.
