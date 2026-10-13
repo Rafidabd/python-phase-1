@@ -1,210 +1,96 @@
 # Expense Tracker CLI
 
-This project started as a simple idea:
-*"What if I build a small system that tracks expenses from the terminal?"*
+A small, modular Python command-line application for recording expenses and understanding where money goes.
 
-But while building it, it slowly became something more important for me — a **practice ground for learning how real programs are structured**.
+I built this project to move beyond single-file exercises. The expense tracker gave me a practical reason to separate user interaction, validation, file storage, and analysis into different modules.
 
-Instead of just writing a single script, I tried to approach it the way a developer would approach a real project:
+## At a glance
 
-* separating logic into modules
-* storing data in files
-* designing a CLI interface
-* adding analytics
-* documenting everything properly
+- Add an expense with a title, positive whole-number amount, category, and date.
+- View saved expenses and delete a record by its ID.
+- Calculate total spending, summarize it by category, and filter by category.
+- Store records locally in a JSON file that is created when needed.
+- Run entirely in the terminal using Python's standard library.
 
-The goal of this project wasn't just to make an expense tracker.
-The real goal was to **practice writing clean, structured Python code**.
+## Screenshots
 
----
+| Menu | Expense records |
+| --- | --- |
+| ![Expense Tracker menu](assets/menu.png) | ![Expense record listing](assets/expenses.png) |
 
-# What This Program Does
+**Category summary**
 
-This is a **command-line expense tracker** that allows users to record and analyze their spending.
+![Expense Tracker category analytics](assets/analytics.png)
 
-From the terminal you can:
+## Getting started
 
-• add expense records
-• view all expenses in a formatted table
-• delete expenses by ID
-• calculate total spending
-• analyze spending by category
-• filter expenses by category
+Requires **Python 3**. No third-party packages are needed.
 
-All data is stored locally using **JSON files**, which makes the system simple but effective.
+Clone the parent repository:
 
----
-
-# Why I Built This
-
-I'm currently learning programming seriously and trying to improve my **problem solving and software design skills**.
-
-Instead of only solving coding problems, I wanted to build projects where I could practice things like:
-
-* modular architecture
-* file handling
-* CLI interface design
-* data aggregation
-* validation and error handling
-* Git commit discipline
-
-This project helped me understand how a program grows step by step from **an idea → to a structured system**.
-
----
-
-# Features
-
-The current system supports:
-
-• Adding new expenses
-• Viewing expenses in a formatted table
-• Deleting expenses safely using unique IDs
-• Category-based filtering
-• Total spending calculation
-• Category-wise expense analytics
-• Persistent storage using JSON files
-
-Some basic input validation is also implemented to prevent invalid data.
-
----
-
-# Example CLI Menu
-
-When the program runs, the terminal interface looks like this:
-
-```
-===== Expense Tracker =====
-
-1. Add Expense
-2. View Expenses
-3. Delete Expense
-4. Show Total Spending
-5. Category Summary
-6. Filter by Category
-7. Exit
+```bash
+git clone https://github.com/Rafidabd/python-phase-1.git
+cd python-phase-1
 ```
 
-The idea was to keep the interface **simple but functional**.
+Run the tracker **from the repository root**:
 
----
-
-# Example Output
-
-Expense records are displayed in a formatted table:
-
-```
-========== Expense List ==========
-
-      ID Title               Amount Category           Date
---------------------------------------------------------------
-    E001 Lunch                 250  Food          2026-03-10
-    E002 Bus Fare               60  Transport     2026-03-10
-    E003 Book                  400  Education     2026-03-11
+```bash
+python day13_Mini_Projects/expense-tracker-cli/main.py
 ```
 
-Category analytics can also be displayed like this:
+**Important:** The current implementation uses a path relative to the repository root for expense storage. Running `python main.py` after entering the project folder is **not** the documented startup method.
 
+## Using the tracker
+
+The interactive menu provides seven options: add an expense, list expenses, delete an expense, show total spending, see a category summary, filter by category, or exit.
+
+When entering a record:
+
+- **Amount:** a positive integer (for example, `250`); decimal amounts are not currently supported.
+- **Date:** `YYYY-MM-DD` (for example, `2026-03-10`).
+- **Category:** one of the names in [`config/categories.json`](config/categories.json), such as Food, Transport, Education, or Health.
+
+Example of the record structure:
+
+```json
+{
+  "id": "E001",
+  "title": "Lunch",
+  "amount": 250,
+  "category": "Food",
+  "date": "2026-03-10"
+}
 ```
-====== Category Summary ======
 
-Category              Amount
-------------------------------
-Food                   650
-Transport               60
-Education              400
-```
+The example is illustrative; no expense record is bundled for you.
 
----
+## Project structure
 
-# Project Structure
-
-The project is organized using a modular structure:
-
-```
-expense-tracker/
-│
-├── data/
-│   ├── expenses.json
-│   └── categories.json
-│
+```text
+expense-tracker-cli/
+├── assets/                # README screenshots
+├── config/
+│   └── categories.json   # Allowed categories
 ├── modules/
-│   ├── analytics.py
-│   ├── cli.py
-│   ├── config_loader.py
-│   ├── display.py
-│   ├── expense_manager.py
-│   └── storage.py
-│
+│   ├── analytics.py      # Totals, filtering, category summaries
+│   ├── cli.py            # Interactive terminal menu
+│   ├── config_loader.py  # Category configuration
+│   ├── display.py        # Formatted terminal output
+│   ├── expense_manager.py# Adding, reading, deleting expenses
+│   └── storage.py        # JSON read/write and ID generation
 ├── main.py
 └── README.md
 ```
 
-Each module has a specific responsibility:
+The program creates its local `data/expenses.json` file when required. That file is ignored by Git and is not intended to be committed.
 
-| Module          | Purpose                         |
-| --------------- | ------------------------------- |
-| analytics       | calculates totals and summaries |
-| cli             | handles the user interface      |
-| storage         | manages file reading/writing    |
-| expense_manager | handles expense logic           |
-| display         | formats output tables           |
+## What I learned
 
-This separation made the code **much easier to manage as the project grew**.
+This was an opportunity to practice modular design, JSON file handling, input validation, local persistence, and separating calculations from presentation code.
 
----
+### Current scope and limitations
 
-# How to Run
+This is an educational, single-user CLI—not a bank integration or a production finance tool. It uses local JSON rather than a database, accepts whole-number amounts only, and depends on being launched from the parent repository root because of its current storage path.
 
-Clone the repository and run:
-
-```
-python main.py
-```
-
-Everything runs locally.
-No external dependencies are required.
-
----
-
-# Things I Practiced While Building This
-
-While building this project I focused on improving:
-
-• Python fundamentals
-• writing modular code
-• handling structured data
-• designing CLI interfaces
-• implementing simple analytics logic
-• organizing a project for GitHub
-
-It also helped me understand why **clean architecture matters**, even for small programs.
-
----
-## Screenshots
-### CLI Menu
-![Menu](assets/menu.png)
-
-### Expense Records
-![Expenses](assets/expenses.png)
-
-### Category Analytics
-![Analytics](assets/analytics.png)
-
-# Final Thoughts
-
-This project is part of my learning journey.
-
-It's not meant to be a perfect production system, but it represents an important step for me in learning how to **think like a programmer instead of just writing scripts**.
-
-The next step for me is to build **larger and more ambitious projects**, especially ones involving **data analysis and machine learning**.
-
-If you're reading this and have suggestions or feedback, I'd genuinely appreciate it.
-
-— Rafid 
-
-
-
-
-
-
-
+A future improvement would be to resolve storage relative to the project's directory so it can be run from any working directory.
