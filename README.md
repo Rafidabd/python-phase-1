@@ -1,76 +1,44 @@
-# Python Learning Journey & Projects
+# My Python practice and projects
 
-A record of how my Python work has developed—from small programming exercises to modular command-line tools and a larger academic analytics application.
+I started this repository to keep track of what I was learning in Python. The early folders are mostly exercises: conditions, loops, functions, strings, file handling, JSON and recursion.
 
-I am a student developer interested in using software to solve practical problems, especially problems involving data, analysis, and education. This repository keeps both my early learning exercises and the projects I built as I learned to organize larger programs.
+Later I started writing programs that needed more than one file. That's where the mini projects came in, followed by my Academic Analytics System.
 
-## Featured work
+I'm keeping the practice files here, including the rough ones. They were useful when I wrote them, and it's nice to be able to look back at them.
 
-| Project | What it does | Tools | Status |
-| --- | --- | --- | --- |
-| [Bangladesh Academic Analytics System](academics_analytics_system/) | Explores student records, academic trends, and performance insights through Python and a Flask interface. | Python, Flask, JSON | **In active development** |
-| [Student Performance Tracker](day13_Mini_Projects/student-performance-tracker/) | Manages student records, analyzes rankings and class performance, generates charts, and exports a leaderboard. | Python, JSON, Matplotlib, CSV | Educational CLI project |
-| [Expense Tracker CLI](day13_Mini_Projects/expense-tracker-cli/) | Records expenses locally, filters entries, and summarizes spending by category. | Python, JSON | Educational CLI project |
+## Projects
 
-> **Development note:** The published Academic Analytics System is a GitHub snapshot. Development continues separately, so this repository may not yet reflect the latest local work. Its code and documentation have deliberately been left unchanged during the portfolio documentation update.
+| Project | What I built | Link |
+| --- | --- | --- |
+| Student Performance Tracker | A Python CLI for student records, class rankings, charts and CSV reports. | [Standalone repo](https://github.com/Rafidabd/student-performance-tracker) |
+| Expense Tracker CLI | A terminal program for saving expenses and calculating category totals. | [Standalone repo](https://github.com/Rafidabd/expense-tracker-cli) |
+| Bangladesh Academic Analytics System | A larger Python/Flask project for looking at student performance and trends. | [Code currently on GitHub](academics_analytics_system/) |
 
-## Explore the smaller projects
+The two CLI projects were first built under [`day13_Mini_Projects/`](day13_Mini_Projects/). I later made separate repositories for them and kept their relevant Git history. The original copies are still here.
 
-### Student Performance Tracker
+**A note on Academic Analytics:** I'm working on a newer local version, including Admission Prep features and more frontend code. The version in this repository is older. I'll update its documentation when the next stable version is ready.
 
-A menu-driven terminal program for recording student marks and turning them into class-level summaries. It includes section comparisons, pass/fail analysis, grade-distribution charts, and CSV leaderboard export.
+## What's in the folders?
 
-[Read the project documentation →](day13_Mini_Projects/student-performance-tracker/README.MD)
+- `day01_basics/` through `day06_ strings/`: basics, conditions, loops, functions, collections and strings.
+- `day08_file_handling/` through `day11_combined_file_handling/`: text files, CSV, JSON and combinations of those.
+- `day12_recursion/`: recursion exercises.
+- `day13_Mini_Projects/`: my first bigger command-line programs.
+- `academics_analytics_system/`: my ongoing academic analytics project.
 
-![Student Performance Tracker demonstration](day13_Mini_Projects/student-performance-tracker/Demo/Demo_project.gif)
+The day folders are practice, not finished applications. Some naming is inconsistent because I made them at different points while learning.
 
-### Expense Tracker CLI
+## Running something
 
-A local expense-management tool built to practice modular Python design. It separates the command-line interface, expense operations, JSON storage, and analytics.
+The easiest projects to try are the [Expense Tracker](https://github.com/Rafidabd/expense-tracker-cli) and [Student Performance Tracker](https://github.com/Rafidabd/student-performance-tracker). Their own repositories have the setup steps, screenshots and tests.
 
-[Read the project documentation →](day13_Mini_Projects/expense-tracker-cli/README.md)
-
-![Expense Tracker category analysis](day13_Mini_Projects/expense-tracker-cli/assets/analytics.png)
-
-## Python fundamentals archive
-
-The `day01_*` through `day12_*` folders are a learning archive, not polished standalone applications. They contain exercises in topics including:
-
-- Basic Python syntax, conditionals, loops, functions, collections, and strings
-- File operations and structured data (CSV and JSON)
-- Recursion and progressively more involved problem-solving exercises
-
-The progression into larger CLI applications is collected under [`day13_Mini_Projects/`](day13_Mini_Projects/).
-
-I have kept the earlier exercises because they show the process of learning, experimenting, and gradually writing more structured code.
-
-## Run a project
-
-Clone this repository:
+To browse this archive:
 
 ```bash
 git clone https://github.com/Rafidabd/python-phase-1.git
 cd python-phase-1
 ```
 
-**Expense Tracker** — run from the **repository root** (its current storage path is relative to that directory):
+There isn't one command that runs all the exercises. Pick a folder and look at the scripts inside it.
 
-```bash
-python day13_Mini_Projects/expense-tracker-cli/main.py
-```
-
-**Student Performance Tracker** — first enter its project directory so its data and report paths resolve correctly:
-
-```bash
-cd day13_Mini_Projects/student-performance-tracker
-python -m pip install -r requirements.txt
-python main.py
-```
-
-For full features, screenshots, and usage details, follow the individual project READMEs above. These are learning projects, not production-hosted services.
-
-## About the repository
-
-My approach has been to build on what I learned in each exercise: first getting a program to work, then thinking about reusable modules, data storage, input validation, analysis, and how other people can understand the result.
-
-The academic analytics project is an ongoing step in that progression. I will document its up-to-date architecture and development status when the next stable milestone is ready.
+I still come back to this repository sometimes to see how I solved things earlier, what I'd do differently now, and how much has changed since those first exercises.

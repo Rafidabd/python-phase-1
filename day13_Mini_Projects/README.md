@@ -1,38 +1,21 @@
-# Python Mini Projects
+# My first mini projects
 
-These two command-line projects mark my transition from individual Python exercises to programs with separate modules, persistent data, and user-facing features.
+These were the first two Python programs I kept working on after the basic exercises. Both are command-line apps and both save their data locally.
 
-| Project | Focus | Demo / screenshots |
+I was getting used to putting code in separate modules instead of one long script.
+
+| Project | Features | Demo |
 | --- | --- | --- |
-| [Expense Tracker CLI](expense-tracker-cli/) | Local expense records, input validation, JSON storage, and spending summaries | [Menu](expense-tracker-cli/assets/menu.png) · [Category analysis](expense-tracker-cli/assets/analytics.png) |
-| [Student Performance Tracker](student-performance-tracker/) | Student records, rankings, class statistics, visualizations, and CSV exports | [Animated demo](student-performance-tracker/Demo/Demo_project.gif) · [Example charts](student-performance-tracker/Reports/) |
+| [Expense Tracker CLI](https://github.com/Rafidabd/expense-tracker-cli) | Add and delete expenses, save JSON, show totals by category. | [Screenshots](expense-tracker-cli/assets/menu.png) |
+| [Student Performance Tracker](https://github.com/Rafidabd/student-performance-tracker) | Student records, rankings, section averages, charts and CSV export. | [Demo GIF](student-performance-tracker/Demo/Demo_project.gif) |
 
-## How to explore
+## Which copy should I use?
 
-### Expense Tracker CLI
+The folders here are the **original versions** inside my Python practice repository. I made separate GitHub repositories for both projects later, keeping their project-specific commit histories.
 
-From the **root of `python-phase-1`**, run:
+If you want to run one, use the standalone version:
 
-```bash
-python day13_Mini_Projects/expense-tracker-cli/main.py
-```
+- [Expense Tracker CLI](https://github.com/Rafidabd/expense-tracker-cli)
+- [Student Performance Tracker](https://github.com/Rafidabd/student-performance-tracker)
 
-The current expense storage location is resolved relative to the repository root. See the [Expense Tracker README](expense-tracker-cli/README.md) for features and examples.
-
-### Student Performance Tracker
-
-From the **root of `python-phase-1`**, run:
-
-```bash
-cd day13_Mini_Projects/student-performance-tracker
-python -m pip install -r requirements.txt
-python main.py
-```
-
-See the [Student Performance Tracker README](student-performance-tracker/README.MD) for chart examples and configuration details.
-
-## Why these projects matter to me
-
-Both started as Python learning exercises. I used them to practice breaking a program into manageable parts, keeping data between sessions, validating input, and providing useful output rather than only writing isolated scripts.
-
-They are intentionally documented as educational projects. The larger [Academic Analytics System](../academics_analytics_system/) is a separate, ongoing development effort.
+Those have the updated instructions and tests. I left these folders here because they're part of the original repo history.
